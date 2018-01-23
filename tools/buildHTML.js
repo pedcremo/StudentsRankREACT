@@ -5,19 +5,31 @@ import fs from 'fs';
 import cheerio from 'cheerio';
 import colors from 'colors';
 import ncp from 'ncp';
+
+var mkdirp = require('mkdirp');
 //import assets from '../thirdparty.config.js';
 
 /*eslint-disable no-console */
 let assets = [
-  {type:'css',src:'node_modules/toastr/build/toastr.min.css'},
-  {type:'js',src:'node_modules/toastr/build/toastr.min.js'},
-  {type:'css',src:'node_modules/bootstrap/dist/css/bootstrap.min.css'},
-  {type:'js',src:'node_modules/bootstrap/dist/js/bootstrap.min.js'},
-  {type:'js',src:'node_modules/popper.js/dist/popper.min.js'},
-  {type:'js',src:'node_modules/font-awesome/css/font-awesome.min.css'},
-  {type:'font',src:'node_modules/font-awesome/fonts'},
-  {type:'js',src:'node_modules/jquery/dist/jquery.min.js'}    
+  {type:'css',base_path:'node_modules/toastr/build/',file:'toastr.min.css'},
+  {type:'js',base_path:'node_modules/toastr/build/',file:'toastr.min.js'},
+  {type:'css',base_path:'node_modules/bootstrap/dist/css/',file:'bootstrap.min.css'},
+  {type:'js',base_path:'node_modules/bootstrap/dist/js/',file:'bootstrap.min.js'},
+  {type:'js',base_path:'node_modules/popper.js/dist/',file:'popper.min.js'},
+  {type:'css',base_path:'node_modules/font-awesome/css/',file:'font-awesome.min.css'},
+  {type:'font',base_path:'node_modules/font-awesome/fonts',file:''},
+  {type:'js',base_path:'node_modules/jquery/dist/',file:'jquery.min.js'}    
 ];
+
+mkdirp('dist/lib' , function (err) {
+  if (err) console.error(err)
+  else console.log('dir created')
+});
+
+mkdirp('dist/css' , function (err) {
+  if (err) console.error(err)
+  else console.log('dir created')
+});
 
 for (let value of assets) {
   console.log(value.type);
@@ -25,19 +37,19 @@ for (let value of assets) {
   let dst = '';
   switch (value.type) {
     case 'js':
-      dst = './dist/lib/';            
+      dst = './dist/lib/'+value.file;            
       break;
     case 'css':
-      dst = './dist/css/';      
+      dst = './dist/css/'+value.file;      
       break;
     case 'font':
-      dst = './dist/fonts';
+      dst = './dist/fonts'+value.file;
       break;
     default:
       break;
   }
     
-  ncp(value.src,dst, function (err) {
+  ncp(value.base_path+value.file,dst, function (err) {
     if (err) {
       return console.error(err);
     }
@@ -62,6 +74,14 @@ fs.readFile('src/client/index.html', 'utf8', (err, markup) => {
 
   // since a separate spreadsheet is only utilized for the production build, need to dynamically add this here.
   $('head').prepend('<link rel="stylesheet" href="styles.css">');
+
+  for (let value of assets) {
+    if (value.type==='css'){
+      $('head').prepend('<link rel="stylesheet" href="css/'+ value.file +'">');
+    }else if (value.type === 'js'){
+      $('head').prepend('<script src="lib/' + value.file +'"></script>');      
+    }
+  }
 
   fs.writeFile('dist/index.html', $.html(), 'utf8', function (err) {
     if (err) {
