@@ -14,17 +14,16 @@ console.log("Assets" + JSON.stringify(assets));
 
 mkdirp('dist/lib' , function (err) {
   if (err) console.error(err)
-  else console.log('dir created')
+  else console.log('dir dist/lib created')
 });
 
 mkdirp('dist/css' , function (err) {
   if (err) console.error(err)
-  else console.log('dir created')
+  else console.log('dir dist/css created')
 });
 
 for (let value of assets) {
-  console.log(value.type);
-  console.log(value.src);
+  
   let dst = '';
   switch (value.type) {
     case 'js':
@@ -44,7 +43,7 @@ for (let value of assets) {
     if (err) {
       return console.error(err);
     }
-    console.log('done!');
+    //console.log('done!');
   });
 
 }
