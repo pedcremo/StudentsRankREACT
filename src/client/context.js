@@ -14,7 +14,7 @@ import {hashcode,loadTemplate,setCookie,deleteCookie,getCookie} from './lib/util
 import {generateMenu,showMenu,hideMenu,addSubject} from './menu.js';
 import {template} from './lib/templator.js';
 import {events} from './lib/eventsPubSubs.js';
-
+ 
 class Context {
 
   constructor() {
