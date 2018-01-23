@@ -5,8 +5,46 @@ import fs from 'fs';
 import cheerio from 'cheerio';
 import colors from 'colors';
 import ncp from 'ncp';
-import 
+//import assets from '../thirdparty.config.js';
+
 /*eslint-disable no-console */
+let assets = [
+  {type:'css',src:'node_modules/toastr/build/toastr.min.css'},
+  {type:'js',src:'node_modules/toastr/build/toastr.min.js'},
+  {type:'css',src:'node_modules/bootstrap/dist/css/bootstrap.min.css'},
+  {type:'js',src:'node_modules/bootstrap/dist/js/bootstrap.min.js'},
+  {type:'js',src:'node_modules/popper.js/dist/popper.min.js'},
+  {type:'js',src:'node_modules/font-awesome/css/font-awesome.min.css'},
+  {type:'font',src:'node_modules/font-awesome/fonts'},
+  {type:'js',src:'node_modules/jquery/dist/jquery.min.js'}    
+];
+
+for (let value of assets) {
+  console.log(value.type);
+  console.log(value.src);
+  let dst = '';
+  switch (value.type) {
+    case 'js':
+      dst = './dist/lib/';            
+      break;
+    case 'css':
+      dst = './dist/css/';      
+      break;
+    case 'font':
+      dst = './dist/fonts';
+      break;
+    default:
+      break;
+  }
+    
+  ncp(value.src,dst, function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('done!');
+  });
+
+}
 
 ncp('./src/client/templates', './dist/templates', function (err) {
   if (err) {

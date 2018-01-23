@@ -1,3 +1,4 @@
+'use strict';
 let assets = [
     {type:'css',src:'node_modules/toastr/build/toastr.min.css'},
     {type:'js',src:'node_modules/toastr/build/toastr.min.js'},
@@ -8,5 +9,4 @@ let assets = [
     {type:'font',src:'node_modules/font-awesome/fonts'},
     {type:'js',src:'node_modules/jquery/dist/jquery.min.js'}    
 ];
-
-export assets;
+export {assets};
