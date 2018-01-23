@@ -7,19 +7,9 @@ import colors from 'colors';
 import ncp from 'ncp';
 
 var mkdirp = require('mkdirp');
-//import assets from '../thirdparty.config.js';
+let assets = require('../thirdparty.config.js');
 
 /*eslint-disable no-console */
-let assets = [
-  {type:'css',base_path:'node_modules/toastr/build/',file:'toastr.min.css'},
-  {type:'js',base_path:'node_modules/toastr/build/',file:'toastr.min.js'},
-  {type:'css',base_path:'node_modules/bootstrap/dist/css/',file:'bootstrap.min.css'},
-  {type:'js',base_path:'node_modules/bootstrap/dist/js/',file:'bootstrap.min.js'},
-  {type:'js',base_path:'node_modules/popper.js/dist/',file:'popper.min.js'},
-  {type:'css',base_path:'node_modules/font-awesome/css/',file:'font-awesome.min.css'},
-  {type:'font',base_path:'node_modules/font-awesome/fonts',file:''},
-  {type:'js',base_path:'node_modules/jquery/dist/',file:'jquery.min.js'}    
-];
 
 mkdirp('dist/lib' , function (err) {
   if (err) console.error(err)
