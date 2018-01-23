@@ -5,14 +5,14 @@
   "main": "main.js",
   "scripts": {
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
-    "start": "forever start src/server/app.js",
-    "stop": "forever stop src/server/app.js",
+    "prestart": "babel-node tools/startMessage.js",
+    "start": "node src/server/app.js",    
     "build:html": "babel-node tools/buildHTML.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "prebuild": "npm-run-all clean-dist build:html",
     "build": "babel-node tools/build.js",
-    "postbuild": "",
+    "postbuild": "node src/server/app.js",
     "restart": "forever restart src/server/app.js"
   },
   "author": "Pere Crespo",

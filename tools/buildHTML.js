@@ -7,8 +7,9 @@ import colors from 'colors';
 import ncp from 'ncp';
 
 var mkdirp = require('mkdirp');
-let assets = require('../thirdparty.config.js');
-
+let assets = require('../thirdparty.config.json');
+//assets = JSON.parse(assets)
+console.log("Assets" + JSON.stringify(assets));
 /*eslint-disable no-console */
 
 mkdirp('dist/lib' , function (err) {
