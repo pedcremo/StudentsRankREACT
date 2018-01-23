@@ -4,8 +4,16 @@
 import fs from 'fs';
 import cheerio from 'cheerio';
 import colors from 'colors';
-
+import ncp from 'ncp';
+import 
 /*eslint-disable no-console */
+
+ncp('./src/client/templates', './dist/templates', function (err) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('done!');
+ });
 
 fs.readFile('src/client/index.html', 'utf8', (err, markup) => {
   if (err) {

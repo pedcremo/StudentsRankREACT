@@ -32,7 +32,7 @@ export default {
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-      {test: /.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,loader: "url?limit=100000&name=[name].[ext]"},
+      //{test: /.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,loader: "url?limit=100000&name=[name].[ext]"},
       //{test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,loader: "url-loader?limit=100000"},
       //{test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/, loader: "url?limit=100000&name=[name].[ext]"},
       {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=10000"},
