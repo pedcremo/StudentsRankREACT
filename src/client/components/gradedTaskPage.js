@@ -5,12 +5,18 @@ class GradedTaskPage extends React.Component {
         super(props);
         this.state = {
             taskName: '',
-            taskDescription:''
+            taskDescription:'',
+            
         }
     }
     render() {
         return (
-            <h3>Add new Graded Task REACT COMPONENT</h3>          
+            <div>
+            <h3>Add new Graded Task REACT COMPONENT</h3>  
+            We understand as a graded task any test or practice that will be marked by teacher and should be reflected in the final mark.
+            </div>
+            
+            
         );
     }
 }
