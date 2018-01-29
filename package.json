@@ -41,6 +41,8 @@
     "passport-local": "*",
     "passport-twitter": "~1.0.4",
     "popper.js": "^1.12.9",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "serve-favicon": "^2.0.1",
     "toastr": "^2.1.2"
   },
