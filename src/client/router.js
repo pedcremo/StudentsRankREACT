@@ -6,6 +6,8 @@ import GradedTask from './classes/gradedtask.js';
 import Person from './classes/person.js';
 import Settings from './classes/settings.js';
 import {saveStudents} from './dataservice.js';
+import {GradedTaskPage} from './components/gradedTaskPage.jsx';
+import { render } from 'react-dom';
 
 /** Primitive routing mechanism based on detecting clicks on links and get the URL */
 function initRouter() {
@@ -74,7 +76,8 @@ function initRouter() {
               break;
             /** Add new Graded Task form */
             case /#addGradedTask/.test(isLink.href):
-              GradedTask.addGradedTask();
+              // GradedTask.addGradedTask();
+              render(<GradedTaskPage />, document.getElementById('content'));
               break;
             case /#detailGradedTask/.test(isLink.href):
               let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));

@@ -29,6 +29,7 @@ export default {
   ],
   module: {
     loaders: [
+      {test : /\.jsx?/,include: path.join(__dirname, 'src'), loader : 'babel'},
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
