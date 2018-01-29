@@ -6,7 +6,8 @@ import GradedTask from './classes/gradedtask.js';
 import Person from './classes/person.js';
 import Settings from './classes/settings.js';
 import {saveStudents} from './dataservice.js';
-import {GradedTaskPage} from './components/gradedTaskPage.jsx';
+import {GradedTaskPage} from './components/gradedTaskPage.js';
+import React from 'react';
 import { render } from 'react-dom';
 
 /** Primitive routing mechanism based on detecting clicks on links and get the URL */

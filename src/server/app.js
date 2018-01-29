@@ -1,6 +1,11 @@
 /*jshint node:true*/
 'use strict';
 
+//var config = require('../../webpack.config.dev')
+//var webpack = require('webpack');
+
+//const compiler = webpack(config);
+
 var fs = require('fs');
 var https = require('https');
 var http = require('http');
