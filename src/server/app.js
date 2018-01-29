@@ -42,6 +42,7 @@ console.log('NODE_ENV=' + environment);
 switch (environment) {
   case 'build':
     console.log('** BUILD **');
+    app.use(express.static('./dist'));
     app.use(express.static('./'));
     // Any invalid calls for templateUrls are under app/* and should return 404
     app.use('/app/*', function(req, res, next) {
@@ -50,17 +51,18 @@ switch (environment) {
     // Any deep link calls should return index.html
     //app.use('/*', express.static('./build/index.html'));
     console.log('WARNING: OPEN BROWSER WITH HTTPS');
-    https.createServer({
-      key: fs.readFileSync('privkey1.pem'),
-      cert: fs.readFileSync('cert1.pem')
-    }, app).listen(port);
+    var privateKey  = fs.readFileSync('privkey.pem', 'utf8');
+    var certificate = fs.readFileSync('cert.pem', 'utf8');
+    
+    var credentials = {key: privateKey, cert: certificate};
+    https.createServer(credentials, app).listen(port);
 
-    app.use(forceSSL); //MODULE USED TO FORCE REDIRECTION
+    //app.use(forceSSL); //MODULE USED TO FORCE REDIRECTION
     console.log('WARNING: BE CAREFULL, WE ARE TRYING TO LAUNCH SERVER ON PORT 80.' +
                 'CHECK IF ANY OTHER SERVER IS LISTENING ON SAME PORT (APACHE...)' +
                 'WE WANT TO FORCE HTTP TO HTTPS REDIRECTION ALWAYS');
 
-    http.createServer(app).listen(80);
+    //https.createServer(app).listen(4443);
     break;
   default:
     console.log('** DEV **');
