@@ -1,7 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 
-export class GradedTaskPage extends React.Component {
+class GradedTaskPage extends React.Component {
     constructor(props){
         super(props);
 
@@ -31,8 +31,7 @@ export class GradedTaskPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        events.publish('dataservice/SaveGradedTask',JSON.stringify(this.state));
-        
+        events.publish('dataservice/SaveGradedTask',this.state);        
     }
 
     render() {
@@ -49,11 +48,11 @@ export class GradedTaskPage extends React.Component {
                 
                 <div className="form-group">   
                     <label htmlFor="description">Task description:</label>
-                    <textarea rows="4" cols="50" className="form-control" id="idTaskDescription" name="taskdescription" defaultValue={this.state.description} onChange={this.handleInputChange}></textarea>
+                    <textarea rows="4" cols="50" className="form-control" id="idTaskDescription" name="description" defaultValue={this.state.description} onChange={this.handleInputChange}></textarea>
                 </div>
                 <div className="form-group">   
                     <label htmlFor="term">Task term:</label>
-                    <select id="termTask" name="term" value={this.state.term} onChange={this.handleInputChange}>
+                    <select id="termTask" name="term" value={this.state.term || '1st Term'} onChange={this.handleInputChange}>
                         <option value="1st Term">1st Term</option>
                         <option value="2nd Term">2nd Term</option>
                         <option value="3rd Term">3rd Term</option>
@@ -61,8 +60,8 @@ export class GradedTaskPage extends React.Component {
                 </div>
 
                 <div className="form-group">   
-                    <label id="labelWeight" htmlFor="weight">Task Weight (0-{this.state.allowedWeight}} %):</label>
-                    <input type="number" name="weight" className="form-control" min="1" max ={this.state.allowedWeight} id="idTaskWeight" name="taskweight" defaultValue={this.state.weight} onChange={this.handleInputChange} required/>
+                    <label id="labelWeight" htmlFor="weight">Task Weight (0-{this.state.allowedWeight} %):</label>
+                    <input type="number" name="weight" className="form-control" min="1" max ={this.state.allowedWeight} id="idTaskWeight" defaultValue={this.state.weight} onChange={this.handleInputChange} required/>
                 </div>
                 <input type="submit" className="btn btn-primary" value="Save"/>
             </form> 
@@ -74,3 +73,4 @@ export class GradedTaskPage extends React.Component {
     }
 }
 
+export default GradedTaskPage;
