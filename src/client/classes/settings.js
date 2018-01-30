@@ -47,6 +47,10 @@ class Settings {
       return out;
     }
   }
+  
+  static getTerms() {
+    return settings.terms;
+  }
 
   static getSettings() {
     let scope = {};

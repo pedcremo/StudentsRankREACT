@@ -13,6 +13,8 @@ import {events} from '../lib/eventsPubSubs.js';
  * @param {string} name - task name
  * @param {string} description - task description
  * @param {number} weight - task weight %
+ * @param {Map} studentsMark - Id student and mark pairs
+ * @param {string} term - term of the graded task
  * @param {number} id - task id default null when created for first time
  * @tutorial pointing-criteria
  */
