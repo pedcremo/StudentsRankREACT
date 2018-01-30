@@ -12,6 +12,7 @@ const FileAsync = require('lowdb/adapters/FileAsync');
 const low = require('lowdb');
 const adapter = new FileAsync('src/server/data/shares.json');
 let dbase;
+
 low(adapter)
 .then((db) => {
   db.defaults({ shares: [] }).write();

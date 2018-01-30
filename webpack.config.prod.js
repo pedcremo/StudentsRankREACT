@@ -3,7 +3,8 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production')
+  //'process.env.NODE_ENV': JSON.stringify('production')
+  'process.env.NODE_ENV': JSON.stringify('development')
 };
 
 export default {
@@ -29,7 +30,6 @@ export default {
   ],
   module: {
     loaders: [
-      //{test : /\.jsx?/,include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},

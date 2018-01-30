@@ -14,9 +14,7 @@ class GradedTaskPage extends React.Component {
             <div>
             <h3>Add new Graded Task REACT COMPONENT</h3>  
             We understand as a graded task any test or practice that will be marked by teacher and should be reflected in the final mark.
-            </div>
-            
-            
+            </div>             
         );
     }
 }
