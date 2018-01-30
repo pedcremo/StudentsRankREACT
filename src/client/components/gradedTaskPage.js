@@ -1,22 +1,22 @@
 import React from 'react';
+import {events} from '../lib/eventsPubSubs.js';
 
-class GradedTaskPage extends React.Component {
+export class GradedTaskPage extends React.Component {
     constructor(props){
-        super(props);  
+        super(props);
+
+        this.state = {                
+                name: props.props.name,
+                description: props.props.description,
+                weight:props.props.weight,
+                term:props.props.weight,
+                id:props.props.id,         
+                allowedWeight:props.allowedWeight
+        }        
         
-        this.state = {
-            name: props.gtInstance.name,
-            description: props.gtInstance.description,
-            weight: props.gtInstance.weight,
-            term: props.gtInstance.term
-        }
         this.handleInputChange = this.handleInputChange.bind(this);   
-        this.handleSubmit = this.handleSubmit.bind(this);       
-    }
-    
-    handleSubmit(event) {
-        alert('A graded task was submitted '+ JSON.stringify(this.state));
-        event.preventDefault();
+        this.handleSubmit = this.handleSubmit.bind(this);      
+
     }
 
     handleInputChange(event) {
@@ -29,6 +29,12 @@ class GradedTaskPage extends React.Component {
         });
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        events.publish('dataservice/SaveGradedTask',JSON.stringify(this.state));
+        
+    }
+
     render() {
         return (
             <div>
@@ -37,32 +43,34 @@ class GradedTaskPage extends React.Component {
             <form id="newGradedTask" onSubmit={this.handleSubmit}>
                 <div className="form-group">   
                     <label htmlFor="name">Task name:</label>
-                    <input type="text" className="form-control" id="idTaskName" name="taskname" value={ this.state.name }  required /> 
+                    <input type="text" className="form-control" id="idTaskName" name="name" value={this.state.name} onChange={this.handleInputChange} required/>  
+
                 </div>
                 
                 <div className="form-group">   
                     <label htmlFor="description">Task description:</label>
-                    <textarea rows="4" cols="50" className="form-control" id="idTaskDescription" name="taskdescription" value={this.state.description} />
+                    <textarea rows="4" cols="50" className="form-control" id="idTaskDescription" name="taskdescription" defaultValue={this.state.description} onChange={this.handleInputChange}></textarea>
                 </div>
                 <div className="form-group">   
                     <label htmlFor="term">Task term:</label>
-                    <select id="termTask" value={this.state.term}>
-                        {this.props.terms.map((term, index) => (                      
-                            <option key={index} value={term.name}>{term.name}</option>
-                        ))}                    
-                    </select>
-                    </div>
+                    <select id="termTask" name="term" value={this.state.term} onChange={this.handleInputChange}>
+                        <option value="1st Term">1st Term</option>
+                        <option value="2nd Term">2nd Term</option>
+                        <option value="3rd Term">3rd Term</option>
+                  </select>
+                </div>
 
                 <div className="form-group">   
-                    <label id="labelWeight" htmlFor="weight">Task Weight (0-100 %):</label>
-                    <input type="number" className="form-control" min="1" max ="100" id="idTaskWeight" name="taskweight" value={this.state.weight} required />
+                    <label id="labelWeight" htmlFor="weight">Task Weight (0-{this.state.allowedWeight}} %):</label>
+                    <input type="number" name="weight" className="form-control" min="1" max ={this.state.allowedWeight} id="idTaskWeight" name="taskweight" defaultValue={this.state.weight} onChange={this.handleInputChange} required/>
                 </div>
-                    <input type="submit" className="btn btn-primary" value="Save" />
-                </form> 
-            </div>             
+                <input type="submit" className="btn btn-primary" value="Save"/>
+            </form> 
+
+            </div>
+            
+            
         );
     }
 }
 
-
-export default GradedTaskPage;

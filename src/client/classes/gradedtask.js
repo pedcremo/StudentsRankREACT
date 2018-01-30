@@ -22,6 +22,23 @@ import {events} from '../lib/eventsPubSubs.js';
 let gradedTasks = new Map();
 let settings = {};
 
+events.subscribe('dataservice/SaveGradedTask',(obj) => {
+    //UPDATE
+    if (obj.id) {
+       let gt=gradedTasks[obj.id];
+       gt.name = obj.name;
+       gt.weight = obj.weight;
+       gt.term = obj.term;
+       gt.description = obj.description;       
+    //NEW  
+    }else{
+      let gt = new GradedTask(obj.name,obj.description,obj.getGradedTasksTotalWeight,[],obj.term)
+      gradedTasks.set(gt.id,gt);      
+    }
+    events.publish('gradedTask/change',gradedTasks);
+  }
+);
+
 events.subscribe('dataservice/getGradedTasks',(obj) => {
   let gradedTasks_ = new Map(JSON.parse(obj));
   gradedTasks_.forEach(function(value_,key_,gradedTasks_) {
@@ -84,7 +101,7 @@ class GradedTask extends Task {
     return this.studentsMarkMAP.get(idStudent);
   }
 
-  getHTMLEdit() {
+  /*getHTMLEdit() {
     let output = '';
     for (let i = 0;i < settings.terms.length;i++) {
       if (settings.terms[i].name === this.term) { 
@@ -120,9 +137,9 @@ class GradedTask extends Task {
     }.bind(this);
 
     loadTemplate('templates/addGradedTask.html',callback);
-  }
+  }*/
   /** Create a form to create a GradedTask that will be added to every student */
-  static addGradedTask() {
+  /*static addGradedTask() {
     let output = '';
     for (let i = 0;i < settings.terms.length;i++) {
       if (settings.terms[i].name === settings.defaultTerm) { 
@@ -157,7 +174,7 @@ class GradedTask extends Task {
           }.bind(this);
 
     loadTemplate('templates/addGradedTask.html',callback);
-  }
+  }*/
 }
 
 export default GradedTask;
