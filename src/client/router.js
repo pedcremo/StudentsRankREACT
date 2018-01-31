@@ -9,9 +9,15 @@ import {saveStudents} from './dataservice.js';
 import GradedTaskPage from './components/gradedTaskPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
+import {events} from './lib/eventsPubSubs.js';
 
+let settings;
+events.subscribe('settings/change',(obj) => {
+  settings = obj;
+});
 /** Primitive routing mechanism based on detecting clicks on links and get the URL */
 function initRouter() {
+  
   window.onclick = function(e) {
         e = e || event;
         var isLink = findParent('a',e.target || e.srcElement);
@@ -81,11 +87,12 @@ function initRouter() {
               // GradedTask.addGradedTask();
               //reactDOM.render(<GradedTaskPage gtInstance={{}} terms={Settings.getTerms()} />, document.getElementById('content')); 		          
               //(100 - GradedTask.getGradedTasksTotalWeight()
-              reactDOM.render(<GradedTaskPage props={{}} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight())} />, document.getElementById('content'));
+              reactDOM.render(<GradedTaskPage props={{term:settings.defaultTerm}} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight())} />, document.getElementById('content'));
              
               break;
             case /#detailGradedTask/.test(isLink.href):
-              let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));	      
+              let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));	    
+                
               reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() - gtInstance.weight)} />, document.getElementById('content'));
              	
               /*reactDOM.render(<GradedTaskPage gtInstance={gtInstance} terms={Settings.getTerms()} />, document.getElementById('content'));*/
