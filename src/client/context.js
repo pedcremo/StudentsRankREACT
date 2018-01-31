@@ -27,9 +27,9 @@ class Context {
       this.notify('Added ' +  obj.attitudeTask.points + ' ' + obj.attitudeTask.description + ' to ' + obj.person.name + ',' + obj.person.surname, obj.person.surname + ' ,' + obj.person.name,typeToastr);
     });
 
-    events.subscribe('/context/newGradedTask', (gtask) => {
+    /*events.subscribe('/context/newGradedTask', () => {
       this.getTemplateRanking();
-    });
+    });*/
   }
   /** Clear context  */
   clear() {

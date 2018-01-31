@@ -24,6 +24,7 @@ events.subscribe('attitudeTask/change',(obj) => {
 
 events.subscribe('gradedTask/change',(obj) => {
   gradedtaskMAP = obj;
+  Person.getRankingTable();
 });
 
 events.subscribe('dataservice/getStudents',(obj) => {

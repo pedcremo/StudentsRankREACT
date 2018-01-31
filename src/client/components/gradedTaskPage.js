@@ -9,7 +9,7 @@ class GradedTaskPage extends React.Component {
                 name: props.props.name,
                 description: props.props.description,
                 weight:props.props.weight,
-                term:props.props.weight,
+                term:props.props.term,
                 id:props.props.id,         
                 allowedWeight:props.allowedWeight
         }        

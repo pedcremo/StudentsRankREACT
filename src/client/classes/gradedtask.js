@@ -23,20 +23,22 @@ let gradedTasks = new Map();
 let settings = {};
 
 events.subscribe('dataservice/SaveGradedTask',(obj) => {
+    let gt = {};
     //UPDATE
     if (obj.id) {
-       let gt=gradedTasks[obj.id];
+       gt=gradedTasks.get(obj.id);
        gt.name = obj.name;
        gt.weight = obj.weight;
        gt.term = obj.term;
        gt.description = obj.description;       
     //NEW  
     }else{
-      let gt = new GradedTask(obj.name,obj.description,obj.weight,[],obj.term)
+      gt = new GradedTask(obj.name,obj.description,obj.weight,[],obj.term)
       gradedTasks.set(gt.id,gt);      
     }
     events.publish('gradedTask/change',gradedTasks);
-    window.location.href = "/";
+    events.publish('/context/newGradedTask',gt);
+    events.publish('dataservice/saveGradedTasks',JSON.stringify([...gradedTasks]));
   }
 );
 

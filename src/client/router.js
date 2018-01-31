@@ -81,7 +81,7 @@ function initRouter() {
               // GradedTask.addGradedTask();
               //reactDOM.render(<GradedTaskPage gtInstance={{}} terms={Settings.getTerms()} />, document.getElementById('content')); 		          
               //(100 - GradedTask.getGradedTasksTotalWeight()
-              reactDOM.render(<GradedTaskPage props={{}} allowedWeight={10} />, document.getElementById('content'));
+              reactDOM.render(<GradedTaskPage props={{}} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight())} />, document.getElementById('content'));
              
               break;
             case /#detailGradedTask/.test(isLink.href):
