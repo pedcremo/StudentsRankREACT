@@ -7,6 +7,7 @@
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
     "prestart": "babel-node tools/startMessage.js",
     "start": "forever NODE_ENV='build' start src/server/app.js",
+    "dev": "babel-node src/server/appDev.js",
     "stop": "forever stop src/server/app.js",
     "build:html": "babel-node tools/buildHTML.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
