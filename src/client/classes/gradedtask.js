@@ -4,6 +4,7 @@ import Task from './task.js';
 import {loadTemplate} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
+import $ from "jquery";
 
 /**
  * GradedTask class. Create a graded task in order to be evaluated 
@@ -23,9 +24,9 @@ let gradedTasks = new Map();
 let settings = {};
 
 events.subscribe('dataservice/SaveGradedTask',(obj) => {
-    let gt = {};
+    let gt = {}; 
     //UPDATE
-    if (obj.id) {
+    if (obj.id) {  
        gt=gradedTasks.get(obj.id);
        gt.name = obj.name;
        gt.weight = obj.weight;

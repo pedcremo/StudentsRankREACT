@@ -12,6 +12,7 @@
 import {formatDate,popupwindow,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
+import $ from "jquery";
 
 let students = new Map();
 let settings = {};

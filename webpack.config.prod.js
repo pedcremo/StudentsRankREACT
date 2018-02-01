@@ -30,15 +30,23 @@ export default {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+      /*{test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-      //{test: /.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,loader: "url?limit=100000&name=[name].[ext]"},
-      //{test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,loader: "url-loader?limit=100000"},
-      //{test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/, loader: "url?limit=100000&name=[name].[ext]"},
       {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=10000"},
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}*/
+      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+      {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},     
+      //{test: /(\.css)$/, loaders: ['style', 'css']},
+      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
+      {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000"},
+      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"},
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+
+      
     ]
   }
 };

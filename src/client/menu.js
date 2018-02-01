@@ -3,6 +3,7 @@ import {context} from './context.js';
 import {deleteCookie,setCookie,loadTemplate} from './lib/utils.js';
 import {updateFromServer} from './dataservice.js';
 import {events} from './lib/eventsPubSubs.js';
+import $ from "jquery";
 
 let settings = {};
 events.subscribe('settings/change',(obj) => {

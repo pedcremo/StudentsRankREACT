@@ -14,7 +14,8 @@ import {hashcode,loadTemplate,setCookie,deleteCookie,getCookie} from './lib/util
 import {generateMenu,showMenu,hideMenu,addSubject} from './menu.js';
 import {template} from './lib/templator.js';
 import {events} from './lib/eventsPubSubs.js';
- 
+import $ from "jquery";
+
 class Context {
 
   constructor() {
@@ -37,7 +38,7 @@ class Context {
   }
   /* Check on server if user is logged */
   isLogged() {
-    loadTemplate('api/loggedin',function(response) {
+    loadTemplate('api/loggedin',function(response) {      
       /* Not logged */
       if (response === '0') {
         this.clear();

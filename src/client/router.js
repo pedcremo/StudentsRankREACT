@@ -10,6 +10,7 @@ import GradedTaskPage from './components/gradedTaskPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
+import $ from "jquery";
 
 let settings;
 events.subscribe('settings/change',(obj) => {

@@ -1,5 +1,5 @@
 import Task from './task.js';
-
+import $ from "jquery";
 /**
  * AttitudeTask class. Create a attitude task in order to be
  * assigned to an individual or group of students. This could be for
