@@ -3,8 +3,8 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const GLOBALS = {
-  //'process.env.NODE_ENV': JSON.stringify('production')
-  'process.env.NODE_ENV': JSON.stringify('development')
+  'process.env.NODE_ENV': JSON.stringify('production')
+  //'process.env.NODE_ENV': JSON.stringify('development')
 };
 
 export default {
@@ -25,8 +25,8 @@ export default {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.DedupePlugin()
-    //new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [

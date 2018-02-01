@@ -4,6 +4,10 @@ import {deleteCookie,setCookie,loadTemplate} from './lib/utils.js';
 import {updateFromServer} from './dataservice.js';
 import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
+//import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle.js';
+
+//import modal from "bootstrap";
 
 let settings = {};
 events.subscribe('settings/change',(obj) => {
@@ -36,7 +40,7 @@ function generateMenu() {
   output += '<option value="NEW subject">NEW subject</option>';
   output += '</select><br><span id="termMenu">' + settings.defaultTerm + '</span></li>';
 
-  output += '<li class="nav-item"><a class="nav-link" href="#addStudent"><button class="btn btn-secondary"> + Student</button></a></li>';
+  output += '<li class="nav-item"><a class="nav-link" href="#addStudent"><button class="btn btn-secondary"> + StudentS  </button></a></li>';
   output += '<li class="nav-item"><a class="nav-link" href="#addGradedTask"><button class="btn btn-secondary"> + Graded task</button></a></li>';
   output += '<li class="nav-item"><a class="nav-link" href="#settings"><button class="btn btn-secondary">Settings</button></a></li>';
 

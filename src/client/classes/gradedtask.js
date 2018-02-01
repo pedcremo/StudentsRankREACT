@@ -34,7 +34,7 @@ events.subscribe('dataservice/SaveGradedTask',(obj) => {
        gt.description = obj.description;       
     //NEW  
     }else{
-      gt = new GradedTask(obj.name,obj.description,obj.weight,[],obj.term)
+      gt = new GradedTask(obj.name,obj.description,obj.weight,[],obj.term);
       gradedTasks.set(gt.id,gt);      
     }
     events.publish('gradedTask/change',gradedTasks);
