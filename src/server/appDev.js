@@ -11,7 +11,7 @@ var logger = require('morgan');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 
-const port = 3000;
+const port = 8000;
 const app = express();
 const compiler = webpack(config);
 
