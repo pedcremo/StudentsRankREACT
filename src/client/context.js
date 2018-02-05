@@ -15,6 +15,7 @@ import {generateMenu,showMenu,hideMenu,addSubject} from './menu.js';
 import {template} from './lib/templator.js';
 import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
+import toastr from "toastr";
 
 class Context {
 

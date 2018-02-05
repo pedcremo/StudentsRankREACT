@@ -1,17 +1,17 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
-import RankingListItemPage from 'rankingListItemPage.js';
+import RankingListItemPage from './rankingListItemPage.js';
 
 class RankingListPage extends React.Component {
     constructor(props){
         super(props);
         
         this.state = {                
-            students:props.students
-        };        
-        const studentsItems = this.state.students.map((student) =>
-            <RankingListItemPage student={student} />
-        );
+            students:props.students,
+            gtWeight:props.gtWeight,
+            xpWeight:props.xpWeight
+        };                
+       
         /*this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);      */
 
@@ -33,17 +33,22 @@ class RankingListPage extends React.Component {
     }*/
 
     render() {
+        let cont =1;
+        const studentsItems = this.state.students.map((student) =>
+            <RankingListItemPage key={student[0]} index={cont++} student={student} />            
+        );
         return (
-            <table class="table table-striped table-condensed">
-            <thead class="thead-dark">
+            <table className="table table-striped table-condensed">
+            <thead className="thead-dark">
             <tr>
-                <th><a style="float:left;" href="#expandedView"><button id="more_gt"><i class="fa fa-hand-o-right fa-1x"></i></button></a></th>
+                <th><a href="#expandedView"><button id="more_gt"><i className="fa fa-hand-o-right fa-1x"></i></button></a></th>
                 <th>The harder you work, the luckier you get</th>    
-                <th>FG 100% = XP ${TPL_XP_WEIGHT}% + GT ${TPL_GT_WEIGHT}%</th>
+                
+                <th>FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th>
             </tr>
             </thead>
             <tbody id="idTableRankingBody">
-                <RankingListItemPage /> 
+                {studentsItems}               
             </tbody>
 
             </table>
@@ -51,4 +56,4 @@ class RankingListPage extends React.Component {
     }
 }
 
-export default RankingListItemPage;
+export default RankingListPage;

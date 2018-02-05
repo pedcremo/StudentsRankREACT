@@ -353,6 +353,10 @@ class Person {
   static getStudentsSize() {
     return students.size;
   }
+  static getStudentsFromMap() {
+    return [...students.entries()];
+    //return students;
+  }
   static deleteById(idPerson) {
     students.delete(idPerson);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));

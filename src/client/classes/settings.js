@@ -52,7 +52,14 @@ class Settings {
   static getTerms() {
     return settings.terms;
   }
+  
+  static getXpWeight(){
+    return settings.weightXP;
+  }
 
+  static getGtWeight(){
+    return settings.weightGP;
+  }
   static getSettings() {
     let scope = {};
     let output = '';

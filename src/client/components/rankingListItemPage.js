@@ -4,14 +4,15 @@ import {events} from '../lib/eventsPubSubs.js';
 class RankingListItemPage extends React.Component {
     constructor(props){
         super(props);
-        
+        debugger;
         this.state = {                
-            id:props.student.id,         
-            name: props.student.name,
-            surnames: props.student.surnames,            
-            fg:props.student.fg,
-            xp:props.student.xp,
-            gt:props.student.gt                           
+            id:props.student[0],         
+            name: props.student[1].name,
+            surnames: props.student[1].surname,            
+            fg:props.student[1].getFinalGrade(),
+            xp:props.student[1].getXPtotalPoints(),
+            gt:props.student[1].getGTtotalPoints(),
+            index:props.index
         };        
         
         /*this.handleInputChange = this.handleInputChange.bind(this);   
@@ -37,10 +38,10 @@ class RankingListItemPage extends React.Component {
     render() {
         return (
             <tr className="js-rowStudent" >
-            <td className="w-5" id="sorting"><h3>#COUNTER</h3></td>
+            <td className="w-5" id="sorting"><h3>{this.state.index}</h3></td>
             <td className="w-35">
                 <img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg'} height="60" width="48"/>
-                <a className="text-info" href='#student/${person[1].getId()}'>{this.state.surname}, {this.state.name}</a>
+                <a className="text-info" href={'#student/'+this.state.id}> {this.state.surnames}, {this.state.name}</a>
             </td>
             <td className="w-60">
               <table id="scoreTable" className="table-condensed" width="100%">

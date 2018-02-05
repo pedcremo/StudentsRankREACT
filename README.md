@@ -10,26 +10,21 @@ npm and node should be installed on your system
 recommended npm version 3.5.0 or greater 
 recommended node version 4.2.5 or greater 
 
-Recommended but not mandatory to install gulp as a global package
-<pre>
-npm install -g gulp
-</pre>
-
 # First time we clone or download the project 
 Install dependencies and modules used for development purposes
 <pre>nmp install </pre>
 We wait until node_modules folder has been filled with all development modules needed for our app
 
 # For continous development 
-Main gulp task
-<pre>./node_modules/gulp/bin/gulp.js</pre> 
-or 
-<pre>gulp</pre> 
-if has been installed globally.
 
-Other interesting gulp tasks
+npm run-script dev
 
-*vet. For syntax and quality checking
+Other interesting npm scripts  
+
+*npm run-script build 
+Creates dist/ folder with all files optimized for production
+
+Take a look at package.json scripts
 
 # For production deployment
 Start node server with forever <pre>npm start</pre>

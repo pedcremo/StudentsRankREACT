@@ -7,7 +7,7 @@ import Person from './classes/person.js';
 import Settings from './classes/settings.js';
 import {saveStudents} from './dataservice.js';
 import GradedTaskPage from './components/gradedTaskPage.js';
-import RankingListItemPage from './components/rankingListItemPage.js';
+import RankingListPage from './components/rankingListPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
@@ -100,9 +100,9 @@ function initRouter() {
               /*reactDOM.render(<GradedTaskPage gtInstance={gtInstance} terms={Settings.getTerms()} />, document.getElementById('content'));*/
               //gtInstance.getHTMLEdit();
               break;
-            case /#reactTest/.test(isLink.href): 
-              debugger;
-              reactDOM.render(<RankingListItemPage student={{id:'-1420523329',profileURL:'fjakfja',name:'Paco',surnames:'El MAco',fg:78,xp:23,gt:56}} />, document.getElementById('content'));
+            case /#reactTest/.test(isLink.href):                         
+              reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}/>, document.getElementById('content'));
+              //reactDOM.render(<RankingListItemPage student={{id:'-1420523329',profileURL:'fjakfja',name:'Paco',surnames:'El MAco',fg:78,xp:23,gt:56}} />, document.getElementById('content'));
               break;
             default:
               context.isLogged();
