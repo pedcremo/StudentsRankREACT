@@ -21,11 +21,13 @@ let gradedtaskMAP = new Map();
 
 events.subscribe('attitudeTask/change',(obj) => {
   attitudeMAP = obj;
+  
 });
 
 events.subscribe('gradedTask/change',(obj) => {
   gradedtaskMAP = obj;
   Person.getRankingTable();
+  
 });
 
 events.subscribe('dataservice/getStudents',(obj) => {
@@ -275,80 +277,83 @@ class Person {
     return students.get(parseInt(idHash));
   }
   static getRankingTable() {
-    if (students && students.size > 0) {
-      /* We sort students in descending order from max number of points to min when we are in not expanded view */
-      let arrayFromMap = [...students.entries()];
+    events.publish('students/change',students);
+    // if (students && students.size > 0) {
+    //   /* We sort students in descending order from max number of points to min when we are in not expanded view */
+    //   let arrayFromMap = [...students.entries()];
 
-      if ($('.tableGradedTasks').is(':hidden')) {
-        arrayFromMap.sort(function(a,b) {
-          return (b[1].getFinalGrade() - a[1].getFinalGrade());
-        });
-      }
-      students = new Map(arrayFromMap);
+    //   if ($('.tableGradedTasks').is(':hidden')) {
+    //     arrayFromMap.sort(function(a,b) {
+    //       return (b[1].getFinalGrade() - a[1].getFinalGrade());
+    //     });
+    //   }
+    //   students = new Map(arrayFromMap);
 
-      let scope = {};
+    //   let scope = {};
 
-      if (gradedtaskMAP && gradedtaskMAP.size > 0) {
-        scope.TPL_GRADED_TASKS = [...gradedtaskMAP.entries()].reverse();
-        if (settings.defaultTerm !== 'ALL') {
-          let aux = [];
-          for (let i = 0;i < scope.TPL_GRADED_TASKS.length;i++) {
-            if (scope.TPL_GRADED_TASKS[i][1].term === settings.defaultTerm) {
-              aux.push(scope.TPL_GRADED_TASKS[i]);
-            }
-          }
-          scope.TPL_GRADED_TASKS = aux;
-        }
-      }
+    //   if (gradedtaskMAP && gradedtaskMAP.size > 0) {
+    //     scope.TPL_GRADED_TASKS = [...gradedtaskMAP.entries()].reverse();
+    //     if (settings.defaultTerm !== 'ALL') {
+    //       let aux = [];
+    //       for (let i = 0;i < scope.TPL_GRADED_TASKS.length;i++) {
+    //         if (scope.TPL_GRADED_TASKS[i][1].term === settings.defaultTerm) {
+    //           aux.push(scope.TPL_GRADED_TASKS[i]);
+    //         }
+    //       }
+    //       scope.TPL_GRADED_TASKS = aux;
+    //     }
+    //   }
 
-      scope.TPL_PERSONS = arrayFromMap;
-      let TPL_XP_WEIGHT = settings.weightXP;
-      let TPL_GT_WEIGHT = settings.weightGP;
+    //   scope.TPL_PERSONS = arrayFromMap;
+    //   let TPL_XP_WEIGHT = settings.weightXP;
+    //   let TPL_GT_WEIGHT = settings.weightGP;
 
-      loadTemplate('templates/rankingList.html',function(responseText) {
-              let out = template(responseText,scope);
-              $('#content').html(eval('`' + out + '`'));
-              if (getCookie('expandedView') === 'visible') {
-                $('.tableGradedTasks').show();
-                $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
-              }else {
-                $('.tableGradedTasks').hide();
-                $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');
-              }
-              //let that = this;
-              let callback = function() {
-                  $('.gradedTaskInput').each(function(index) {
-                        $(this).change(function() {
-                          let idPerson = $(this).attr('idStudent');
-                          let idGradedTask = $(this).attr('idGradedTask');
-                          let gt = gradedtaskMAP.get(parseInt(idGradedTask));
-                          gt.addStudentMark(idPerson,$(this).val());
-                          Person.getRankingTable();
-                          //that.getTemplateRanking();
-                        });
-                      });
-                  $('.profile').each(function(index) {
-                    $(this).mouseenter(function() { //TEST
-                      $(this).removeAttr('width'); //TEST
-                      $(this).removeAttr('height'); //TEST
-                    });
-                    $(this).mouseout(function() { //TEST
-                      $(this).attr('width',48); //TEST
-                      $(this).attr('height',60); //TEST
-                    });
-                  });
-                };
-              callback();
-            });
-    }else {
-      $('#content').html('NO STUDENTS YET');
-    }
+    //   loadTemplate('templates/rankingList.html',function(responseText) {
+    //           let out = template(responseText,scope);
+    //           $('#content').html(eval('`' + out + '`'));
+    //           if (getCookie('expandedView') === 'visible') {
+    //             $('.tableGradedTasks').show();
+    //             $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
+    //           }else {
+    //             $('.tableGradedTasks').hide();
+    //             $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');
+    //           }
+    //           //let that = this;
+    //           let callback = function() {
+    //               $('.gradedTaskInput').each(function(index) {
+    //                     $(this).change(function() {
+    //                       let idPerson = $(this).attr('idStudent');
+    //                       let idGradedTask = $(this).attr('idGradedTask');
+    //                       let gt = gradedtaskMAP.get(parseInt(idGradedTask));
+    //                       gt.addStudentMark(idPerson,$(this).val());
+    //                       Person.getRankingTable();
+                          
+    //                       //that.getTemplateRanking();
+    //                     });
+    //                   });
+    //               $('.profile').each(function(index) {
+    //                 $(this).mouseenter(function() { //TEST
+    //                   $(this).removeAttr('width'); //TEST
+    //                   $(this).removeAttr('height'); //TEST
+    //                 });
+    //                 $(this).mouseout(function() { //TEST
+    //                   $(this).attr('width',48); //TEST
+    //                   $(this).attr('height',60); //TEST
+    //                 });
+    //               });
+    //             };
+    //           callback();
+    //         });
+    // }else {
+    //   $('#content').html('NO STUDENTS YET');
+    // }
   }
   static addStudent(studentInstance) {
     events.publish('student/new',studentInstance);
     students.set(studentInstance.getId(),studentInstance);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
     Person.getRankingTable();
+    
   }
   static getStudentsSize() {
     return students.size;

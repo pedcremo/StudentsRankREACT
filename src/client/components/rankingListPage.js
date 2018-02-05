@@ -11,9 +11,16 @@ class RankingListPage extends React.Component {
             gtWeight:props.gtWeight,
             xpWeight:props.xpWeight
         };                
-       
+        
+        events.subscribe('students/change',(obj) => {
+            debugger;
+            this.setState({
+                students: obj
+            });
+        });
+          
         /*this.handleInputChange = this.handleInputChange.bind(this);   
-        this.handleSubmit = this.handleSubmit.bind(this);      */
+        this.handleSubmit = this.handleSubmit.bind(this);*/
 
     }
 
@@ -37,6 +44,7 @@ class RankingListPage extends React.Component {
         const studentsItems = this.state.students.map((student) =>
             <RankingListItemPage key={student[0]} index={cont++} student={student} />            
         );
+        
         return (
             <table className="table table-striped table-condensed">
             <thead className="thead-dark">

@@ -4,7 +4,7 @@ import {events} from '../lib/eventsPubSubs.js';
 class RankingListItemPage extends React.Component {
     constructor(props){
         super(props);
-        debugger;
+        //debugger;
         this.state = {                
             id:props.student[0],         
             name: props.student[1].name,
