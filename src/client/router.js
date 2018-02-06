@@ -24,15 +24,17 @@ function initRouter() {
         e = e || event;
         var isLink = findParent('a',e.target || e.srcElement);
         if (isLink) {
-          reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+          
           switch (true) {
             /** View Student information detail */
             case /#student/.test(isLink.href):
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let personInstance = Person.getPersonById(getIdFromURL(isLink.href));
               personInstance.getHTMLDetail();
               break;
             /** Modify student information */
             case /#editStudent/.test(isLink.href):
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
               personInstance.getHTMLEdit();
               break;
@@ -62,10 +64,12 @@ function initRouter() {
               break;
             /** Add new student form */
             case /#addStudent/.test(isLink.href):
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               Person.addPerson();
               break;
             case /#settings/.test(isLink.href):
               //context.getSettings();
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               Settings.getSettings();
               break;
             /** logout */
@@ -86,6 +90,7 @@ function initRouter() {
               break;
             /** Add new Graded Task form */
             case /#addGradedTask/.test(isLink.href):
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               // GradedTask.addGradedTask();
               //reactDOM.render(<GradedTaskPage gtInstance={{}} terms={Settings.getTerms()} />, document.getElementById('content')); 		          
               //(100 - GradedTask.getGradedTasksTotalWeight()
@@ -93,6 +98,7 @@ function initRouter() {
              
               break;
             case /#detailGradedTask/.test(isLink.href):
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));	    
                 
               reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));
@@ -101,6 +107,7 @@ function initRouter() {
               //gtInstance.getHTMLEdit();
               break;
             case /#reactTest/.test(isLink.href):                         
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}/>, document.getElementById('content'));
               //reactDOM.render(<RankingListItemPage student={{id:'-1420523329',profileURL:'fjakfja',name:'Paco',surnames:'El MAco',fg:78,xp:23,gt:56}} />, document.getElementById('content'));
               break;

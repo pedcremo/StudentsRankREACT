@@ -7,7 +7,7 @@ class RankingListPage extends React.Component {
         super(props);
         
         this.state = {                
-            students:props.students,
+            students:props.students,           
             gtWeight:props.gtWeight,
             xpWeight:props.xpWeight
         };                

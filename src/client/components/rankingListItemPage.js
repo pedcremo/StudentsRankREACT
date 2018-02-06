@@ -1,10 +1,11 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
+//import {events} from '../lib/eventsPubSubs.js';
+import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js';
 
 class RankingListItemPage extends React.Component {
     constructor(props){
         super(props);
-        //debugger;
+        
         this.state = {                
             id:props.student[0],         
             name: props.student[1].name,
@@ -12,9 +13,10 @@ class RankingListItemPage extends React.Component {
             fg:props.student[1].getFinalGrade(),
             xp:props.student[1].getXPtotalPoints(),
             gt:props.student[1].getGTtotalPoints(),
+            marks: props.student[1].getStudentMarks(),
             index:props.index
         };        
-        
+        debugger;
         /*this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);      */
 
@@ -36,6 +38,10 @@ class RankingListItemPage extends React.Component {
     }*/
 
     render() {
+        /*const gradedTasksItems = this.state.students.map((student) =>
+            <RankingListItemGradedTasksPage key={student[0]} index={cont++} student={student} />            
+        );*/
+
         return (
             <tr className="js-rowStudent" >
             <td className="w-5" id="sorting"><h3>{this.state.index}</h3></td>
@@ -67,6 +73,7 @@ class RankingListItemPage extends React.Component {
                         
                     </td>                    
                 </tr> 
+                <RankingListItemGradedTasksPage marks={this.state.marks} /> 
                </tbody> 
              </table>  
             </td>             

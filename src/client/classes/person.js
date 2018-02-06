@@ -130,19 +130,21 @@ class Person {
     try {     
       gradedtaskMAP.forEach((valueGT) => {
         console.log('MERDA ' + valueGT.id + 'Person id ' + this.id);
-        gtArray.push([valueGT.id,valueGT.studentsMarkMAP.get(this.id)]);
+        if (valueGT.term === settings.defaultTerm || settings.defaultTerm ==='ALL') {
+          gtArray.push({'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight});
+        }
       });
 
-      if (settings.defaultTerm !== 'ALL') {
-        let aux = [];
-        for (let i = 0;i < gtArray.length;i++) {
-          let gtInstance = gradedtaskMAP.get(gtArray[i][0]);
-          if (gtInstance.term === settings.defaultTerm) {
-            aux.push(gtArray[i]);
-          }
-        }
-        gtArray = aux;
-      }
+      // if (settings.defaultTerm !== 'ALL') {
+      //   let aux = [];
+      //   for (let i = 0;i < gtArray.length;i++) {
+      //     let gtInstance = gradedtaskMAP.get(gtArray[i][0]);
+      //     if (gtInstance.term === settings.defaultTerm) {
+      //       aux.push(gtArray[i]);
+      //     }
+      //   }
+      //   gtArray = aux;
+      // }
     }catch (err) {
       console.log('ERROR' + err);
     }

@@ -107,7 +107,8 @@ class Context {
   getTemplateRanking() {
     generateMenu();
     //Person.getRankingTable();
-    reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}/>, document.getElementById('content'));
+    
+    reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
   }
   /** Add last action performed to lower information layer in main app */
   notify(text,title,type='success') {
