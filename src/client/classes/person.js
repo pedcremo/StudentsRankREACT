@@ -107,8 +107,10 @@ class Person {
     let dateTimeStamp = new Date();//Current time
     this.attitudeTasks.push({'id':taskInstance.id,'timestamp':dateTimeStamp});
     events.publish('/context/addXP',{'attitudeTask':taskInstance,'person':this});
+   
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));
-
+    //events.publish('students/change',[...students.entries()]);
+    Person.getRankingTable();
   }
   /** Delete XP associated to this person */
   deleteXP(taskInstanceId) {
@@ -134,17 +136,6 @@ class Person {
           gtArray.push({'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight});
         }
       });
-
-      // if (settings.defaultTerm !== 'ALL') {
-      //   let aux = [];
-      //   for (let i = 0;i < gtArray.length;i++) {
-      //     let gtInstance = gradedtaskMAP.get(gtArray[i][0]);
-      //     if (gtInstance.term === settings.defaultTerm) {
-      //       aux.push(gtArray[i]);
-      //     }
-      //   }
-      //   gtArray = aux;
-      // }
     }catch (err) {
       console.log('ERROR' + err);
     }
@@ -161,6 +152,10 @@ class Person {
       });
     } catch (err) {
       console.log(err);
+    }
+    
+    if (isNaN(points)) {
+      points=0;
     }
     return Math.round((points * 100) / 100);
     //return GradedTask.getStudentGradedTasksPoints(this.getId());
@@ -279,17 +274,19 @@ class Person {
     return students.get(parseInt(idHash));
   }
   static getRankingTable() {
-    events.publish('students/change',students);
-    // if (students && students.size > 0) {
-    //   /* We sort students in descending order from max number of points to min when we are in not expanded view */
-    //   let arrayFromMap = [...students.entries()];
+    
+    if (students && students.size > 0) {
+      /* We sort students in descending order from max number of points to min when we are in not expanded view */
+      let arrayFromMap = [...students.entries()];
 
-    //   if ($('.tableGradedTasks').is(':hidden')) {
-    //     arrayFromMap.sort(function(a,b) {
-    //       return (b[1].getFinalGrade() - a[1].getFinalGrade());
-    //     });
-    //   }
-    //   students = new Map(arrayFromMap);
+      if ($('.tableGradedTasks').is(':hidden')) {
+        arrayFromMap.sort(function(a,b) {
+           return (b[1].getFinalGrade() - a[1].getFinalGrade());
+        });
+      }
+       students = new Map(arrayFromMap);
+       events.publish('students/change',[...students.entries()]);
+    }
 
     //   let scope = {};
 

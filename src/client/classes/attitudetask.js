@@ -52,7 +52,7 @@ class AttitudeTask extends Task {
       attitudeTasks = new Map(scope.TPL_ATTITUDE_TASKS);
 
       let out = template(responseText,scope);
-      $('#content').html($('#content').html() + eval('`' + out + '`'));
+      $('#modals').html(eval('`' + out + '`'));
       $('#XPModal').modal('toggle');
 
       $('.xp').each(function(index) {

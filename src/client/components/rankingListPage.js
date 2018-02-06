@@ -17,6 +17,7 @@ class RankingListPage extends React.Component {
             this.setState({
                 students: obj
             });
+            console.log("SETSTATE");
         });
           
         /*this.handleInputChange = this.handleInputChange.bind(this);   
@@ -44,7 +45,7 @@ class RankingListPage extends React.Component {
         const studentsItems = this.state.students.map((student) =>
             <RankingListItemPage key={student[0]} index={cont++} student={student} />            
         );
-        
+        console.log("RENDER");
         return (
             <table className="table table-striped table-condensed">
             <thead className="thead-dark">
