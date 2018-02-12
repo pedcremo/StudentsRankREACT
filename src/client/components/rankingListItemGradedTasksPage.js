@@ -31,21 +31,12 @@ class RankingListItemGradedTasksPage extends React.Component {
     
     render() {
       
-        return (
-                <td>
-                        <tr>
-                            <td>
+        return (                
+                        <td>
                                 <a className="text-info" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a>           
-                            </td>
-                        </tr>                
-                        <tr>    
-                            <td>
-                             <input type='number' name='points' className='gradedTaskInput' idstud={this.state.id_student} idgtask={this.state.id}  min='0' max='100' value={this.state.points} onChange={this.handleInputChange}/>
-                             </td>
-                        </tr>
-                </td>
-            
-        );
+                                <input type='number' name='points' className='gradedTaskInput' idstud={this.state.id_student} idgtask={this.state.id}  min='0' max='100' value={this.state.points} onChange={this.handleInputChange}/>
+                        </td>                        
+            );
     }
 }
 

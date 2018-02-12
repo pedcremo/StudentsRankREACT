@@ -52,11 +52,9 @@ class RankingListItemPage extends React.Component {
                     </td>                    
                 </tr> 
                 </tbody> 
-                <tbody>
-                    <tr className="tableGradedTasks" style={{display:'none'}}>
-                        
-                        {studentsGT} 
-                        
+                <tbody className="tableGradedTasks" style={{display:'none'}}>                        
+                    <tr>
+                        {studentsGT}                        
                     </tr>
                 </tbody> 
              </table>  
