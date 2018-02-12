@@ -41,13 +41,14 @@ class RankingListItemPage extends React.Component {
                         {this.state.student.getGTtotalPoints()}
                     </td>
                     <td className="w-40 text-right">
-                        <a href={'#addXP/'+this.state.id}><button className="btnS btn btn-primary">+XP</button></a>
-                            
+                        <a href={'#addXP/'+this.state.id}>
+                        <button className="btnS btn btn-primary">+XP</button></a>
+                        &nbsp;
                         <a href={'#editStudent/'+this.state.id}>
-                       <button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'></i></button></a>
-                
+                       <button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a>
+                       &nbsp;
                        <a href={'#deleteStudent/'+this.state.id}>
-                       <button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i></button></a>
+                       <button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a>
                         
                     </td>                    
                 </tr> 
