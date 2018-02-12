@@ -12,7 +12,12 @@
 import {formatDate,popupwindow,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
+import {doProxy} from '../lib/proxy.js';
 import $ from "jquery";
+import React from 'react';
+import reactDOM from 'react-dom';
+import RankingListPage from '../components/rankingListPage.js';
+import Settings from './settings.js';
 
 let students = new Map();
 let settings = {};
@@ -29,6 +34,12 @@ events.subscribe('gradedTask/change',(obj) => {
   Person.getRankingTable();
   
 });
+events.subscribe('component/changingGTPoints',(obj)=>{
+  let gt = gradedtaskMAP.get(parseInt(obj.idGradedTask));
+  gt.addStudentMark(obj.idPerson,obj.value);
+  Person.getRankingTable();
+  /* events.publish('component/changeState',Person.getStudentsFromMap()); */
+})
 
 events.subscribe('dataservice/getStudents',(obj) => {
   let students_ = new Map(JSON.parse(obj));
@@ -49,6 +60,8 @@ events.subscribe('/context/newGradedTask',(gtask) => {
   });
 });
 
+//Every time students change we inform 'students/change' service
+doProxy([...students.entries()],'students/change');
 
 const privateAddTotalPoints = Symbol('privateAddTotalPoints'); /** To accomplish private method */
 const _totalXPpoints = Symbol('TOTAL_XP_POINTS'); /** To acomplish private property */
@@ -131,7 +144,7 @@ class Person {
     let gtArray = [];
     try {     
       gradedtaskMAP.forEach((valueGT) => {
-        console.log('MERDA ' + valueGT.id + 'Person id ' + this.id);
+        //console.log('MERDA ' + valueGT.id + 'Person id ' + this.id);
         if (valueGT.term === settings.defaultTerm || settings.defaultTerm ==='ALL') {
           gtArray.push({'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight});
         }
@@ -245,7 +258,7 @@ class Person {
               reader.onload = function() {
                 let dataURL = reader.result;
                 let output = $('#output');
-                output.src = dataURL;
+                output.src = dataURL; 
               };
               reader.readAsDataURL(input.files[0]);
             });
@@ -285,7 +298,9 @@ class Person {
         });
       }
        students = new Map(arrayFromMap);
-       events.publish('students/change',[...students.entries()]);
+       //reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+       //reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
+       //events.publish('students/change',[...students.entries()]);
     }
 
     //   let scope = {};

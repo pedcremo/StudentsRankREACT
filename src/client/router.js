@@ -77,7 +77,7 @@ function initRouter() {
               logout();
               break;
             /** Button to show a one more graded task on ranking table list */
-            case /#expandedView/.test(isLink.href):
+            /*case /#expandedView/.test(isLink.href):
               $('.tableGradedTasks').toggle();
 
               if ($('.tableGradedTasks').is(':visible')) {
@@ -87,7 +87,7 @@ function initRouter() {
                 setCookie('expandedView','hidden',345);
                 $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');
               }
-              break;
+              break;*/
             /** Add new Graded Task form */
             case /#addGradedTask/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
@@ -112,6 +112,7 @@ function initRouter() {
               //reactDOM.render(<RankingListItemPage student={{id:'-1420523329',profileURL:'fjakfja',name:'Paco',surnames:'El MAco',fg:78,xp:23,gt:56}} />, document.getElementById('content'));
               break;
             default:
+              //debugger;
               context.isLogged();
           }
         }

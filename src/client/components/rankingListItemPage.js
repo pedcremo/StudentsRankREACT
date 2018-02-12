@@ -8,42 +8,18 @@ class RankingListItemPage extends React.Component {
         
         this.state = {                
             id:props.student[0],         
-            student:props.student[1],
-            /*name: props.student[1].name,
-            surnames: props.student[1].surname,            
-            fg:props.student[1].getFinalGrade(),
-            xp:props.student[1].getXPtotalPoints(),
-            gt:props.student[1].getGTtotalPoints(),*/
-            //marks: props.student[1].getStudentMarks(),
+            student:props.student[1],           
             index:props.index
-        };    
-        
-        /*this.handleInputChange = this.handleInputChange.bind(this);   
-        this.handleSubmit = this.handleSubmit.bind(this);      */
-
+        }; 
     }
-
-    /*handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-    
-        this.setState({
-          [name]: value
-        });
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        events.publish('dataservice/SaveGradedTask',this.state);        
-    }*/
-
+   
     render() {
-        /*const gradedTasksItems = this.state.students.map((student) =>
-            <RankingListItemGradedTasksPage key={student[0]} index={cont++} student={student} />            
-        );*/
-        console.log('RENDER LISTITEM'+this.state.xp);
-        
+        let index=0;
+        //{'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight}
+        const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
+            <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent}/>            
+            
+        );
         return (
             <tr className="js-rowStudent" >
             <td className="w-5" id="sorting"><h3>{this.state.index}</h3></td>
@@ -75,8 +51,14 @@ class RankingListItemPage extends React.Component {
                         
                     </td>                    
                 </tr> 
-                <RankingListItemGradedTasksPage marks={this.state.student.getStudentMarks()} /> 
-               </tbody> 
+                </tbody> 
+                <tbody>
+                    <tr className="tableGradedTasks" style={{display:'none'}}>
+                        <tbody className="tableGradedTasks" style={{display:'none'}}>                     
+                        {studentsGT} 
+                        </tbody>
+                    </tr>
+                </tbody> 
              </table>  
             </td>             
         </tr>

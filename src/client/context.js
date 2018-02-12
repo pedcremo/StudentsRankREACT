@@ -106,9 +106,8 @@ class Context {
   /** Draw Students ranking table in descendent order using total points as a criteria */
   getTemplateRanking() {
     generateMenu();
-    //Person.getRankingTable();
+    Person.getRankingTable();
     
-    reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
   }
   /** Add last action performed to lower information layer in main app */
   notify(text,title,type='success') {
