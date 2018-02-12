@@ -1,5 +1,5 @@
 import {context} from './context.js'; //Singleton
-import {popupwindow,getIdFromURL,setCookie} from './lib/utils.js';
+import {getIdFromURL,setCookie} from './lib/utils.js';
 import {logout} from './menu.js';
 import AttitudeTask from './classes/attitudetask.js';
 import GradedTask from './classes/gradedtask.js';

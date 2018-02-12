@@ -9,7 +9,7 @@
  * @tutorial pointing-criteria
  */
 
-import {formatDate,popupwindow,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
+import {formatDate,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
 import {doProxy} from '../lib/proxy.js';
@@ -37,7 +37,7 @@ events.subscribe('gradedTask/change',(obj) => {
 events.subscribe('component/changingGTPoints',(obj)=>{
   let gt = gradedtaskMAP.get(parseInt(obj.idGradedTask));
   gt.addStudentMark(obj.idPerson,obj.value);
-  Person.getRankingTable();
+  //Person.getRankingTable();
   /* events.publish('component/changeState',Person.getStudentsFromMap()); */
 })
 
@@ -61,7 +61,7 @@ events.subscribe('/context/newGradedTask',(gtask) => {
 });
 
 //Every time students change we inform 'students/change' service
-doProxy([...students.entries()],'students/change');
+//doProxy([...students.entries()],'students/change');
 
 const privateAddTotalPoints = Symbol('privateAddTotalPoints'); /** To accomplish private method */
 const _totalXPpoints = Symbol('TOTAL_XP_POINTS'); /** To acomplish private property */
@@ -123,7 +123,7 @@ class Person {
    
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));
     //events.publish('students/change',[...students.entries()]);
-    Person.getRankingTable();
+    //Person.getRankingTable();
   }
   /** Delete XP associated to this person */
   deleteXP(taskInstanceId) {
@@ -286,81 +286,26 @@ class Person {
   static getPersonById(idHash) {
     return students.get(parseInt(idHash));
   }
-  static getRankingTable() {
+  static getRankingTable(umount=false) {
     
-    if (students && students.size > 0) {
+    //if (students && students.size > 0) {
       /* We sort students in descending order from max number of points to min when we are in not expanded view */
       let arrayFromMap = [...students.entries()];
-
+      let fingerPrintBeforeSort = arrayFromMap.toString();
       if ($('.tableGradedTasks').is(':hidden')) {
         arrayFromMap.sort(function(a,b) {
            return (b[1].getFinalGrade() - a[1].getFinalGrade());
         });
       }
-       students = new Map(arrayFromMap);
-       //reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-       //reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
-       //events.publish('students/change',[...students.entries()]);
-    }
+      students = new Map(arrayFromMap);
+      //debugger;
+      if (arrayFromMap.toString()!==fingerPrintBeforeSort) {
+        umount=true ;
+      }
 
-    //   let scope = {};
-
-    //   if (gradedtaskMAP && gradedtaskMAP.size > 0) {
-    //     scope.TPL_GRADED_TASKS = [...gradedtaskMAP.entries()].reverse();
-    //     if (settings.defaultTerm !== 'ALL') {
-    //       let aux = [];
-    //       for (let i = 0;i < scope.TPL_GRADED_TASKS.length;i++) {
-    //         if (scope.TPL_GRADED_TASKS[i][1].term === settings.defaultTerm) {
-    //           aux.push(scope.TPL_GRADED_TASKS[i]);
-    //         }
-    //       }
-    //       scope.TPL_GRADED_TASKS = aux;
-    //     }
-    //   }
-
-    //   scope.TPL_PERSONS = arrayFromMap;
-    //   let TPL_XP_WEIGHT = settings.weightXP;
-    //   let TPL_GT_WEIGHT = settings.weightGP;
-
-    //   loadTemplate('templates/rankingList.html',function(responseText) {
-    //           let out = template(responseText,scope);
-    //           $('#content').html(eval('`' + out + '`'));
-    //           if (getCookie('expandedView') === 'visible') {
-    //             $('.tableGradedTasks').show();
-    //             $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
-    //           }else {
-    //             $('.tableGradedTasks').hide();
-    //             $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');
-    //           }
-    //           //let that = this;
-    //           let callback = function() {
-    //               $('.gradedTaskInput').each(function(index) {
-    //                     $(this).change(function() {
-    //                       let idPerson = $(this).attr('idStudent');
-    //                       let idGradedTask = $(this).attr('idGradedTask');
-    //                       let gt = gradedtaskMAP.get(parseInt(idGradedTask));
-    //                       gt.addStudentMark(idPerson,$(this).val());
-    //                       Person.getRankingTable();
-                          
-    //                       //that.getTemplateRanking();
-    //                     });
-    //                   });
-    //               $('.profile').each(function(index) {
-    //                 $(this).mouseenter(function() { //TEST
-    //                   $(this).removeAttr('width'); //TEST
-    //                   $(this).removeAttr('height'); //TEST
-    //                 });
-    //                 $(this).mouseout(function() { //TEST
-    //                   $(this).attr('width',48); //TEST
-    //                   $(this).attr('height',60); //TEST
-    //                 });
-    //               });
-    //             };
-    //           callback();
-    //         });
-    // }else {
-    //   $('#content').html('NO STUDENTS YET');
-    // }
+      if (umount) reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+      reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
+       
   }
   static addStudent(studentInstance) {
     events.publish('student/new',studentInstance);

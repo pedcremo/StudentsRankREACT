@@ -79,13 +79,13 @@ function loadTemplate(urlTemplate,callback,method='GET',params='',cached=true) {
   }
 }
 
-function popupwindow(url, title, w, h) {
+/*function popupwindow(url, title, w, h) {
   let left = (screen.width / 2) - (w / 2);
   let top = (screen.height / 2) - (h / 2);
   return window.open(url, title, 'toolbar=no, location=no, directories=no,' +
                     'status=no, menubar=no,scrollbars=no, resizable=no, copyhistory=no,' +
                     ' width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-}
+}*/
 
 function formatDate(date) {
   var monthNames = [
@@ -109,4 +109,4 @@ function getIdFromURL(url) {
   return matchResults[0];
 }
 
-export {formatDate,popupwindow,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL};
+export {formatDate,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL};

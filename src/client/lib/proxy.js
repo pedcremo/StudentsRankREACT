@@ -8,10 +8,12 @@ import {events} from './eventsPubSubs.js';
 function doProxy(targetObject,notifyService) {
     var proxy = new Proxy(targetObject, {
         apply: function(target, thisArg, argumentsList) {
+          alert("DIOS");
           return thisArg[target].apply(this, argumentList);
         },
         deleteProperty: function(target, property) {
           console.log("Deleted %s", property);
+          alert("TE SALVE");
           return true;
         },
         set: function(target, property, value, receiver) {      
@@ -19,6 +21,7 @@ function doProxy(targetObject,notifyService) {
          
           events.publish(notifyService,targetObject);
           console.log("Set %s to %o", property, value);
+          alert("MARIA");
           return true;
         }
       });

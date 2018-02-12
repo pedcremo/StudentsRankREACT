@@ -32,10 +32,7 @@ class Context {
       if (obj.attitudeTask.points < 0) {typeToastr = 'error';};
       this.notify('Added ' +  obj.attitudeTask.points + ' ' + obj.attitudeTask.description + ' to ' + obj.person.name + ',' + obj.person.surname, obj.person.surname + ' ,' + obj.person.name,typeToastr);
     });
-
-    /*events.subscribe('/context/newGradedTask', () => {
-      this.getTemplateRanking();
-    });*/
+  
   }
   /** Clear context  */
   clear() {
@@ -98,15 +95,16 @@ class Context {
         });
       });
     }else {
-      generateMenu();
-      that.getTemplateRanking();
+      //generateMenu();
+      that.getTemplateRanking(false);
     }
   }
 
   /** Draw Students ranking table in descendent order using total points as a criteria */
-  getTemplateRanking() {
+  getTemplateRanking(umount=false) {
     generateMenu();
-    Person.getRankingTable();
+    console.log('CONTEXT getRankingTable');
+    Person.getRankingTable(umount);
     
   }
   /** Add last action performed to lower information layer in main app */

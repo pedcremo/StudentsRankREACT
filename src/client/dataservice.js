@@ -24,41 +24,22 @@ events.subscribe('dataservice/saveStudents',(studentsJSON) => {
 
 /** Get students and grades from server and maintains a local copy in localstorage */
 function updateFromServer() {
-  if (context.user.id) {
-    let counter = 0; //When 4 all have been loaded from server
+  if (context.user.id) {    
     loadTemplate('api/getSettings',function(response) {
-                          events.publish('dataservice/getSettings',response);
-                          counter++;
-                          if (counter === 4) {
-                            context.getTemplateRanking();
-                          }
+                          events.publish('dataservice/getSettings',response);                        
                         },'GET','',false);
 
     loadTemplate('api/getAttitudeTasks',function(response) {
-                          events.publish('dataservice/getAttitudeTasks',response);
-                          //loadAttitudeTasks(response);
-                          counter++;
-                          if (counter === 4) {
-                            context.getTemplateRanking();
-                          }
+                          events.publish('dataservice/getAttitudeTasks',response);                          
                         },'GET','',false);
 
     loadTemplate('api/getStudents',function(response) {
-                            events.publish('dataservice/getStudents',response);
-                          //loadStudents(response);
-                          counter++;
-                          if (counter === 4) {
-                            context.getTemplateRanking();
-                          }
+                          events.publish('dataservice/getStudents',response);                          
+                          context.getTemplateRanking(true);                          
                         },'GET','',false);
 
     loadTemplate('api/getGradedTasks',function(response) {
-                          events.publish('dataservice/getGradedTasks',response);
-                          //loadGradedTasks(response);
-                          counter++;
-                          if (counter === 4) {
-                            context.getTemplateRanking();
-                          }
+                          events.publish('dataservice/getGradedTasks',response);                       
                         },'GET','',false);
     
   }

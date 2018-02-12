@@ -58,8 +58,7 @@ function generateMenu() {
       context.user.defaultSubject = optionSubject;
       setCookie('user',JSON.stringify(context.user),7);
       loadTemplate('api/changeSubject',function(response) {
-        updateFromServer();
-        //context.getTemplateRanking();
+        updateFromServer();        
       },'GET','newsubject=' + optionSubject,false);
     }
   });

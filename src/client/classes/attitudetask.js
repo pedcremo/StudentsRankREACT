@@ -14,7 +14,7 @@ import $ from "jquery";
  * @tutorial pointing-criteria
  */
 
-import {popupwindow,loadTemplate} from '../lib/utils.js';
+import {loadTemplate} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
 
