@@ -44,7 +44,7 @@ function initRouter() {
                 Person.deleteById(parseInt(getIdFromURL(isLink.href)));
                 //context.students.delete(parseInt(getIdFromURL(isLink.href)));
                 //saveStudents(JSON.stringify([...context.students]));
-                context.getTemplateRanking();
+                context.getTemplateRanking(true);
               }
               break;
             /** Delete Xp associated to a person */
