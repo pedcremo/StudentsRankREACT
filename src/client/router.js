@@ -8,6 +8,7 @@ import Settings from './classes/settings.js';
 import {saveStudents} from './dataservice.js';
 import GradedTaskPage from './components/gradedTaskPage.js';
 import RankingListPage from './components/rankingListPage.js';
+import PersonPage from './components/personPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
@@ -36,7 +37,8 @@ function initRouter() {
             case /#editStudent/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              personInstance.getHTMLEdit();
+              reactDOM.render(<PersonPage student={{personInstance}} />, document.getElementById('content'));
+              //personInstance.getHTMLEdit();
               break;
             /** Delete student with confirmation */
             case /#deleteStudent/.test(isLink.href):
@@ -64,8 +66,11 @@ function initRouter() {
               break;
             /** Add new student form */
             case /#addStudent/.test(isLink.href):
+              //debugger;
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-              Person.addPerson();
+              reactDOM.render(<PersonPage student={{}} />, document.getElementById('content'));
+             
+              //Person.addPerson();
               break;
             case /#settings/.test(isLink.href):
               //context.getSettings();

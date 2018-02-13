@@ -24,9 +24,26 @@ let settings = {};
 let attitudeMAP = new Map();
 let gradedtaskMAP = new Map();
 
+//Obj
+events.subscribe('dataservice/SavePerson',(obj) => {
+  let person = {}; 
+  debugger;
+  //UPDATE
+  if (obj.id && obj.id!=='huevon') {  
+     person=students.get(obj.id);
+     person.name = obj.name;
+     person.surname = obj.surnames;      
+  //NEW  
+  }else{
+    person = new Person(obj.name,obj.surnames,[]);
+    students.set(person.id,person);      
+  }
+  events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
+  Person.getRankingTable();
+}
+);
 events.subscribe('attitudeTask/change',(obj) => {
-  attitudeMAP = obj;
-  
+  attitudeMAP = obj;  
 });
 
 events.subscribe('gradedTask/change',(obj) => {
@@ -37,9 +54,7 @@ events.subscribe('gradedTask/change',(obj) => {
 events.subscribe('component/changingGTPoints',(obj)=>{
   let gt = gradedtaskMAP.get(parseInt(obj.idGradedTask));
   gt.addStudentMark(obj.idPerson,obj.value);
-  //Person.getRankingTable();
-  /* events.publish('component/changeState',Person.getStudentsFromMap()); */
-})
+});
 
 events.subscribe('dataservice/getStudents',(obj) => {
   let students_ = new Map(JSON.parse(obj));
@@ -183,7 +198,7 @@ class Person {
     return Math.round(xpGrade + (this.getGTtotalPoints() * (settings.weightGP / 100)));
   }
   /** Renders person edit form */
-  getHTMLEdit() {
+  /*getHTMLEdit() {
     let callback = function(responseText) {
       $('#content').html(responseText);
       let saveStudent = $('#newStudent');
@@ -223,7 +238,7 @@ class Person {
     }.bind(this);
 
     loadTemplate('templates/addStudent.html',callback);
-  }
+  }*/
   /** Renders person detail view */
   getHTMLDetail() {
     loadTemplate('templates/detailStudent.html',function(responseText) {
@@ -246,7 +261,7 @@ class Person {
       }.bind(this));
   }
   /** Add a new person to the context app */
-  static addPerson() {
+  /*static addPerson() {
     let callback = function(responseText) {
             $('#content').html(responseText);
             let saveStudent = $('#newStudent');
@@ -282,7 +297,7 @@ class Person {
           };
 
     loadTemplate('templates/addStudent.html',callback);
-  }
+  }*/
   static getPersonById(idHash) {
     return students.get(parseInt(idHash));
   }
@@ -307,13 +322,12 @@ class Person {
       reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
        
   }
-  static addStudent(studentInstance) {
-    events.publish('student/new',studentInstance);
+  /*static addStudent(studentInstance) {
+    //events.publish('student/new',studentInstance);
     students.set(studentInstance.getId(),studentInstance);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
-    Person.getRankingTable();
-    
-  }
+    Person.getRankingTable();    
+  } */
   static getStudentsSize() {
     return students.size;
   }
