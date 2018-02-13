@@ -16,6 +16,15 @@ function hashcode(str) {
   return hash;
 }
 
+function updateObject(originalTarget,source) {  
+  for (var property in source) {
+    if (source.hasOwnProperty(property)) {
+        originalTarget[property] = source[property];
+    }
+  }
+  return originalTarget;
+}
+
 function setCookie(cname, cvalue, exdays) {
   if (cvalue && cvalue !== '') {
     let d = new Date();
@@ -109,4 +118,4 @@ function getIdFromURL(url) {
   return matchResults[0];
 }
 
-export {formatDate,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL};
+export {updateObject,formatDate,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL};

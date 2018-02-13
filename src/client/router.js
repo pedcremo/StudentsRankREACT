@@ -9,6 +9,7 @@ import {saveStudents} from './dataservice.js';
 import GradedTaskPage from './components/gradedTaskPage.js';
 import RankingListPage from './components/rankingListPage.js';
 import PersonPage from './components/personPage.js';
+import PersonDetailPage from './components/personDetailPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
@@ -31,7 +32,8 @@ function initRouter() {
             case /#student/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              personInstance.getHTMLDetail();
+              reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));
+              //personInstance.getHTMLDetail();
               break;
             /** Modify student information */
             case /#editStudent/.test(isLink.href):

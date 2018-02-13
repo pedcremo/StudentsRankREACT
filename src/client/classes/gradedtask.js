@@ -1,7 +1,7 @@
 'use strict';
 
 import Task from './task.js';
-import {loadTemplate} from '../lib/utils.js';
+import {loadTemplate,updateObject} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
 import $ from "jquery";
@@ -28,10 +28,11 @@ events.subscribe('dataservice/SaveGradedTask',(obj) => {
     //UPDATE
     if (obj.id) {  
        gt=gradedTasks.get(obj.id);
-       gt.name = obj.name;
+       gt=updateObject(gt,obj);
+       /*gt.name = obj.name;
        gt.weight = obj.weight;
        gt.term = obj.term;
-       gt.description = obj.description;       
+       gt.description = obj.description;*/
     //NEW  
     }else{
       gt = new GradedTask(obj.name,obj.description,obj.weight,[],obj.term);

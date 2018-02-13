@@ -1,7 +1,5 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
-import Person from '../classes/person.js';
-import {loadTemplate} from '../lib/utils.js';
 
 class PersonPage extends React.Component {
     constructor(props){
@@ -29,23 +27,9 @@ class PersonPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const formData = new FormData(event.target);
-       
-        let id=this.state.id;
-        if (id==='huevon') {
-            let student = new Person(this.state.name,this.state.surnames,[]);
-            id=student.id;    
-        }
-        formData.append('idStudent',id);        
-        loadTemplate('api/uploadImage',function(response) {
-                console.log(response);
-        },'POST',formData,'false');        
-        /*$.ajax('api/uploadImage',{
-            processData: false,
-            contentType: false,
-            data: formData
-        });*/
-        events.publish('dataservice/SavePerson',this.state);        
+        const formData = new FormData(event.target);       
+      
+        events.publish('dataservice/SavePerson',{'studentProps':this.state,'formData':formData});        
     }
 
     handleProfileChange(event) {

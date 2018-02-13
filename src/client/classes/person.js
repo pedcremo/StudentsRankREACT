@@ -9,7 +9,7 @@
  * @tutorial pointing-criteria
  */
 
-import {formatDate,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
+import {formatDate,updateObject,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
 import {doProxy} from '../lib/proxy.js';
@@ -28,18 +28,23 @@ let gradedtaskMAP = new Map();
 events.subscribe('dataservice/SavePerson',(obj) => {
   let person = {};   
   //UPDATE
-  if (obj.id && obj.id!=='huevon') {  
-     person=students.get(obj.id);
-     person.name = obj.name;
-     person.surname = obj.surnames;      
+  if (obj.studentProps.id && obj.studentProps.id!=='huevon') {      
+     person=students.get(obj.studentProps.id);    
+     person=updateObject(person,obj.studentProps);
+     events.publish('dataservice/saveStudents',JSON.stringify([...students]));      
+     Person.getRankingTable();
   //NEW  
   }else{
-    person = new Person(obj.name,obj.surnames,[]);
-    students.set(person.id,person);      
+    person = new Person(obj.studentProps.name,obj.studentProps.surnames,[]);
+    //students.set(person.id,person);      
+    Person.addStudent(person);
   }
-  events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
-  Person.getRankingTable();
-}
+  obj.formData.append('idStudent',person.id);        
+  loadTemplate('api/uploadImage',function(response) {
+          console.log(response);
+  },'POST',obj.formData,'false');   
+  
+  }
 );
 events.subscribe('attitudeTask/change',(obj) => {
   attitudeMAP = obj;  
@@ -128,6 +133,9 @@ class Person {
       }
     });
     return max;
+  }
+  getAttitudeById(idAttitude) {
+    return attitudeMAP.get(parseInt(idAttitude));
   }
   /** Add a Attitude task linked to person with its own mark. */
   addAttitudeTask(taskInstance) {
@@ -239,7 +247,7 @@ class Person {
     loadTemplate('templates/addStudent.html',callback);
   }*/
   /** Renders person detail view */
-  getHTMLDetail() {
+  /*getHTMLDetail() {
     loadTemplate('templates/detailStudent.html',function(responseText) {
         let TPL_STUDENT = this;
         let scope = {};
@@ -258,7 +266,7 @@ class Person {
         console.log(out);
         $('#content').html(eval('`' + out + '`'));
       }.bind(this));
-  }
+  }*/
   /** Add a new person to the context app */
   /*static addPerson() {
     let callback = function(responseText) {
@@ -302,7 +310,6 @@ class Person {
   }
   static getRankingTable(umount=false) {
     
-    //if (students && students.size > 0) {
       /* We sort students in descending order from max number of points to min when we are in not expanded view */
       let arrayFromMap = [...students.entries()];
       let fingerPrintBeforeSort = arrayFromMap.toString();
@@ -321,12 +328,13 @@ class Person {
       reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
        
   }
-  /*static addStudent(studentInstance) {
-    //events.publish('student/new',studentInstance);
+
+  static addStudent(studentInstance) {    
     students.set(studentInstance.getId(),studentInstance);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
     Person.getRankingTable();    
-  } */
+  } 
+
   static getStudentsSize() {
     return students.size;
   }

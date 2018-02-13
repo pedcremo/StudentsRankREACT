@@ -40,7 +40,7 @@ function generateMenu() {
   output += '<option value="NEW subject">NEW subject</option>';
   output += '</select><br><span id="termMenu">' + settings.defaultTerm + '</span></li>';
 
-  output += '<li class="nav-item"><a class="nav-link" href="#addStudent"><button class="btn btn-secondary"> + StudentS  </button></a></li>';
+  output += '<li class="nav-item"><a class="nav-link" href="#addStudent"><button class="btn btn-secondary"> + Student  </button></a></li>';
   output += '<li class="nav-item"><a class="nav-link" href="#addGradedTask"><button class="btn btn-secondary"> + Graded task</button></a></li>';
   output += '<li class="nav-item"><a class="nav-link" href="#settings"><button class="btn btn-secondary">Settings</button></a></li>';
   //output += '<li class="nav-item"><a class="nav-link" href="#reactTest"><button class="btn btn-secondary">REACT</button></a></li>';
