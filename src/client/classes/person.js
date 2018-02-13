@@ -137,6 +137,9 @@ class Person {
   getAttitudeById(idAttitude) {
     return attitudeMAP.get(parseInt(idAttitude));
   }
+  getGradedTasks(){
+    return [...gradedtaskMAP.entries()]
+  }
   /** Add a Attitude task linked to person with its own mark. */
   addAttitudeTask(taskInstance) {
     let dateTimeStamp = new Date();//Current time

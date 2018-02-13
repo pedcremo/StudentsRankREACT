@@ -1,6 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import AttitudeListItemPage from './attitudeListItemPage.js';
+import GradedTaskListItemPage from './gradedTaskListItemPage.js';
 
 
 class PersonDetailPage extends React.Component {
@@ -13,14 +14,15 @@ class PersonDetailPage extends React.Component {
     }
     
     render() {
-        debugger;
+       
         //const prova = this.state.student.attitudeTasks
-        const attitudeTasksItems = this.state.student.attitudeTasks.map((attitudeItem) =>
+        const attitudeTasksItems = this.state.student.attitudeTasks.reverse().map((attitudeItem) =>
             <AttitudeListItemPage key={attitudeItem.id} studentId={this.state.student.id} datetime={attitudeItem.timestamp} attitudeInstance={this.state.student.getAttitudeById(attitudeItem.id)} />                                
         );
         //const attitudeTasksItems = 'HOLA';
-        const gradedTasksItems = 'CARACOLA';
-
+        const gradedTasksItems =  this.state.student.getGradedTasks().map((gtItem) =>
+            <GradedTaskListItemPage key={gtItem[0]} studentId={this.state.student.id} gradedTaskInstance={gtItem[1]} />                                
+        );
         return (
             <div>
                 <img src={'src/server/data/fotos/'+this.state.student.id+'.jpg'} />
