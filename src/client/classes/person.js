@@ -38,6 +38,11 @@ events.subscribe('dataservice/SavePerson',(obj) => {
     person = new Person(obj.name,obj.surnames,[]);
     students.set(person.id,person);      
   }
+  //$.post('api/uploadImage', obj.profileImg );
+  /*loadTemplate('api/uploadImage',function(response) {
+    console.log(response);
+  },'POST',obj.profileImg,'false');*/
+
   events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
   Person.getRankingTable();
 }

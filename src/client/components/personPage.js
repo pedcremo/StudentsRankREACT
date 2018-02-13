@@ -1,6 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Person from '../classes/person.js';
+import {loadTemplate} from '../lib/utils.js';
 
 class PersonPage extends React.Component {
     constructor(props){
@@ -9,6 +10,7 @@ class PersonPage extends React.Component {
                 name: props.student.personInstance?props.student.personInstance.name:'',
                 surnames: props.student.personInstance?props.student.personInstance.surname:'',
                 id: props.student.personInstance?props.student.personInstance.id:'huevon'
+               
         };        
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);    
@@ -27,21 +29,19 @@ class PersonPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        let saveStudent = $('#newStudent');
-        let formData = new FormData(saveStudent[0]);
-        let studentProfile = $('#myProfile');
-        let file = studentProfile[0].files[0];
+        const formData = new FormData(event.target);
+       
         let id=this.state.id;
         if (id==='huevon') {
             let student = new Person(this.state.name,this.state.surnames,[]);
             id=student.id;    
         }
         formData.append('idStudent',id);
-
-        /*loadTemplate('api/uploadImage',function(response) {
+        debugger;       
+        loadTemplate('api/uploadImage',function(response) {
                 console.log(response);
-        },'POST',formData,'false');*/
-        $.post( 'api/uploadImage', formData );
+        },'POST',formData,'false');
+        //$.post( 'api/uploadImage', formData );
         events.publish('dataservice/SavePerson',this.state);        
     }
 
