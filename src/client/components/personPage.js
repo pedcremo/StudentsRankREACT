@@ -36,12 +36,15 @@ class PersonPage extends React.Component {
             let student = new Person(this.state.name,this.state.surnames,[]);
             id=student.id;    
         }
-        formData.append('idStudent',id);
-        debugger;       
+        formData.append('idStudent',id);        
         loadTemplate('api/uploadImage',function(response) {
                 console.log(response);
-        },'POST',formData,'false');
-        //$.post( 'api/uploadImage', formData );
+        },'POST',formData,'false');        
+        /*$.ajax('api/uploadImage',{
+            processData: false,
+            contentType: false,
+            data: formData
+        });*/
         events.publish('dataservice/SavePerson',this.state);        
     }
 

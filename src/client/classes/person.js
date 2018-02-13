@@ -26,8 +26,7 @@ let gradedtaskMAP = new Map();
 
 //Obj
 events.subscribe('dataservice/SavePerson',(obj) => {
-  let person = {}; 
-  debugger;
+  let person = {};   
   //UPDATE
   if (obj.id && obj.id!=='huevon') {  
      person=students.get(obj.id);
@@ -38,11 +37,6 @@ events.subscribe('dataservice/SavePerson',(obj) => {
     person = new Person(obj.name,obj.surnames,[]);
     students.set(person.id,person);      
   }
-  //$.post('api/uploadImage', obj.profileImg );
-  /*loadTemplate('api/uploadImage',function(response) {
-    console.log(response);
-  },'POST',obj.profileImg,'false');*/
-
   events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
   Person.getRankingTable();
 }
