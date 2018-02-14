@@ -8,12 +8,14 @@ import Settings from './classes/settings.js';
 import {saveStudents} from './dataservice.js';
 import GradedTaskPage from './components/gradedTaskPage.js';
 import RankingListPage from './components/rankingListPage.js';
+//import ListAttitudeTaskPage from './components/listAttitudeTaskPage.js';
 import PersonPage from './components/personPage.js';
 import PersonDetailPage from './components/personDetailPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
+import ListAttitudeTaskPage from './components/listAttitudeTaskPage.js';
 
 let settings;
 events.subscribe('settings/change',(obj) => {
@@ -64,7 +66,9 @@ function initRouter() {
             /** Show popup associated to an student in order to assign XP points  */
             case /#addXP/.test(isLink.href):
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              AttitudeTask.addXP(personInstance);
+              reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component
+              //AttitudeTask.addXP(personInstance);
+              reactDOM.render(<ListAttitudeTaskPage student={personInstance} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
               break;
             /** Add new student form */
             case /#addStudent/.test(isLink.href):

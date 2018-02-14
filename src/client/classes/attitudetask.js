@@ -38,10 +38,10 @@ class AttitudeTask extends Task {
     this.type = (this.points >= 0) ? 'success' : 'danger';//Positive or negative attitude
   }
   static getAttitudeTasks() {
-    return attitudeTasks;
+    return [...attitudeTasks.entries()];
   }
   /** Open window dialog associated to a person instance and let us award him with some XP points */
-  static addXP(personInstance) {
+  /*static addXP(personInstance) {
     let that = this;
     let callback = function(responseText) {
       let scope = {};
@@ -82,7 +82,7 @@ class AttitudeTask extends Task {
       });
     };
     loadTemplate('templates/listAttitudeTasks.html',callback);
-  }
+  }*/
   static getAttitudeById(idTask) {
     return attitudeTasks.get(idTask);
   }

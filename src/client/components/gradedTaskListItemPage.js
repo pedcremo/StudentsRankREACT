@@ -15,10 +15,8 @@ class GradedTaskListItemPage extends React.Component {
     
     render() {
 
-        return (                
-                    
-                    <li className="list-group-item">{this.state.gtItem.getStudentMark(this.state.studentId)+ '->'+ this.state.gtItem.name + '->' + formatDate(new Date(this.state.gtItem.datetime))}</li>
-              
+        return (                 
+            <li className="list-group-item">{this.state.gtItem.getStudentMark(this.state.studentId)+ '% doing '+ this.state.gtItem.name + ' on ' + formatDate(new Date(this.state.gtItem.datetime))}</li>           
         );
     }
 }

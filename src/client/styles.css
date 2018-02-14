@@ -3,11 +3,13 @@
 
 /* Important part */
 .modal-dialog{
-  overflow-y: initial !important
+  overflow-y: initial !important;
+  background-color: white !important;
 }
 .modal-body{
   height: 400px;
   overflow-y: auto;
+  
 }
 
 .navbar-right li a {

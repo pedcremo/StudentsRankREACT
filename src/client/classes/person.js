@@ -99,9 +99,9 @@ class Person {
   }
 
   /** Get person id  based on a 10 character hash composed by name+surname */
-  getId() {
+  /*getId() {
     return this.id;
-  }
+  }*/
 
   /** Read person _totalXPpoints. A private property only modicable inside person instance */
   getXPtotalPoints() {
@@ -195,8 +195,7 @@ class Person {
     if (isNaN(points)) {
       points=0;
     }
-    return Math.round((points * 100) / 100);
-    //return GradedTask.getStudentGradedTasksPoints(this.getId());
+    return Math.round((points * 100) / 100);    
   }
   /** XP mark relative to highest XP mark and XP weight and GT grade */
   getFinalGrade() {
@@ -207,107 +206,7 @@ class Person {
     }
     return Math.round(xpGrade + (this.getGTtotalPoints() * (settings.weightGP / 100)));
   }
-  /** Renders person edit form */
-  /*getHTMLEdit() {
-    let callback = function(responseText) {
-      $('#content').html(responseText);
-      let saveStudent = $('#newStudent');
-      $('#idFirstName').val(this.name);
-      $('#idSurnames').val(this.surname);
-      let studentProfile = $('#myProfile');
-      let outputImg = $('#output');
-      outputImg.attr('src','src/server/data/fotos/' + this.getId() + '.jpg');
-      let studentThis = this;
-
-      studentProfile.change(() => {
-        let input = event.target;
-        let reader = new FileReader();
-        reader.onload = function() {
-          let dataURL = reader.result;
-          //output = document.getElementById('output');
-          outputImg.attr('src',dataURL);
-        };
-        reader.readAsDataURL(input.files[0]);
-      });
-
-      saveStudent.submit(function() {
-        let oldId = studentThis.getId();
-        studentThis.name = $('#idFirstName').val();
-        studentThis.surname = $('#idSurnames').val();
-        let student = new Person(studentThis.name,studentThis.surname,studentThis.attitudeTasks,studentThis.id);
-        let formData = new FormData(saveStudent[0]);
-        let file = studentProfile[0].files[0];
-        formData.append('idStudent',student.getId());
-
-        loadTemplate('api/uploadImage',function(response) {
-          console.log(response);
-        },'POST',formData,'false');
-        students.set(student.getId(),student);
-        events.publish('dataservice/saveStudents',JSON.stringify([...students]));        
-      });
-    }.bind(this);
-
-    loadTemplate('templates/addStudent.html',callback);
-  }*/
-  /** Renders person detail view */
-  /*getHTMLDetail() {
-    loadTemplate('templates/detailStudent.html',function(responseText) {
-        let TPL_STUDENT = this;
-        let scope = {};
-        scope.TPL_ATTITUDE_TASKS = [];
-        this.attitudeTasks.reverse().forEach(function(atItem) {
-          let itemAT = attitudeMAP.get(parseInt(atItem.id));
-          itemAT.datetime = atItem.timestamp;
-          scope.TPL_ATTITUDE_TASKS.push(itemAT);
-        });
-        let TPL_GRADED_TASKS = '';
-        gradedtaskMAP.forEach(function(gtItem) {
-          TPL_GRADED_TASKS += '<li class="list-group-item">' + gtItem.getStudentMark(TPL_STUDENT.getId()) + '->' +
-                        gtItem.name + '->' + formatDate(new Date(gtItem.datetime)) + '</li>';
-        });
-        let out = template(responseText,scope);
-        console.log(out);
-        $('#content').html(eval('`' + out + '`'));
-      }.bind(this));
-  }*/
-  /** Add a new person to the context app */
-  /*static addPerson() {
-    let callback = function(responseText) {
-            $('#content').html(responseText);
-            let saveStudent = $('#newStudent');
-            let studentProfile = $('#myProfile');
-
-            studentProfile.change(function(event) {
-              let input = event.target;
-              let reader = new FileReader();
-              reader.onload = function() {
-                let dataURL = reader.result;
-                let output = $('#output');
-                output.src = dataURL; 
-              };
-              reader.readAsDataURL(input.files[0]);
-            });
-
-            saveStudent.submit(function(event) {
-              event.preventDefault();
-              let name = $('#idFirstName').val();
-              let surnames = $('#idSurnames').val();
-              let student = new Person(name,surnames,[]);
-              var formData = new FormData(saveStudent[0]);
-              var file = studentProfile[0].files[0];
-              formData.append('idStudent',student.getId());
-
-              loadTemplate('api/uploadImage',function(response) {
-                console.log(response);
-              },'POST',formData,'false');
-
-              Person.addStudent(student);
-              return false; //Avoid form submit              
-            });
-          };
-
-    loadTemplate('templates/addStudent.html',callback);
-  }*/
+  
   static getPersonById(idHash) {
     return students.get(parseInt(idHash));
   }

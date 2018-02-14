@@ -13,13 +13,12 @@ class PersonDetailPage extends React.Component {
        
     }
     
-    render() {
+    render() {      
        
-        //const prova = this.state.student.attitudeTasks
         const attitudeTasksItems = this.state.student.attitudeTasks.reverse().map((attitudeItem) =>
             <AttitudeListItemPage key={attitudeItem.id} studentId={this.state.student.id} datetime={attitudeItem.timestamp} attitudeInstance={this.state.student.getAttitudeById(attitudeItem.id)} />                                
         );
-        //const attitudeTasksItems = 'HOLA';
+        
         const gradedTasksItems =  this.state.student.getGradedTasks().map((gtItem) =>
             <GradedTaskListItemPage key={gtItem[0]} studentId={this.state.student.id} gradedTaskInstance={gtItem[1]} />                                
         );
@@ -27,7 +26,7 @@ class PersonDetailPage extends React.Component {
             <div>
                 <img src={'src/server/data/fotos/'+this.state.student.id+'.jpg'} />
                 <h1>{this.state.student.name} {this.state.student.surname} {this.state.student.getFinalGrade()}</h1>
-
+  
                 <h3>Attitude tasks</h3>                
                 <ul className="list-group">                
                     {attitudeTasksItems}                
