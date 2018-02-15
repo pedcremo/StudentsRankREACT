@@ -1,33 +1,29 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import AttitudeItemPage from './attitudeItemPage.js';
+import Modal from 'react-bootstrap4-modal';
 
 class ListAttitudeTaskPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {                
                 student: props.student,
-                attitudeTasks: props.attitudeTasks                
-               
-        };            
-          
-        //this.handleXPonClick = this.handleXPonClick.bind(this); 
-        /*this.handleSubmit = this.handleSubmit.bind(this);    
-        this.handleProfileChange = this.handleProfileChange.bind(this);*/
-        this.handleInput = this.handleInput.bind(this); 
+                attitudeTasks: props.attitudeTasks,
+                visible:true,
+                points:20, //Default number of points for a new Attitude Task
+                description:''
+        };                      
+        
+        this.handleInputChange = this.handleInputChange.bind(this);  
+        this.modalBackdropClicked = this.modalBackdropClicked.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleInput(event) {
-        //debugger;
-        event.preventDefault();
-        alert('NO ES VERDAD angel de amor');
+    modalBackdropClicked(event) {        
+        this.setState({
+            visible: !this.state.visible
+          });       
     }
-    componentDidMount() {
-        $('#XPModal').modal('toggle');
-    }
-    componentWillUnmount() {
-        //alert("HIIIII");
-    }
-    
+
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -38,38 +34,26 @@ class ListAttitudeTaskPage extends React.Component {
         });
     }
 
-    /*handleSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);       
-      
-        events.publish('dataservice/SavePerson',{'studentProps':this.state,'formData':formData});        
-    }
-
-    handleProfileChange(event) {
-        let outputImg = $('#output');
-        let input = event.target;
-        let reader = new FileReader();
-        reader.onload = function() {
-          let dataURL = reader.result;
-          //output = document.getElementById('output');
-          outputImg.attr('src',dataURL);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }*/
+    handleSubmit(event) {
+        event.preventDefault();              
+        let data={'studentId':this.state.student.id,'idAttitudeTask':'','points':this.state.points,'description':this.state.description}
+        console.log(JSON.stringify(data));
+        events.publish('dataservice/SaveAttitudeTask',data);        
+    }   
 
     render() {
         let attitudeItems = this.state.attitudeTasks.map((attitudeItem) =>         
-            <AttitudeItemPage key={attitudeItem[1].id} studentId={this.state.student.id} attitudeItem={attitudeItem}/>           
+            <AttitudeItemPage key={attitudeItem[1].id} handleClick={this.modalBackdropClicked} studentId={this.state.student.id} attitudeItem={attitudeItem}/>                  
         ); 
+        
         
         return (
             /* Modal */            
-            <div onClick={this.handleInput} className="modal fade" id="XPModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
+            <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">XP to {this.state.student.surname} ,{this.state.student.name}</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" className="close" data-dismiss="modal" onClick={this.modalBackdropClicked} aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -87,21 +71,20 @@ class ListAttitudeTaskPage extends React.Component {
                     </div>   
                 </div>
                 <div className="modal-footer">                    
-                    <form id="newAttitudeTask" className="form-inline">
+                    <form id="newAttitudeTask" onSubmit={this.handleSubmit} className="form-inline">
                         <div className="form-group">
                             <label  htmlFor="points">Points: </label>
-                            <input type="text" name="points" id="points" size="3" value="20" className="text ui-widget-content ui-corner-all" onChange={this.handleInputChange} />
+                            <input type="text" name="points" id="points" size="3" value={this.state.points} className="text ui-widget-content ui-corner-all" onChange={this.handleInputChange} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="text">Text:</label>
-                            <input type="text" name="text" id="description" value="" className="text ui-widget-content ui-corner-all" onChange={this.handleInputChange}/>
+                            <input type="text" name="description" id="description" value={this.state.description} className="text ui-widget-content ui-corner-all" onChange={this.handleInputChange}/>
                         </div>
                         <input type="submit" value="New XP task" />                  
                     </form>                        
-                    <button type="button" className="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>          
+                    <button type="button" className="btn btn-secondary" onClick={this.modalBackdropClicked} id="closeModal" data-dismiss="modal">Close</button>          
                 </div>                
-            </div>
-            </div>                   
+            </Modal>
         );
     }
 }

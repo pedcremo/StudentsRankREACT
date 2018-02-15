@@ -7,19 +7,22 @@ class AttitudeItemPage extends React.Component {
         super(props);
         this.state = {   
             attitudeItem:props.attitudeItem,
-            studentId:props.studentId            
-        };   
+            studentId:props.studentId,
+            handleClickParent:props.handleClick           
+        };           
         
-        this.handleInput = this.handleInput.bind(this); 
     }
     handleInput(event) {
-        debugger;
-        alert("NO ES VERDAD");
+        event.preventDefault();              
+        let data={'studentId':this.state.studentId,'idAttitudeTask':this.state.attitudeItem[1].id,'points':this.state.attitudeItem[1].points,'description':this.state.attitudeItem[1].description}
+        console.log(JSON.stringify(data));        
+        events.publish('dataservice/SaveAttitudeTask',data);     
+        debugger;   
+        props.handleClickParent();
     }
     render() {
         return (                                
-            <button onClick={this.handleInput} style={{overlay: {zIndex: -99}}} key={this.state.attitudeItem[1].id} className={'xp btn btn-'+this.state.attitudeItem[1].type}  idat={this.state.attitudeItem[1].id} value={this.state.attitudeItem[1].points}>{this.state.attitudeItem[1].points} {this.state.attitudeItem[1].description}</button>           
-                
+            <button onClick={this.handleInput} id={this.state.attitudeItem[1].id} key={this.state.attitudeItem[1].id} className={'xp btn btn-'+this.state.attitudeItem[1].type}  idat={this.state.attitudeItem[1].id} value={this.state.attitudeItem[1].points}>{this.state.attitudeItem[1].points} {this.state.attitudeItem[1].description}</button>                           
         );
     }
 }

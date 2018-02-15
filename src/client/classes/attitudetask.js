@@ -17,6 +17,7 @@ import $ from "jquery";
 import {loadTemplate} from '../lib/utils.js';
 import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
+import Person from './person.js';
 
 let attitudeTasks = new Map();
 
@@ -28,6 +29,24 @@ events.subscribe('dataservice/getAttitudeTasks',(obj) => {
     });
   attitudeTasks = attitudeTasks_;
   events.publish('attitudeTask/change',attitudeTasks);
+});
+
+events.subscribe('dataservice/SaveAttitudeTask',(obj) => {
+  //Assign ATTITUDE
+  let p=Person.getPersonById(obj.studentId);
+  let at;
+  debugger;
+  if (!obj.idAttitudeTask) {
+  //Create new task and assign
+    at = new AttitudeTask(description,description,points);
+    attitudeTasks.set(at.id,at);     
+    events.publish('dataservice/saveAttitudeTasks',JSON.stringify([...attitudeTasks.entries()]));           
+  //Assign an existing task     
+  }else{
+    at = attitudeTasks.get(parseInt(obj.idAttitudeTask));            
+  }
+  at.hits++;
+  p.addAttitudeTask(at);
 });
 
 class AttitudeTask extends Task {
