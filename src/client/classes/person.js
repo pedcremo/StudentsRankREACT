@@ -143,6 +143,7 @@ class Person {
   /** Add a Attitude task linked to person with its own mark. */
   addAttitudeTask(taskInstance) {
     let dateTimeStamp = new Date();//Current time
+   
     this.attitudeTasks.push({'id':taskInstance.id,'timestamp':dateTimeStamp});
     events.publish('/context/addXP',{'attitudeTask':taskInstance,'person':this});
    

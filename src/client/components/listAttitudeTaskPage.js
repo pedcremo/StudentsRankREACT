@@ -1,6 +1,5 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
-import AttitudeItemPage from './attitudeItemPage.js';
 import Modal from 'react-bootstrap4-modal';
 
 class ListAttitudeTaskPage extends React.Component {
@@ -12,8 +11,8 @@ class ListAttitudeTaskPage extends React.Component {
                 visible:true,
                 points:20, //Default number of points for a new Attitude Task
                 description:''
-        };                      
-        
+        };                              
+        this.handleXPclick = this.handleXPclick.bind(this);  
         this.handleInputChange = this.handleInputChange.bind(this);  
         this.modalBackdropClicked = this.modalBackdropClicked.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +21,14 @@ class ListAttitudeTaskPage extends React.Component {
         this.setState({
             visible: !this.state.visible
           });       
+    }
+
+    handleXPclick(event) {    
+        let xpButton=event.target;    
+        let data={'studentId':this.state.student.id,'idAttitudeTask':xpButton.id};
+        console.log(JSON.stringify(data));        
+        events.publish('dataservice/SaveAttitudeTask',data); 
+        this.modalBackdropClicked();                    
     }
 
     handleInputChange(event) {
@@ -39,11 +46,14 @@ class ListAttitudeTaskPage extends React.Component {
         let data={'studentId':this.state.student.id,'idAttitudeTask':'','points':this.state.points,'description':this.state.description}
         console.log(JSON.stringify(data));
         events.publish('dataservice/SaveAttitudeTask',data);        
+        this.modalBackdropClicked();
     }   
 
     render() {
         let attitudeItems = this.state.attitudeTasks.map((attitudeItem) =>         
-            <AttitudeItemPage key={attitudeItem[1].id} handleClick={this.modalBackdropClicked} studentId={this.state.student.id} attitudeItem={attitudeItem}/>                  
+            <button onClick={this.handleXPclick} id={attitudeItem[1].id} key={attitudeItem[1].id} className={'xp btn btn-'+attitudeItem[1].type}  value={attitudeItem[1].points}>{attitudeItem[1].points} {attitudeItem[1].description}</button>                           
+        
+            //<AttitudeItemPage key={attitudeItem[1].id} handleClick={this.modalBackdropClicked} studentId={this.state.student.id} attitudeItem={attitudeItem}/>                  
         ); 
         
         

@@ -16,7 +16,7 @@ class PersonDetailPage extends React.Component {
     render() {      
        
         const attitudeTasksItems = this.state.student.attitudeTasks.reverse().map((attitudeItem) =>
-            <AttitudeListItemPage key={attitudeItem.id} studentId={this.state.student.id} datetime={attitudeItem.timestamp} attitudeInstance={this.state.student.getAttitudeById(attitudeItem.id)} />                                
+            <AttitudeListItemPage key={attitudeItem.id+attitudeItem.timestamp} studentId={this.state.student.id} datetime={attitudeItem.timestamp} attitudeInstance={this.state.student.getAttitudeById(attitudeItem.id)} />                                
         );
         
         const gradedTasksItems =  this.state.student.getGradedTasks().map((gtItem) =>

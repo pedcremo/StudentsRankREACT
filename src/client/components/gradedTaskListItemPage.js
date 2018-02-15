@@ -9,8 +9,7 @@ class GradedTaskListItemPage extends React.Component {
             
             studentId:props.studentId,            
             gtItem:props.gradedTaskInstance               
-        };   
-        debugger;     
+        };          
     }
     
     render() {

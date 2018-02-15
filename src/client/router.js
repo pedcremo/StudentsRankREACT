@@ -60,7 +60,10 @@ function initRouter() {
                 var matchResults = isLink.href.match(reg);
                 personInstance = Person.getPersonById(matchResults[1]);
                 personInstance.deleteXP(parseInt(getIdFromURL(isLink.href)));
-                personInstance.getHTMLDetail();
+                reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+                reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));
+                
+                //personInstance.getHTMLDetail();
               }
               break;
             /** Show popup associated to an student in order to assign XP points  */

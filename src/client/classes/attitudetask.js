@@ -35,12 +35,12 @@ events.subscribe('dataservice/SaveAttitudeTask',(obj) => {
   //Assign ATTITUDE
   let p=Person.getPersonById(obj.studentId);
   let at;
-  debugger;
   if (!obj.idAttitudeTask) {
   //Create new task and assign
-    at = new AttitudeTask(description,description,points);
+    at = new AttitudeTask(obj.description,obj.description,obj.points);       
     attitudeTasks.set(at.id,at);     
-    events.publish('dataservice/saveAttitudeTasks',JSON.stringify([...attitudeTasks.entries()]));           
+    let prova = [...attitudeTasks];
+    events.publish('dataservice/saveAttitudeTasks',JSON.stringify(prova));           
   //Assign an existing task     
   }else{
     at = attitudeTasks.get(parseInt(obj.idAttitudeTask));            
