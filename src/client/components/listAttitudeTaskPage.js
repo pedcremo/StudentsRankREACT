@@ -14,6 +14,12 @@ class ListAttitudeTaskPage extends React.Component {
         //this.handleXPonClick = this.handleXPonClick.bind(this); 
         /*this.handleSubmit = this.handleSubmit.bind(this);    
         this.handleProfileChange = this.handleProfileChange.bind(this);*/
+        this.handleInput = this.handleInput.bind(this); 
+    }
+    handleInput(event) {
+        //debugger;
+        event.preventDefault();
+        alert('NO ES VERDAD angel de amor');
     }
     componentDidMount() {
         $('#XPModal').modal('toggle');
@@ -58,7 +64,7 @@ class ListAttitudeTaskPage extends React.Component {
         
         return (
             /* Modal */            
-            <div className="modal fade" id="XPModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div onClick={this.handleInput} className="modal fade" id="XPModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">

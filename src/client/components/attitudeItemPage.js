@@ -10,15 +10,15 @@ class AttitudeItemPage extends React.Component {
             studentId:props.studentId            
         };   
         
-        this.handleXPonClick = this.handleXPonClick.bind(this); 
+        this.handleInput = this.handleInput.bind(this); 
     }
-    handleXPonClick(event) {
+    handleInput(event) {
         debugger;
         alert("NO ES VERDAD");
     }
     render() {
         return (                                
-            <button key={this.state.attitudeItem[1].id} className={'xp btn btn-'+this.state.attitudeItem[1].type} onClick={this.handleXPonClick} idat={this.state.attitudeItem[1].id} value={this.state.attitudeItem[1].points}>{this.state.attitudeItem[1].points} {this.state.attitudeItem[1].description}</button>           
+            <button onClick={this.handleInput} style={{overlay: {zIndex: -99}}} key={this.state.attitudeItem[1].id} className={'xp btn btn-'+this.state.attitudeItem[1].type}  idat={this.state.attitudeItem[1].id} value={this.state.attitudeItem[1].points}>{this.state.attitudeItem[1].points} {this.state.attitudeItem[1].description}</button>           
                 
         );
     }

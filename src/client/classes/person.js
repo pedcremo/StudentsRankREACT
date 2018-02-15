@@ -232,7 +232,7 @@ class Person {
   }
 
   static addStudent(studentInstance) {    
-    students.set(studentInstance.getId(),studentInstance);
+    students.set(studentInstance.id,studentInstance);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));    
     Person.getRankingTable();    
   } 
