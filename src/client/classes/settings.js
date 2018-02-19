@@ -49,6 +49,9 @@ class Settings {
     }
   }
   
+  static getSettings() {
+    return settings;
+  }
   static getTerms() {
     return settings.terms;
   }
@@ -60,7 +63,7 @@ class Settings {
   static getGtWeight(){
     return settings.weightGP;
   }
-  static getSettings() {
+  /*static getSettings() {
     let scope = {};
     let output = '';
     scope.TPL_TERMS = settings.terms;
@@ -108,7 +111,7 @@ class Settings {
       console.log('Settings: To implement');
     };
     loadTemplate('templates/settings.html',callback);
-  }
+  }*/
 }
 
 export default Settings;

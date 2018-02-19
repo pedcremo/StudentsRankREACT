@@ -8,9 +8,9 @@ import Settings from './classes/settings.js';
 import {saveStudents} from './dataservice.js';
 import GradedTaskPage from './components/gradedTaskPage.js';
 import RankingListPage from './components/rankingListPage.js';
-//import ListAttitudeTaskPage from './components/listAttitudeTaskPage.js';
 import PersonPage from './components/personPage.js';
 import PersonDetailPage from './components/personDetailPage.js';
+import SettingsPage from './components/settingsPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
@@ -34,22 +34,18 @@ function initRouter() {
             case /#student/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));
-              //personInstance.getHTMLDetail();
+              reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));             
               break;
             /** Modify student information */
             case /#editStudent/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              reactDOM.render(<PersonPage student={{personInstance}} />, document.getElementById('content'));
-              //personInstance.getHTMLEdit();
+              reactDOM.render(<PersonPage student={{personInstance}} />, document.getElementById('content'));              
               break;
             /** Delete student with confirmation */
             case /#deleteStudent/.test(isLink.href):
               if (window.confirm('Are you sure?')) {
-                Person.deleteById(parseInt(getIdFromURL(isLink.href)));
-                //context.students.delete(parseInt(getIdFromURL(isLink.href)));
-                //saveStudents(JSON.stringify([...context.students]));
+                Person.deleteById(parseInt(getIdFromURL(isLink.href)));                
                 context.getTemplateRanking(true);
               }
               break;
@@ -61,30 +57,23 @@ function initRouter() {
                 personInstance = Person.getPersonById(matchResults[1]);
                 personInstance.deleteXP(parseInt(getIdFromURL(isLink.href)));
                 reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-                reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));
-                
-                //personInstance.getHTMLDetail();
+                reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));                
               }
               break;
             /** Show popup associated to an student in order to assign XP points  */
             case /#addXP/.test(isLink.href):
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component
-              //AttitudeTask.addXP(personInstance);
+              reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
               reactDOM.render(<ListAttitudeTaskPage student={personInstance} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
               break;
             /** Add new student form */
-            case /#addStudent/.test(isLink.href):
-              //debugger;
+            case /#addStudent/.test(isLink.href):              
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-              reactDOM.render(<PersonPage student={{}} />, document.getElementById('content'));
-             
-              //Person.addPerson();
+              reactDOM.render(<PersonPage student={{}} />, document.getElementById('content'));             
               break;
-            case /#settings/.test(isLink.href):
-              //context.getSettings();
-              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-              Settings.getSettings();
+            case /#settings/.test(isLink.href):              
+              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component              
+              reactDOM.render(<SettingsPage props={Settings.getSettings()} />, document.getElementById('content'));
               break;
             /** logout */
             case /#logout/.test(isLink.href):
@@ -93,26 +82,13 @@ function initRouter() {
             /** Add new Graded Task form */
             case /#addGradedTask/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-              // GradedTask.addGradedTask();
-              //reactDOM.render(<GradedTaskPage gtInstance={{}} terms={Settings.getTerms()} />, document.getElementById('content')); 		          
-              //(100 - GradedTask.getGradedTasksTotalWeight()
-              reactDOM.render(<GradedTaskPage props={{term:settings.defaultTerm}} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight())} />, document.getElementById('content'));
-             
+              reactDOM.render(<GradedTaskPage props={{term:settings.defaultTerm}} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight())} />, document.getElementById('content'));             
               break;
             case /#detailGradedTask/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-              let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));	    
-                
-              reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));
-             	
-              /*reactDOM.render(<GradedTaskPage gtInstance={gtInstance} terms={Settings.getTerms()} />, document.getElementById('content'));*/
-              //gtInstance.getHTMLEdit();
-              break;
-            /*case /#reactTest/.test(isLink.href):                         
-              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-              reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}/>, document.getElementById('content'));
-              //reactDOM.render(<RankingListItemPage student={{id:'-1420523329',profileURL:'fjakfja',name:'Paco',surnames:'El MAco',fg:78,xp:23,gt:56}} />, document.getElementById('content'));
-              break;*/
+              let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));               
+              reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));             	             
+              break;            
             default:
               //debugger;
               context.isLogged();
