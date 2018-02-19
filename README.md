@@ -135,6 +135,11 @@ READ CAREFULLY HOW TO GENERATE CERTIFICATES: https://certbot.eff.org/#ubuntuxeni
 
 Try to do it from a server with a public IP an a domain name pointing to it. The domain name is mandatory for building the certificate.
 
+sudo certbot --apache certonly
+sudo certbot --authenticator standalone --installer apache  -d runking.iestacio.com --pre-hook "service apache2 stop" --post-hook "service apache2 start"
+
+He editat /etc/hosts per fer que runking.iestacio.com cap a 127.0.0.1
+Google api console to change redirect 
 runking.conf file content
 <pre>
 NameVirtualHost *:80
