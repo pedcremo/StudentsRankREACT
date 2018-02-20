@@ -49,7 +49,7 @@ class Context {
       /* Login and getting user credential */
       }else {
         this.user = JSON.parse(response);
-        /* Only call server if we not have loaded students */
+        /* Only call server if we not have loaded students */ 
         if (this.user.defaultSubject === 'default') {
           console.log("addSubject in isLogged");
           addSubject(updateFromServer);
@@ -99,14 +99,14 @@ class Context {
       that.getTemplateRanking(false);
     }
   }
-
+  
   /** Draw Students ranking table in descendent order using total points as a criteria */
   getTemplateRanking(umount=false) {
     generateMenu();
     console.log('CONTEXT getRankingTable');
-    Person.getRankingTable(umount);
-    
+    Person.getRankingTable(umount);    
   }
+
   /** Add last action performed to lower information layer in main app */
   notify(text,title,type='success') {
     toastr.options.timeOut = 4500;

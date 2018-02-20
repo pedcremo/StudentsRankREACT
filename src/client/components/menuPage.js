@@ -14,33 +14,36 @@ class MenuPage extends React.Component {
             defaultSubject: props.props.defaultSubject,
             defaultTerm: props.props.defaultTerm,
             sharedGroups: props.props.sharedGroups
-        }        
+        };  
         this.handleInputChange = this.handleInputChange.bind(this); 
     }
 
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        const name = target.name;   
         
-        
-        this.setState({  [name]: value }, () => this.changesubject(value));
+        if (value === 'NEW SUBJECT') {            
+            reactDOM.unmountComponentAtNode(document.getElementById('modals'));
+            reactDOM.render(<SubjectModalPage  key={new Date()} sharedGroups={this.state.sharedGroups}/>, document.getElementById('modals'));    
+        }else {
+            this.setState({  
+                [name]: value 
+            },() => { events.publish('menu/changesubject',this.state)});
+            //debugger;
+            //events.publish('menu/changesubject',this.state);
+        }
+        //, () => this.changesubject(value));
     }
     
-    changesubject(value){
-
-        if (value === "NEW SUBJECT"){
-            
+   /* changesubject(value) {
+        if (value === 'NEW SUBJECT') {            
             reactDOM.unmountComponentAtNode(document.getElementById('modals'));
-            //reactDOM.render(<NewSubjectPage  key={this.state.sharedGroups} props={this.state.sharedGroups}/>, document.getElementById('modals'));    
-            reactDOM.render(<SubjectModalPage  key={this.state.sharedGroups} props={this.state.sharedGroups}/>, document.getElementById('modals'));    
-            
-        }else{
-            console.log("entra menu")
-            console.log(this.state)
+            reactDOM.render(<SubjectModalPage  key={new Date()} sharedGroups={this.state.sharedGroups}/>, document.getElementById('modals'));    
+        }else {
             events.publish('menu/changesubject',this.state);
         }
-    }
+    }*/
 
     render() {
        
@@ -53,11 +56,11 @@ class MenuPage extends React.Component {
                             <a className="nav-link" href="">{this.state.displayName}</a>
                         </li>
                         <li className="nav-item">
-                            <select name="defaultSubject" id="subjectsItems" onChange={this.handleInputChange}>
-                            {this.state.subjects.map((sub, i) =>
-                                    <option name="defaultSubject" defaultValue={sub == this.state.defaultSubject}  value={sub}>{sub}</option>
-                            )}
-                                <option onChange={this.handleInputChange} name="new subject" defaultValue="NEW subject">NEW SUBJECT</option>
+                            <select name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
+                                {this.state.subjects.map((sub, i) =>
+                                    <option key={i} value={sub}>{sub}</option>
+                                )}
+                                <option name="new subject" defaultValue="NEW subject">NEW SUBJECT</option>
                             </select>
                             <br/>
                             <span id="termMenu">{this.state.defaultTerm}</span>

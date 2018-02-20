@@ -14,34 +14,23 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 //import modal from "bootstrap";
 events.subscribe('menu/addsubject',(obj) => {
   loadTemplate('api/addSubject',function(response) {
-    
-    console.log(response)
-    context.user.defaultSubject = obj.addsubject
-    context.user.subjects.push(obj.addsubject);
-    //updateFromServer();
-    //updateFromServer();
-    $('#SubjectModal').modal('toggle');
-    
-    context.getTemplateRanking();
-    //document.location.href = '/';
-    events.publish('/context/newGradedTask',null);
-    if (funcCallback) funcCallback();
-    
-  },'GET','newSubject=' + obj.addsubject + '&sharedGroup=' + obj.selectedShared,false);
+    console.log(response);
+    context.user.defaultSubject = obj.newSubject;
+    context.user.subjects.push(obj.newSubject);        
+    //context.getTemplateRanking();
+    generateMenu();
+    updateFromServer();    
+  },'GET','newSubject=' + obj.newSubject + '&sharedGroup=' + obj.selectedSharedGroup,false);
 });
 
 events.subscribe('menu/changesubject',(obj) => {
-
-      context.user.defaultSubject = obj.defaultSubject;
-      
+      context.user.defaultSubject = obj.defaultSubject;      
       setCookie('user',JSON.stringify(context.user),7);
       loadTemplate('api/changeSubject',function(response) {
         updateFromServer();
-        console.log("____________----------_________")
-        context.getTemplateRanking();
       },'GET','newsubject=' + obj.defaultSubject,false);
-
 });
+
 let settings = {};
 events.subscribe('settings/change',(obj) => {
   settings = obj;
@@ -57,16 +46,14 @@ function hideMenu() {
 }
 /** Generate menu options taking into account logged in user */
 function generateMenu() {
-  //reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component  
-  
   loadTemplate('api/getSharedGroups',function(response) {
-    let sharedGroups = JSON.parse(response)
-    let menudata = {'displayName' : context.user.displayName , 'subjects': context.user.subjects, 'defaultSubject': context.user.defaultSubject, 'defaultTerm' : settings.defaultTerm, 'sharedGroups': sharedGroups}
-    console.log(menudata)
-  reactDOM.render(<MenuPage key={context.user} props={menudata} />, document.getElementById('menuButtons'));    
-  },'GET','',false);
- 
+    let sharedGroups = JSON.parse(response);
+    let menudata = {'displayName' : context.user.displayName , 'subjects': context.user.subjects, 'defaultSubject': context.user.defaultSubject, 'defaultTerm' : settings.defaultTerm, 'sharedGroups': sharedGroups};
+    reactDOM.unmountComponentAtNode(document.getElementById('menuButtons'));
+    reactDOM.render(<MenuPage key={context.user} props={menudata} />, document.getElementById('menuButtons'));    
+  },'GET','',false); 
 }
+
 /** Logout. Delete session in server side and credentials in client side */
 function logout() {
   context.user = '';
@@ -84,7 +71,7 @@ function addSubject(funcCallback) {
   loadTemplate('api/getSharedGroups',function(response) {
     let sharedGroups = JSON.parse(response)
     reactDOM.unmountComponentAtNode(document.getElementById('modals'));
-    reactDOM.render(<SubjectModalPage  props={sharedGroups}/>, document.getElementById('modals'));   
+    reactDOM.render(<SubjectModalPage  sharedGroups={sharedGroups}/>, document.getElementById('modals'));   
   },'GET','',false);
   
 }

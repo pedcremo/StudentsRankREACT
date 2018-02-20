@@ -69,44 +69,4 @@ function saveSettings(settingsJSON) {
                         },'POST',JSON.stringify(settingsJSON),false);
 }
 
-/** Load students from AJAX response and map to Person instances in context */
-/*function loadStudents(studentsStr) {
-  let students_ = new Map(JSON.parse(studentsStr));
-  students_.forEach(function(value_,key_,students_) {
-      students_.set(key_,new Person(value_.name,value_.surname,
-          value_.attitudeTasks,value_.id));
-    });
-  
-  return students_;
-}*/
-
-/** Load graded tasks from AJAX response and map to GradedTasks instances in context */
-/*function loadGradedTasks(gradedTasksStr) {
-  let gradedTasks_ = new Map(JSON.parse(gradedTasksStr));
-  gradedTasks_.forEach(function(value_,key_,gradedTasks_) {
-      gradedTasks_.set(key_,new GradedTask(value_.name,value_.description,value_.weight,
-          value_.studentsMark,value_.term,value_.id));
-    });
-  //context.gradedTasks = gradedTasks_;
-  return gradedTasks_;
-}*/
-
-/** Load attitude tasks (XP) from AJAX response and map to attitudeTasks instances in context */
-/*function loadAttitudeTasks(attitudeTasksStr) {
-  let attitudeTasks_ = new Map(JSON.parse(attitudeTasksStr));
-  attitudeTasks_.forEach(function(value_,key_,attitudeTasks_) {
-      attitudeTasks_.set(key_,new AttitudeTask(value_.name,value_.description,value_.points,
-        value_.hits,value_.id));
-    });
-  //context.attitudeTasks = attitudeTasks_;
-  return attitudeTasks_;
-}*/
-
-/** Load setting from AJAX response and map to settings in context */
-/*function loadSettings(settingsStr) {
-  let settings_ = JSON.parse(settingsStr);
-  context.settings = new Settings(settings_.weightXP,settings_.weightGP,settings_.defaultTerm,settings_.terms);
-  return context.settings;
-}*/
-
 export {updateFromServer,saveStudents,saveGradedTasks,saveSettings,saveAttitudeTasks};

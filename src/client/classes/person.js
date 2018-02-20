@@ -67,6 +67,7 @@ events.subscribe('dataservice/getStudents',(obj) => {
           value_.attitudeTasks,value_.id));
     });
   students = students_;
+  events.publish('students/change',Person.getStudentsFromMap());//REACT component RankingListPage gets informed
 });
 
 events.subscribe('settings/change',(obj) => {
@@ -97,11 +98,6 @@ class Person {
     }
     this.attitudeTasks = attitudeTasks;
   }
-
-  /** Get person id  based on a 10 character hash composed by name+surname */
-  /*getId() {
-    return this.id;
-  }*/
 
   /** Read person _totalXPpoints. A private property only modicable inside person instance */
   getXPtotalPoints() {
@@ -142,18 +138,14 @@ class Person {
   }
   /** Add a Attitude task linked to person with its own mark. */
   addAttitudeTask(taskInstance) {
-    let dateTimeStamp = new Date();//Current time
-   
+    let dateTimeStamp = new Date();//Current time   
     this.attitudeTasks.push({'id':taskInstance.id,'timestamp':dateTimeStamp});
-    events.publish('/context/addXP',{'attitudeTask':taskInstance,'person':this});
-   
+    events.publish('/context/addXP',{'attitudeTask':taskInstance,'person':this});   
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));
-    //events.publish('students/change',[...students.entries()]);
-    //Person.getRankingTable();
   }
+
   /** Delete XP associated to this person */
   deleteXP(taskInstanceId) {
-    //console.log('HOLA TINKI WINKI');
     this.attitudeTasks.forEach((itemAT) => {
         if (itemAT.id == taskInstanceId) {
           let index = this.attitudeTasks.indexOf(itemAT);
@@ -170,7 +162,6 @@ class Person {
     let gtArray = [];
     try {     
       gradedtaskMAP.forEach((valueGT) => {
-        //console.log('MERDA ' + valueGT.id + 'Person id ' + this.id);
         if (valueGT.term === settings.defaultTerm || settings.defaultTerm ==='ALL') {
           gtArray.push({'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight});
         }
@@ -180,6 +171,7 @@ class Person {
     }
     return gtArray.reverse();
   }
+
   /** Get total points over 100 taking into account different graded tasks weights */
   getGTtotalPoints() {
     let points = 0;
@@ -200,7 +192,6 @@ class Person {
   }
   /** XP mark relative to highest XP mark and XP weight and GT grade */
   getFinalGrade() {
-
     let xpGrade = this.getXPtotalPoints() * (settings.weightXP) / Person.getMaxXPmark();
     if (isNaN(xpGrade)) {
       xpGrade = 0;
@@ -211,8 +202,7 @@ class Person {
   static getPersonById(idHash) {
     return students.get(parseInt(idHash));
   }
-  static getRankingTable(umount=false) {
-    
+  static getRankingTable(umount=false) {    
       /* We sort students in descending order from max number of points to min when we are in not expanded view */
       let arrayFromMap = [...students.entries()];
       let fingerPrintBeforeSort = arrayFromMap.toString();
@@ -222,12 +212,13 @@ class Person {
         });
       }
       students = new Map(arrayFromMap);
-      //debugger;
       if (arrayFromMap.toString()!==fingerPrintBeforeSort) {
         umount=true ;
       }
-
-      if (umount) reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+     
+      if (umount) {
+        reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+      }
       reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
        
   }
