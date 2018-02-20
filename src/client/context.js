@@ -12,7 +12,6 @@ import GradedTask from './classes/gradedtask.js';
 import {updateFromServer,saveStudents,saveGradedTasks,saveSettings} from './dataservice.js';
 import {hashcode,loadTemplate,setCookie,deleteCookie,getCookie} from './lib/utils.js';
 import {generateMenu,showMenu,hideMenu,addSubject} from './menu.js';
-import {template} from './lib/templator.js';
 import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
 import toastr from "toastr";
@@ -51,8 +50,7 @@ class Context {
       }else {
         this.user = JSON.parse(response);
         /* Only call server if we not have loaded students */ 
-        if (this.user.defaultSubject === 'default') {
-          console.log("addSubject in isLogged");
+        if (this.user.defaultSubject === 'default') {         
           addSubject(updateFromServer);
         }else if (Person.getStudentsSize() <= 0) {
           updateFromServer();
@@ -69,42 +67,29 @@ class Context {
     if (!this.user) {
       this.clear();
       reactDOM.render(<LoginPage props={Settings.getSettings()} />, document.getElementById('content'));
-      // loadTemplate('templates/login.html',function(responseText) {
-      //   hideMenu();
-      //   $('#content').html(eval('`' + responseText + '`'));
-      //   $('#loginAlert').hide();
-      //   let loginForm = $('#loginForm');
-
-      //   loginForm.submit(function(event) {
-      //     event.preventDefault();
-      //     deleteCookie('connect.sid');
-      //     let username = $('input[name=username]').val();
-      //     let password = $('input[name=password]').val();
-      //     loadTemplate('api/login',function(userData) {
-      //       that.user = JSON.parse(userData);
-      //       /* First time we log in */
-      //       if (that.user.defaultSubject === 'default') {
-      //         console.log('addSubject in login');
-      //         addSubject(updateFromServer);
-      //       /* We are veteran/recurrent users */
-      //       }else {
-      //         setCookie('user',userData,7);
-      //         updateFromServer();
-      //       }
-      //     },'POST','username=' + username + '&password=' + password,false);
-      //     return false; //Avoid form submit
-      //   });
-      // });
-    }else {
-      //generateMenu();
-      that.getTemplateRanking(false);
+      $('#loginAlert').hide();
+      hideMenu();
+      events.subscribe('context/login',(credentials) => {
+        loadTemplate('api/login',function(userData) {
+          that.user = JSON.parse(userData);
+          /* First time we log in */
+          if (that.user.defaultSubject === 'default') {
+            addSubject(updateFromServer);
+          /* We are veteran/recurrent users */
+          }else {
+            setCookie('user',userData,7);
+            updateFromServer();
+          }  
+        },'POST','username=' + credentials.username + '&password=' + credentials.password,false);  
+      });
+    }else {      
+      that.getTemplateRanking(true);
     }
   }
 
   /** Draw Students ranking table in descendent order using total points as a criteria */
   getTemplateRanking(umount=false) {
-    generateMenu();
-    console.log('CONTEXT getRankingTable');
+    generateMenu();   
     Person.getRankingTable(umount);    
   }
 

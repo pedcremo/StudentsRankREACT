@@ -1,8 +1,8 @@
 'use strict';
 
 import Task from './task.js';
+import Settings from './settings.js';
 import {loadTemplate,updateObject} from '../lib/utils.js';
-import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
 import $ from "jquery";
 
@@ -21,18 +21,13 @@ import $ from "jquery";
  */
 
 let gradedTasks = new Map();
-let settings = {};
 
 events.subscribe('dataservice/SaveGradedTask',(obj) => {
     let gt = {}; 
     //UPDATE
     if (obj.id) {  
        gt=gradedTasks.get(obj.id);
-       gt=updateObject(gt,obj);
-       /*gt.name = obj.name;
-       gt.weight = obj.weight;
-       gt.term = obj.term;
-       gt.description = obj.description;*/
+       gt=updateObject(gt,obj);      
     //NEW  
     }else{
       gt = new GradedTask(obj.name,obj.description,obj.weight,[],obj.term);
@@ -55,10 +50,6 @@ events.subscribe('dataservice/getGradedTasks',(obj) => {
   events.publish('gradedTask/change',gradedTasks);
 });
 
-events.subscribe('settings/change',(obj) => {
-  settings = obj;
-});
-
 events.subscribe('students/new',(obj) => {
   gradedTasks.forEach(function(iGradedTask) {
     iGradedTask.addStudentMark(obj.getId(),0);
@@ -70,8 +61,8 @@ class GradedTask extends Task {
     super(name,description,id);
     this.weight = weight;
     this.studentsMark = studentsMark;
-    if (!term) {
-      term = settings.defaultTerm || '1st Term';
+    if (!term) {      
+      term = Settings.getSettings().defaultTerm || '1st Term';
     }
     this.term = term;
     this.studentsMarkMAP = new Map(studentsMark);
@@ -91,11 +82,11 @@ class GradedTask extends Task {
     events.publish('dataservice/saveGradedTasks',JSON.stringify([...gradedTasks]));
     events.publish('gradedTask/change',gradedTasks);
   } 
-  /** CAlculate total aggregated GT weight */
+  /** Calculate total aggregated GT weight */
   static getGradedTasksTotalWeight() {
     let points = 0;
     gradedTasks.forEach(function(itemTask) {
-      if (itemTask.term === settings.defaultTerm) {
+      if (itemTask.term === Settings.getSettings().defaultTerm) {
         points += parseInt(itemTask.weight);
       }
     });
@@ -107,83 +98,8 @@ class GradedTask extends Task {
   }
 
   static getGradedTasksFromMap() {
-    return [...gradedTasks.entries()];
-    //return students;
-  }
-  /*getHTMLEdit() {
-    let output = '';
-    for (let i = 0;i < settings.terms.length;i++) {
-      if (settings.terms[i].name === this.term) { 
-        output += '<option selected value="' + settings.terms[i].name + '">' + settings.terms[i].name + '</option>';
-      }else {
-        output += '<option value="' + settings.terms[i].name + '">' + settings.terms[i].name + '</option>';
-      }
-    }
-    let scope = {};
-    scope.TPL_TERMS = output; 
-    let callback = function(responseText) {
-      let out = template(responseText,scope);
-      $('#content').html(eval('`' + out + '`')); 
-      $('#idTaskName').val(this.name);
-      $('#idTaskDescription').val(this.description);
-      let totalGTweight = GradedTask.getGradedTasksTotalWeight();
-      let weightInput = $('#idTaskWeight');
-      $('#labelWeight').html('Weight (0-' + (100 - (totalGTweight - this.weight)) + '%)');
-      weightInput.val(this.weight);
-      weightInput.attr('max', 100 - (totalGTweight - this.weight));
-
-      $('#newGradedTask').submit(() => {
-        let oldId = this.getId();
-        this.name = $('#idTaskName').val();
-        this.description = $('#idTaskDescription').val();
-        this.weight = weightInput.val();
-        let selectedTerm = $('#termTask').children(':selected').val();
-        let gradedTask = new GradedTask(this.name,this.description,this.weight,this.studentsMark,selectedTerm,this.id);
-        gradedTasks.set(this.id,gradedTask);
-        events.publish('dataservice/saveGradedTasks',JSON.stringify([...gradedTasks]));
-        events.publish('gradedTask/change',gradedTasks);
-      });
-    }.bind(this);
-
-    loadTemplate('templates/addGradedTask.html',callback);
-  }*/
-  /** Create a form to create a GradedTask that will be added to every student */
-  /*static addGradedTask() {
-    let output = '';
-    for (let i = 0;i < settings.terms.length;i++) {
-      if (settings.terms[i].name === settings.defaultTerm) { 
-        output += '<option selected value="' + settings.terms[i].name + '">' + settings.terms[i].name + '</option>';
-      }else {
-        output += '<option value="' + settings.terms[i].name + '">' + settings.terms[i].name + '</option>';
-      }
-    }
-    let scope = {};
-    scope.TPL_TERMS = output; 
-
-    let callback = function(responseText) {
-            let out = template(responseText,scope);
-            $('#content').html(eval('`' + out + '`')); 
-            let totalGTweight = GradedTask.getGradedTasksTotalWeight();
-            $('#labelWeight').html('Task Weight (0-' + (100 - totalGTweight) + '%)');
-            let weightInput = $('#idTaskWeight');
-            weightInput.attr('max', 100 - totalGTweight);
-
-            $('#newGradedTask').submit(() => {
-              let name = $('#idTaskName').val();
-              let description = $('#idTaskDescription').val();
-              let weight = weightInput.val();
-              let selectedTerm = $('#termTask').children(':selected').val();
-              let gtask = new GradedTask(name,description,weight,[],selectedTerm);
-              gradedTasks.set(gtask.id,gtask);
-              events.publish('/context/newGradedTask',gtask);
-              events.publish('dataservice/saveGradedTasks',JSON.stringify([...gradedTasks]));      
-              events.publish('gradedTask/change',gradedTasks);
-              return false; //Avoid form submit
-            });
-          }.bind(this);
-
-    loadTemplate('templates/addGradedTask.html',callback);
-  }*/
+    return [...gradedTasks.entries()];   
+  }  
 }
 
 export default GradedTask;

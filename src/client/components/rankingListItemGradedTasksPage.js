@@ -4,7 +4,6 @@ import {events} from '../lib/eventsPubSubs.js';
 class RankingListItemGradedTasksPage extends React.Component {
     constructor(props){
         super(props); 
-        //{'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight}     
         this.state = {         
             id:this.props.studentgt.id, 
             id_student:this.props.studentgt.idStudent,

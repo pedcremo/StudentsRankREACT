@@ -10,9 +10,7 @@
  */
 
 import {formatDate,updateObject,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
-import {template} from '../lib/templator.js';
 import {events} from '../lib/eventsPubSubs.js';
-import {doProxy} from '../lib/proxy.js';
 import $ from "jquery";
 import React from 'react';
 import reactDOM from 'react-dom';
@@ -20,7 +18,6 @@ import RankingListPage from '../components/rankingListPage.js';
 import Settings from './settings.js';
 
 let students = new Map();
-let settings = {};
 let attitudeMAP = new Map();
 let gradedtaskMAP = new Map();
 
@@ -46,6 +43,7 @@ events.subscribe('dataservice/SavePerson',(obj) => {
   
   }
 );
+
 events.subscribe('attitudeTask/change',(obj) => {
   attitudeMAP = obj;  
 });
@@ -53,7 +51,7 @@ events.subscribe('attitudeTask/change',(obj) => {
 events.subscribe('gradedTask/change',(obj) => {
   gradedtaskMAP = obj;
   Person.getRankingTable();
-  
+  events.publish('students/change',Person.getStudentsFromMap());  
 });
 events.subscribe('component/changingGTPoints',(obj)=>{
   let gt = gradedtaskMAP.get(parseInt(obj.idGradedTask));
@@ -70,18 +68,11 @@ events.subscribe('dataservice/getStudents',(obj) => {
   events.publish('students/change',Person.getStudentsFromMap());//REACT component RankingListPage gets informed
 });
 
-events.subscribe('settings/change',(obj) => {
-  settings = obj;
-});
-
 events.subscribe('/context/newGradedTask',(gtask) => {
   students.forEach(function(studentItem,studentKey,studentsRef) {
     gtask.addStudentMark(studentKey,0);
   });
 });
-
-//Every time students change we inform 'students/change' service
-//doProxy([...students.entries()],'students/change');
 
 const privateAddTotalPoints = Symbol('privateAddTotalPoints'); /** To accomplish private method */
 const _totalXPpoints = Symbol('TOTAL_XP_POINTS'); /** To acomplish private property */
@@ -160,6 +151,7 @@ class Person {
   /** Get students Marks in current term from context from newer to older */
   getStudentMarks() {
     let gtArray = [];
+    let settings = Settings.getSettings();
     try {     
       gradedtaskMAP.forEach((valueGT) => {
         if (valueGT.term === settings.defaultTerm || settings.defaultTerm ==='ALL') {
@@ -175,6 +167,7 @@ class Person {
   /** Get total points over 100 taking into account different graded tasks weights */
   getGTtotalPoints() {
     let points = 0;
+    let settings = Settings.getSettings();
     try {
       gradedtaskMAP.forEach((itemTask) => {
         if (itemTask.term === settings.defaultTerm || settings.defaultTerm === 'ALL') {
@@ -192,11 +185,12 @@ class Person {
   }
   /** XP mark relative to highest XP mark and XP weight and GT grade */
   getFinalGrade() {
+    let settings = Settings.getSettings();
     let xpGrade = this.getXPtotalPoints() * (settings.weightXP) / Person.getMaxXPmark();
     if (isNaN(xpGrade)) {
       xpGrade = 0;
     }
-    return Math.round(xpGrade + (this.getGTtotalPoints() * (settings.weightGP / 100)));
+    return Math.round(xpGrade + (this.getGTtotalPoints() * (parseInt(settings.weightGP) / 100)));
   }
   
   static getPersonById(idHash) {
@@ -219,8 +213,7 @@ class Person {
       if (umount) {
         reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
       }
-      reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));
-       
+      reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));       
   }
 
   static addStudent(studentInstance) {    
@@ -232,10 +225,11 @@ class Person {
   static getStudentsSize() {
     return students.size;
   }
+
   static getStudentsFromMap() {
-    return [...students.entries()];
-    //return students;
+    return [...students.entries()];    
   }
+
   static deleteById(idPerson) {
     students.delete(idPerson);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));

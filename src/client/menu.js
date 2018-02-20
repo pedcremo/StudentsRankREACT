@@ -6,19 +6,15 @@ import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
 import React from 'react';
 import reactDOM from 'react-dom';
+import Settings from './classes/settings.js';
 import MenuPage from './components/menuPage.js';
 import SubjectModalPage from './components/subjectModalPage.js';
-//import 'bootstrap';
-import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-//import modal from "bootstrap";
 events.subscribe('menu/addsubject',(obj) => {
-  loadTemplate('api/addSubject',function(response) {
-    console.log(response);
+  loadTemplate('api/addSubject',function(response) {    
     context.user.defaultSubject = obj.newSubject;
-    context.user.subjects.push(obj.newSubject);        
-    //context.getTemplateRanking();
-    generateMenu();
+    context.user.subjects.push(obj.newSubject);            
+    generateMenu(); //Because select widget adds a new option
     updateFromServer();    
   },'GET','newSubject=' + obj.newSubject + '&sharedGroup=' + obj.selectedSharedGroup,false);
 });
@@ -31,10 +27,6 @@ events.subscribe('menu/changesubject',(obj) => {
       },'GET','newsubject=' + obj.defaultSubject,false);
 });
 
-let settings = {};
-events.subscribe('settings/change',(obj) => {
-  settings = obj;
-});
 /** Show Menu  */
 function showMenu() {
   $('#navbarNav').show();
@@ -46,6 +38,7 @@ function hideMenu() {
 }
 /** Generate menu options taking into account logged in user */
 function generateMenu() {
+  let settings = Settings.getSettings();
   loadTemplate('api/getSharedGroups',function(response) {
     let sharedGroups = JSON.parse(response);
     let menudata = {'displayName' : context.user.displayName , 'subjects': context.user.subjects, 'defaultSubject': context.user.defaultSubject, 'defaultTerm' : settings.defaultTerm, 'sharedGroups': sharedGroups};

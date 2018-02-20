@@ -42,9 +42,9 @@ class ListAttitudeTaskPage extends React.Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();              
+        event.preventDefault();             
         let data={'studentId':this.state.student.id,'idAttitudeTask':'','points':this.state.points,'description':this.state.description}
-        console.log(JSON.stringify(data));
+        
         events.publish('dataservice/SaveAttitudeTask',data);        
         this.modalBackdropClicked();
     }   

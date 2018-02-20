@@ -6,8 +6,6 @@ import GradedTask from './classes/gradedtask.js';
 import AttitudeTask from './classes/attitudetask.js';
 import {events} from './lib/eventsPubSubs.js';
 
-
-
 events.subscribe('dataservice/saveSettings',(settingsJSON) => {
   saveSettings(settingsJSON);
 });

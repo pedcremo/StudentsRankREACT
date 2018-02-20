@@ -15,7 +15,6 @@ class RankingListItemPage extends React.Component {
    
     render() {
         let index=0;
-        //{'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight}
         const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
             <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent}/>            
             
