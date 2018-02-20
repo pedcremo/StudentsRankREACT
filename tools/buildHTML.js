@@ -47,13 +47,13 @@ import ncp from 'ncp';
 
 }*/
 
-ncp('./src/client/templates', './dist/templates', function (err) {
+/*ncp('./src/client/templates', './dist/templates', function (err) {
   if (err) {
     return console.error(err);
   }
   console.log('done!');
  });
-
+*/
 fs.readFile('src/client/index.html', 'utf8', (err, markup) => {
   if (err) {
     return console.log(err);
