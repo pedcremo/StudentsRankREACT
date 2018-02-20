@@ -18,6 +18,7 @@ import $ from "jquery";
 import toastr from "toastr";
 import Settings from './classes/settings.js';
 import RankingListPage from './components/rankingListPage.js';
+import LoginPage from './components/loginPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 
@@ -67,39 +68,39 @@ class Context {
     let that = this;
     if (!this.user) {
       this.clear();
-      loadTemplate('templates/login.html',function(responseText) {
-        hideMenu();
-        $('#content').html(eval('`' + responseText + '`'));
-        $('#loginAlert').hide();
-        let loginForm = $('#loginForm');
+      reactDOM.render(<LoginPage props={Settings.getSettings()} />, document.getElementById('content'));
+      // loadTemplate('templates/login.html',function(responseText) {
+      //   hideMenu();
+      //   $('#content').html(eval('`' + responseText + '`'));
+      //   $('#loginAlert').hide();
+      //   let loginForm = $('#loginForm');
 
-        loginForm.submit(function(event) {
-          event.preventDefault();
-          deleteCookie('connect.sid');
-          let username = $('input[name=username]').val();
-          let password = $('input[name=password]').val();
-          loadTemplate('api/login',function(userData) {
-            that.user = JSON.parse(userData);
-            /* First time we log in */
-            if (that.user.defaultSubject === 'default') {
-              console.log("addSubject in login");
-              addSubject(updateFromServer);
-              //updateFromServer();
-            /* We are veteran/recurrent users */
-            }else {
-              setCookie('user',userData,7);
-              updateFromServer();
-            }
-          },'POST','username=' + username + '&password=' + password,false);
-          return false; //Avoid form submit
-        });
-      });
+      //   loginForm.submit(function(event) {
+      //     event.preventDefault();
+      //     deleteCookie('connect.sid');
+      //     let username = $('input[name=username]').val();
+      //     let password = $('input[name=password]').val();
+      //     loadTemplate('api/login',function(userData) {
+      //       that.user = JSON.parse(userData);
+      //       /* First time we log in */
+      //       if (that.user.defaultSubject === 'default') {
+      //         console.log('addSubject in login');
+      //         addSubject(updateFromServer);
+      //       /* We are veteran/recurrent users */
+      //       }else {
+      //         setCookie('user',userData,7);
+      //         updateFromServer();
+      //       }
+      //     },'POST','username=' + username + '&password=' + password,false);
+      //     return false; //Avoid form submit
+      //   });
+      // });
     }else {
       //generateMenu();
       that.getTemplateRanking(false);
     }
   }
-  
+
   /** Draw Students ranking table in descendent order using total points as a criteria */
   getTemplateRanking(umount=false) {
     generateMenu();
