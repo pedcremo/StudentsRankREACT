@@ -190,12 +190,17 @@ class Person {
     if (isNaN(xpGrade)) {
       xpGrade = 0;
     }
-    return Math.round(xpGrade + (this.getGTtotalPoints() * (parseInt(settings.weightGP) / 100)));
+    let fg = Math.round(xpGrade + (this.getGTtotalPoints() * (parseInt(settings.weightGP) / 100)));
+    if (isNaN(fg)) {
+      fg='?';
+    }
+    return fg;
   }
   
   static getPersonById(idHash) {
     return students.get(parseInt(idHash));
   }
+  
   static getRankingTable(umount=false) {    
       /* We sort students in descending order from max number of points to min when we are in not expanded view */
       let arrayFromMap = [...students.entries()];

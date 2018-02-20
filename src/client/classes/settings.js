@@ -1,4 +1,5 @@
 import {events} from '../lib/eventsPubSubs.js';
+import Person from './person.js';
 
 let settings = {};
 
@@ -10,6 +11,7 @@ events.subscribe('dataservice/getSettings',(obj) => {
 
 events.subscribe('settings/change',(obj) => {
   settings = obj;  
+  events.publish('students/change',Person.getStudentsFromMap());
 });
 
 class Settings {

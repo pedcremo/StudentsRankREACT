@@ -51,11 +51,8 @@ class ListAttitudeTaskPage extends React.Component {
 
     render() {
         let attitudeItems = this.state.attitudeTasks.map((attitudeItem) =>         
-            <button onClick={this.handleXPclick} id={attitudeItem[1].id} key={attitudeItem[1].id} className={'xp btn btn-'+attitudeItem[1].type}  value={attitudeItem[1].points}>{attitudeItem[1].points} {attitudeItem[1].description}</button>                           
-        
-            //<AttitudeItemPage key={attitudeItem[1].id} handleClick={this.modalBackdropClicked} studentId={this.state.student.id} attitudeItem={attitudeItem}/>                  
-        ); 
-        
+            <button onClick={this.handleXPclick} id={attitudeItem[1].id} key={attitudeItem[1].id} className={'xp btn btn-'+attitudeItem[1].type}  value={attitudeItem[1].points}>{attitudeItem[1].points} {attitudeItem[1].description}</button>                                   
+        );       
         
         return (
             /* Modal */            
