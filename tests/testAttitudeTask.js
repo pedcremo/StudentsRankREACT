@@ -20,7 +20,8 @@ describe('runKING tests on AttitudeTasks', function () {
     });
     it('2. Test Person constructor behaves properly', () => {         
         let person1= new Person('test','surnames',[]);
-        AttitudeTask.addXP(person1);
+        let atExample = new AttitudeTask('prova','test',10);
+        person1.addAttitudeTask(atExample);
         /*expect(person1.name).toEqual('test');
         expect(person1.id).toEqual(-958521974);
         expect(person1.getId()).toEqual(-958521974);

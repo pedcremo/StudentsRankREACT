@@ -25,13 +25,11 @@ describe('runKING tests on Person class', function () {
         let person1= new Person('test','surnames',[]);
 
         expect(person1.name).toEqual('test');
-        expect(person1.id).toEqual(-958521974);
-        expect(person1.getId()).toEqual(-958521974);
+        expect(person1.id).toEqual(-958521974);       
 
         let person2= new Person('test2','surnames',[],9841984);
         expect(person2.name).toEqual('test2');
         expect(person2.id).toEqual(9841984);
-        expect(person2.getId()).toEqual(9841984);
 
         //Spy on getTemplateRanking but we don't want to execute the real getTemplateRanking
         expect(Person.getStudentsSize()).not.toBeGreaterThan(0);
@@ -121,7 +119,7 @@ describe('runKING tests on Person class', function () {
             "responseText": '<span id="#idFirstName">test</span>';
           });*/
         
-        person1.getHTMLEdit();
+        //person1.getHTMLEdit();
         //expect($('#idFirstName').val()).toEqual('test');
         //$('#idFirstName')
     });
