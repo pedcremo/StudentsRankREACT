@@ -8,7 +8,8 @@ class SettingsPage extends React.Component {
             weightGP:props.props.weightGP,
             weightXP:props.props.weightXP,
             terms: props.props.terms,
-            defaultTerm: props.props.defaultTerm
+            defaultTerm: props.props.defaultTerm,
+            defaultSubject: props.defaultSubject
         };                              
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -70,6 +71,7 @@ class SettingsPage extends React.Component {
                   </select>   
             
               </div>
+              <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
               {/*      
               {this.state.terms.map((term, i) =>
                     <div key={'formGroup'+i} className="form-group">

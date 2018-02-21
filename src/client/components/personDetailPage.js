@@ -26,7 +26,7 @@ class PersonDetailPage extends React.Component {
             <div>
                 <img src={'src/server/data/fotos/'+this.state.student.id+'.jpg'} />
                 <h1>{this.state.student.name} {this.state.student.surname} {this.state.student.getFinalGrade()}</h1>
-  
+                <h2>{this.state.student.email}</h2>
                 <h3>Attitude tasks</h3>                
                 <ul className="list-group">                
                     {attitudeTasksItems}                

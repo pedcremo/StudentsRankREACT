@@ -1,6 +1,6 @@
 import {context} from './context.js'; //Singleton
 import {getIdFromURL,setCookie} from './lib/utils.js';
-import {logout} from './menu.js';
+import {logout,generateMenu} from './menu.js';
 import AttitudeTask from './classes/attitudetask.js';
 import GradedTask from './classes/gradedtask.js';
 import Person from './classes/person.js';
@@ -11,6 +11,7 @@ import RankingListPage from './components/rankingListPage.js';
 import PersonPage from './components/personPage.js';
 import PersonDetailPage from './components/personDetailPage.js';
 import SettingsPage from './components/settingsPage.js';
+import FooterPage from './components/footerPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
@@ -23,7 +24,7 @@ events.subscribe('settings/change',(obj) => {
 });
 /** Primitive routing mechanism based on detecting clicks on links and get the URL */
 function initRouter() {
-  
+  reactDOM.render(<FooterPage />, document.getElementsByTagName('footer')[0]);
   window.onclick = function(e) {
         e = e || event;
         var isLink = findParent('a',e.target || e.srcElement);
@@ -60,6 +61,17 @@ function initRouter() {
                 reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));                
               }
               break;
+             /** Delete Subject */
+             case /#deleteSubject/.test(isLink.href):
+               let reg = /deleteSubject\/(\w+)/;
+               let matchResults = isLink.href.match(reg);
+               let selectedSubject = matchResults[1];
+               if (window.confirm('Are you sure you want to delete '+selectedSubject+' and all linked students?')) {
+                context.deleteSubject(selectedSubject);                     
+               }else {
+                context.isLogged();
+               }
+             break;
             /** Show popup associated to an student in order to assign XP points  */
             case /#addXP/.test(isLink.href):
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
@@ -73,7 +85,7 @@ function initRouter() {
               break;
             case /#settings/.test(isLink.href):              
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component              
-              reactDOM.render(<SettingsPage props={Settings.getSettings()} />, document.getElementById('content'));
+              reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} />, document.getElementById('content'));
               break;
             /** logout */
             case /#logout/.test(isLink.href):

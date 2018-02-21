@@ -42,6 +42,7 @@ function generateMenu() {
   loadTemplate('api/getSharedGroups',function(response) {
     let sharedGroups = JSON.parse(response);
     let menudata = {'displayName' : context.user.displayName , 'subjects': context.user.subjects, 'defaultSubject': context.user.defaultSubject, 'defaultTerm' : settings.defaultTerm, 'sharedGroups': sharedGroups};
+    debugger;
     reactDOM.unmountComponentAtNode(document.getElementById('menuButtons'));
     reactDOM.render(<MenuPage key={context.user} props={menudata} />, document.getElementById('menuButtons'));    
   },'GET','',false); 

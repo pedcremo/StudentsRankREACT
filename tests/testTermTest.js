@@ -4,7 +4,7 @@ import Person from '../src/client/classes/person.js';
 import {events} from '../src/client/lib/eventsPubSubs.js';
 import AttitudeTask from '../src/client/classes/attitudetask.js';
 
-describe('runKING tests on Person class', function () {
+describe('runKING tests second term', function () {
     let templateAddPerson = '';
     beforeEach(() => {
         //jasmine.getFixtures().fixturesPath = './';

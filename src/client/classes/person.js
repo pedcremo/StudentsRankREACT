@@ -32,7 +32,7 @@ events.subscribe('dataservice/SavePerson',(obj) => {
      Person.getRankingTable();
   //NEW  
   }else{
-    person = new Person(obj.studentProps.name,obj.studentProps.surnames,[]);
+    person = new Person(obj.studentProps.name,obj.studentProps.surnames,obj.studentProps.email,[]);
     //students.set(person.id,person);      
     Person.addStudent(person);
   }
@@ -61,7 +61,7 @@ events.subscribe('component/changingGTPoints',(obj)=>{
 events.subscribe('dataservice/getStudents',(obj) => {
   let students_ = new Map(JSON.parse(obj));
   students_.forEach(function(value_,key_,students_) {
-      students_.set(key_,new Person(value_.name,value_.surname,
+      students_.set(key_,new Person(value_.name,value_.surname,value_.email,
           value_.attitudeTasks,value_.id));
     });
   students = students_;
@@ -78,10 +78,11 @@ const privateAddTotalPoints = Symbol('privateAddTotalPoints'); /** To accomplish
 const _totalXPpoints = Symbol('TOTAL_XP_POINTS'); /** To acomplish private property */
 
 class Person {
-  constructor(name,surname,attitudeTasks,id=null) {
+  constructor(name,surname,email,attitudeTasks,id=null) {
     this[_totalXPpoints] = 0;
     this.name = name;
     this.surname = surname;
+    this.email = email;
     if (!id) {
       this.id = hashcode(this.name + this.surname);
     }else {

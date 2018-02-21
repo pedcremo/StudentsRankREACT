@@ -9,7 +9,7 @@
 
 import Person from './classes/person.js';
 import GradedTask from './classes/gradedtask.js';
-import {updateFromServer,saveStudents,saveGradedTasks,saveSettings} from './dataservice.js';
+import {updateFromServer,saveStudents,saveGradedTasks,saveSettings,saveSubjects} from './dataservice.js';
 import {hashcode,loadTemplate,setCookie,deleteCookie,getCookie} from './lib/utils.js';
 import {generateMenu,showMenu,hideMenu,addSubject} from './menu.js';
 import {events} from './lib/eventsPubSubs.js';
@@ -37,6 +37,23 @@ class Context {
   /** Clear context  */
   clear() {
     this.user = undefined;
+  }
+
+  deleteSubject(subject) {
+    
+    this.user.defaultSubject = 'default';
+    for (let i=0;i<this.user.subjects.length;i++) {
+        if (subject === this.user.subjects[i]) {
+          if (i> -1) {
+            this.user.subjects.splice(i, 1);
+          }
+        }else {
+          this.user.defaultSubject = this.user.subjects[i];
+        }
+    };
+    debugger;
+    let subjectsCopy = {'defaultSubject':this.user.defaultSubject,'subjects':this.user.subjects};
+    saveSubjects(subjectsCopy, generateMenu);
   }
   /* Check on server if user is logged */
   isLogged() {

@@ -50,21 +50,26 @@ class MenuPage extends React.Component {
         return (
         
                 <div className="collapse navbar-collapse" id="navbarNav" >
-               
-                    <ul id="menuButtons" className="navbar-nav mx-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="">{this.state.displayName}</a>
-                        </li>
-                        <li className="nav-item">
-                            <select name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
+                    <table>
+                        <tbody>
+                        <tr><td> 
+                    {this.state.displayName}&nbsp;
+                    </td></tr>
+                    <tr><td>
+                     <select name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
                                 {this.state.subjects.map((sub, i) =>
                                     <option key={i} value={sub}>{sub}</option>
                                 )}
                                 <option name="new subject" defaultValue="NEW subject">NEW SUBJECT</option>
                             </select>
-                            <br/>
-                            <span id="termMenu">{this.state.defaultTerm}</span>
-                        </li>
+                    </td></tr>
+                    <tr><td>      
+                            <span id="termMenu">{this.state.defaultTerm} </span> &nbsp;   
+                     </td></tr>
+                     </tbody>
+                     </table>      
+                    <ul id="menuButtons" className="nav navbar-nav navbar-right">
+                        
                         <li className="nav-item">
                             <a className="nav-link" href="#addStudent">
                                 <button className="btn btn-secondary"> + Students </button>

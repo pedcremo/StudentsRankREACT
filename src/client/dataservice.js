@@ -66,5 +66,13 @@ function saveSettings(settingsJSON) {
                           console.log('SAVE SETTINGS ' + response);
                         },'POST',JSON.stringify(settingsJSON),false);
 }
+/** Save settings in server side */
+function saveSubjects(subjectsJSON,callback) {
+  loadTemplate('api/saveSubjects',function(response) {
+                          console.log('SAVE SUBJECTS' + response);
+                          callback();
+                          updateFromServer();   
+                        },'POST',JSON.stringify(subjectsJSON),false);
+}
 
-export {updateFromServer,saveStudents,saveGradedTasks,saveSettings,saveAttitudeTasks};
+export {updateFromServer,saveStudents,saveGradedTasks,saveSettings,saveAttitudeTasks,saveSubjects};

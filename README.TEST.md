@@ -2,9 +2,9 @@
 
 Steps to acomplish:
 
-1. (1,5 points) port showMenu() and hideMenu() methods from context.js to menu.js script
-2. (1,5 points) Port addGradedTask() and addPerson() from context to GradedTask class and Person respectively as statict methods.
-3. (2 points) <th>${TPL_GRADED_TASKS}</th> in rankingList.html is generated in the old way. Use the new ng-repeat attribute to generate it.
-4. (2.5 points) On hover over image profile in rankinkList.html template show the image original size acting as a zoom in tool.
-5. (2.5 points) Put a first column in rankingList.html template with id equals 'sorting' in order to number in an ascending way students. 
-    HINT: explodeNode from templator should be modified and add a td column to rankingList.html template
+1. (1,5 points) Create a simple footer React component to put in our web app
+2. (1) Fix a problem with our students profile images. When we create a new student or modify the profile of an existing one sometimes it doesn't refresh with new picture. The origin of the problem is in REACT nature, as we don't change src from img tag pointing to profile image the diff algorithm never changes real DOM. You should find a way to cheat REACT.
+3. (1,5) When we click expanded view the system is unable to remember the option when we come back to the rankingListPage view. Fix it. TIP: Use a cookie
+4. (3) Add email property to Person class.
+5. (2 points) We should be able to delete a subject from settings view.
+6. (1,5) Hamburguer menu doesn't work at the moment. Fix it 

@@ -1,6 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import RankingListItemPage from './rankingListItemPage.js';
+import {setCookie,getCookie} from '../lib/utils.js';
 
 class RankingListPage extends React.Component {
     constructor(props){
@@ -18,8 +19,9 @@ class RankingListPage extends React.Component {
             //debugger;          
             this.setState({
                 students: obj
-            });           
+            });                 
         });
+        if (getCookie('expandedView')==='true') this.handleClick(null);
     }
 
     componentWillUnmount() {
@@ -28,10 +30,12 @@ class RankingListPage extends React.Component {
 
     handleClick(event) {        
         $('.tableGradedTasks').toggle();              
-        if ($('.tableGradedTasks').is(':visible')) {          
+        if ($('.tableGradedTasks').is(':visible')) {       
           $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
-        }else {          
-          $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');          
+          setCookie('expandedView','true',12);
+        }else {     
+          $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');    
+          setCookie('expandedView','false',12);    
         }
     }
     

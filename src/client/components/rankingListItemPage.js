@@ -12,7 +12,8 @@ class RankingListItemPage extends React.Component {
             index:props.index
         }; 
     }
-   
+    
+    
     render() {
         let index=0;
         const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
@@ -23,7 +24,7 @@ class RankingListItemPage extends React.Component {
             <tr className="js-rowStudent" >
             <td className="w-5" id="sorting"><h3>{this.state.index}</h3></td>
             <td className="w-35">
-                <img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg'} height="60" width="48"/>
+                <img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg?' + new Date().getTime()} height="60" width="48"/>
                 <a className="text-info" href={'#student/'+this.state.id}> {this.state.student.surname}, {this.state.student.name}</a>
             </td>
             <td className="w-60">

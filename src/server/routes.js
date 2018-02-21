@@ -116,6 +116,17 @@ router.post('/saveSettings',function(req, res) {
       res.send('OK');
     }
 });
+router.post('/saveSubjects',function(req, res) {
+  if (req.isAuthenticated()) {
+    fs.writeFile('src/server/data/' + req.user.id + '/subjects.json', JSON.stringify(req.body), 'utf8', (err) => {
+      if (err) {
+        throw err;
+      }
+      console.log('The file has been saved!');
+    });
+      res.send('OK');
+    }
+});
 
 // route to test if the user is logged in or not
 router.get('/loggedin', function(req, res) {
