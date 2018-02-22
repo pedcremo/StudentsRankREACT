@@ -50,8 +50,7 @@ class Context {
         }else {
           this.user.defaultSubject = this.user.subjects[i];
         }
-    };
-    debugger;
+    }    
     let subjectsCopy = {'defaultSubject':this.user.defaultSubject,'subjects':this.user.subjects};
     saveSubjects(subjectsCopy, generateMenu);
   }

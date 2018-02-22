@@ -55,7 +55,8 @@ function changeSubject(req, res, next) {
 }
 
 router.post('/uploadImage', uploadImage);
- 
+router.post('/uploadPDF', uploadPDF);
+
 router.post('/saveStudents',function(req, res) {
   if (req.isAuthenticated()) {
     fs.writeFile('src/server/data/' + req.user.id + '/' + req.user.defaultSubject + '/students.json', JSON.stringify(req.body), 'utf8', (err) => {
@@ -119,12 +120,20 @@ router.post('/saveSettings',function(req, res) {
 router.post('/saveSubjects',function(req, res) {
   if (req.isAuthenticated()) {
     fs.writeFile('src/server/data/' + req.user.id + '/subjects.json', JSON.stringify(req.body), 'utf8', (err) => {
+      req.user.defaultSubject = req.body.defaultSubject;
+      req.user.subjects = req.body.subjects;
       if (err) {
         throw err;
       }
+      //This is the right procedure to change dinamically 
+      //user session properies when is in session
+      req.login(req.user, function(err) {
+        if (err) return next(err)
+        console.log("After relogin: "+req.session.passport.user.changedField)
+        res.send(200)
+      })
       console.log('The file has been saved!');
-    });
-      res.send('OK');
+    });      
     }
 });
 
@@ -397,4 +406,86 @@ function addSubject(req, res, next) {
   }else {
     res.status(401).send("Not authorized");
   }
+}
+function uploadPDF(req,res){
+  if (req.isAuthenticated()) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+         var oldPath = files.myFile.path,
+             fileSize = files.myFile.size,
+             fileExt = files.myFile.name.split('.').pop(),
+             index = oldPath.lastIndexOf('/') + 1,
+             fileName = oldPath.substr(index);
+
+             //Create tmp folder
+             if (!fs.existsSync('src/server/tmp')){
+              fs.mkdirSync('src/server/tmp');
+            }
+            
+             //Create temporal PDF
+             fs.readFile(oldPath, function(err, data) {
+              fs.writeFile('src/server/tmp/tempPDF.pdf', data, function(err) {
+                  fs.unlink(oldPath, function(err) {
+                      if (err) {
+                        res.status(500);
+                        res.send(err);
+                      } else {
+
+                        //Execute script
+                        exec('./src/server/scripts/pedfextractor.sh src/server/tmp/tempPDF.pdf', function(error, stdout, stderr) {
+                          if(error != null) {
+                                  console.log('Error during the execution of redeploy: ' + stderr);
+                          }
+                          var finalJSON = [];
+                            fs.readdir('./output', function (error, files) {
+                              files.forEach( function( file, index ) {
+                                var fileName = file.split(',');
+                                var surname = fileName[0].toLowerCase();
+                                var backFile = fileName[1].split('.');
+                                var name = backFile[0].toLowerCase();
+                                finalJSON.push([hashcode(name + surname),{"name":name,"surname":surname,"id":hashcode(name + surname),"attitudeTasks":[]}]);
+                                //Copy pictures to "fotos" from "output" folder
+                                fs.createReadStream('output/'+file).pipe(fs.createWriteStream('src/server/data/fotos/'+hashcode(name + surname)+'.jpg'));
+                      
+                              });
+                              //Create students file 
+                              if (fs.existsSync('src/server/data/' + req.user.id +'/'+ fields.subjectName+'/students.json')) {
+                                fs.writeFile('src/server/data/' + req.user.id +'/'+ fields.subjectName+'/students.json', JSON.stringify(finalJSON), 'utf8', (err) => {
+                                  if (err) {
+                                    throw err;
+                                  }
+                                  console.log('The file has been saved empty!');
+                                });
+                              }else{
+                                //Create folder subject if not exist
+                                mkdirp('src/server/data/' + req.user.id + '/'+fields.subjectName+'/', function (err) {
+                                  if (err) console.error(err)
+                                  else console.log('dir created')
+                                });
+                               fs.writeFile('src/server/data/' + req.user.id + '/'+ fields.subjectName+'/students.json', JSON.stringify(finalJSON), 'utf8', (err) => {
+                                 if (err) {
+                                   throw err;
+                                }
+                                console.log('The file has been saved empty!');
+                              });   
+                              }
+                              updateSubjects(req,res,fields.subjectName);
+
+                              //Change subects on lowdb
+                              if (!dbase.get('shares').find({'defaultSubject': fields.subjectName}).value()) {
+                                dbase.get('shares')
+                                .push({'defaultSubject':fields.subjectName,'src':'src/server/data/' + req.user.id + '/' + fields.subjectName + '/students.json','hits':0})
+                                .write();
+                                req.user.defaultSubject = fields.subjectName;
+                                req.user.subjects.push(fields.subjectName);
+                              }
+                            });
+                        });
+                      }
+                    });
+                });
+            });
+     });
+  }
+
 }

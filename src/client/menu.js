@@ -27,6 +27,15 @@ events.subscribe('menu/changesubject',(obj) => {
       },'GET','newsubject=' + obj.defaultSubject,false);
 });
 
+events.subscribe('menu/sendFile',(obj)=>{
+  loadTemplate('api/uploadPDF',function(response) {
+    context.user.defaultSubject = obj.subjectName;
+    context.user.subjects.push(obj.subjectName);   
+    reactDOM.unmountComponentAtNode(document.getElementById('modals'));
+    context.isLogged();
+  },'POST',obj.formData,'false'); 
+});
+
 /** Show Menu  */
 function showMenu() {
   $('#navbarNav').show();
@@ -42,7 +51,7 @@ function generateMenu() {
   loadTemplate('api/getSharedGroups',function(response) {
     let sharedGroups = JSON.parse(response);
     let menudata = {'displayName' : context.user.displayName , 'subjects': context.user.subjects, 'defaultSubject': context.user.defaultSubject, 'defaultTerm' : settings.defaultTerm, 'sharedGroups': sharedGroups};
-    debugger;
+   
     reactDOM.unmountComponentAtNode(document.getElementById('menuButtons'));
     reactDOM.render(<MenuPage key={context.user} props={menudata} />, document.getElementById('menuButtons'));    
   },'GET','',false); 

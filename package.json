@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "karma start --single-run --browsers ChromeHeadlessRANK karma.conf.js",
-    "tt":"karma start --single-run --no-auto-watch karma.conf.js",
+    "tt": "karma start --single-run --no-auto-watch karma.conf.js",
     "prestart": "babel-node tools/startMessage.js",
     "start": "forever NODE_ENV='build' start src/server/app.js",
     "dev": "babel-node src/server/appDev.js",
@@ -49,6 +49,7 @@
     "react": "^16.2.0",
     "react-bootstrap4-modal": "^1.2.2",
     "react-dom": "^16.2.0",
+    "react-dropzone": "^4.2.8",
     "serve-favicon": "^2.0.1",
     "toastr": "^2.1.2"
   },
@@ -75,7 +76,7 @@
     "jshint": "^2.9.5",
     "jshint-stylish": "^2.2.1",
     "karma": "^1.7.1",
-    "karma-babel-preprocessor": "^7.0.0",   
+    "karma-babel-preprocessor": "^7.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-ajax": "^0.1.13",

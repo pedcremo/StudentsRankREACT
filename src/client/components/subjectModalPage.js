@@ -1,6 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Modal from 'react-bootstrap4-modal';
+import UploadPage from './uploadPDFPage.js';
 
 class SubjectModalPage extends React.Component {
     constructor(props){
@@ -74,7 +75,9 @@ class SubjectModalPage extends React.Component {
                         </div>                        
                     </div>
                     </div>   
+                    <UploadPage />
                 </div>
+               
                 <div className="modal-footer">                         
                     <button type="button" className="btn btn-secondary" id="closeModal" data-dismiss="modal" onClick={this.modalBackdropClicked}>Close</button>          
                 </div>
