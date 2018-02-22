@@ -92,6 +92,7 @@ class MenuPage extends React.Component {
                             </a>
                         </li>
                     </ul>
+                    
                 </div>
             
         );
