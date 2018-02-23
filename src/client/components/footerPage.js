@@ -9,7 +9,7 @@ class FooterPage extends React.Component {
         return (
             <div className="jumbotron footer-copyright py-3 text-center">
             <div className="container-fluid">
-            <span className="copyleft">&copy;</span> Copyleft 2018  &emsp;&emsp;<i className="fas fa-github fa"></i><a className="text-success" href="https://github.com/pedcremo/StudentsRank"> https://github.com/pedcremo/StudentsRank </a>    
+            <span className="copyleft">&copy;</span> Copyleft 2018  &emsp;&emsp;<i className="fas fa-github fa"></i><a className="text-success" href="https://github.com/pedcremo/StudentsRankREACT"> https://github.com/pedcremo/StudentsRankREACT </a>    
             </div>
         </div>         
         );

@@ -66,7 +66,7 @@ class SubjectModalPage extends React.Component {
                                 <input type="submit" value="New Subject" id="newSubjectInput" />
                                 
                                 
-                                At the moment of subject creation you are able if you want to reuse students created by other people make your choice:
+                                At the moment of subject creation you are able to reuse students groups created by other people make your choice:
                                 <select name="selectedSharedGroup" id="sharedGroups" onChange={this.handleInputChange}>
                                     <option value="" ></option>
                                    {sharedGroups}

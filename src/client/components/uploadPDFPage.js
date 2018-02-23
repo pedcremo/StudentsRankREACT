@@ -56,7 +56,7 @@ class UploadPage extends React.Component {
         return (
         <section>
           <hr className="hr-text" data-content="OR"/>
-            <p className="desc">Drag and Drop your user class PDF</p>
+            <p className="desc">Drag and Drop your ITACA Student's class PDF report</p>
             <div className="dropzone">
               <form id="newFile" className="formDetail" onSubmit={this.handleSubmit}>
                 <Dropzone
@@ -67,16 +67,16 @@ class UploadPage extends React.Component {
                     onDragLeave={this.onDragLeave.bind(this)}
                     name='myFile'
                 >
-                    <p>Try dropping some files here, or click to select files to upload.</p>
-                    <p>Only PDFs are accept</p>
+                    <p>Drop a PDF file exported from <a href="http://docent.edu.gva.es">http:/docent.edu.gva.es</a>, or click to select files to upload.</p>
+                    <p>Only PDFs are accepted</p>
                 </Dropzone>
                 <img src="ajax-loader.gif" id="loading" style={{display:'none'}} />
-
+                <br/>
                 {this.state.pdfUploaded ? 
                 <div className="formInput"><label>Subject Name: </label>
                   <input type="text" name="subjectName" required/>
                 </div> : null}
-
+                 
               <input type="submit" className="btn btn-primary" value="Click here to create subject"/>
               </form>
             </div>
