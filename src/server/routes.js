@@ -1,7 +1,8 @@
 var router = require('express').Router();
 var four0four = require('./utils/404')();
 var data = require('./data');
- 
+
+var exec = require('child_process').exec;
 var auth = require('./authentication');
 var passport = require('passport');
 var fs = require('fs');
@@ -407,6 +408,52 @@ function addSubject(req, res, next) {
     res.status(401).send("Not authorized");
   }
 }
+function hashcode(str) {
+  let hash = 0, i, chr;
+  if (str.length === 0) {
+    return hash;
+  }
+  for (i = 0; i < str.length; i++) {
+    chr   = str.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+}
+function updateSubjects(req,res,subject='test'){
+  //Update subjects.json
+  fs.readFile('src/server/data/' + req.user.id + '/subjects.json','utf8', function(err, data) {
+    if (err) throw err;
+    console.log('OK:');
+    let newJSON = JSON.parse(data);
+    newJSON.defaultSubject = subject;
+    newJSON.subjects.push(subject);
+    fs.writeFile('src/server/data/' + req.user.id + '/subjects.json', JSON.stringify(newJSON), 'utf8', (err) => {
+      if (err) {
+        throw err;
+      }
+      //Delete temporal folders
+      deleteFolderRecursive('src/server/tmp');
+      deleteFolderRecursive('output')
+      res.status(200).send('[]');
+      console.log('The file has been saved empty!');
+    });
+  });
+}
+var deleteFolderRecursive = function(path) {
+  if( fs.existsSync(path) ) {
+    fs.readdirSync(path).forEach(function(file,index){
+      var curPath = path + "/" + file;
+      if(fs.lstatSync(curPath).isDirectory()) { // recurse
+        deleteFolderRecursive(curPath);
+      } else { // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
+};
+
 function uploadPDF(req,res){
   if (req.isAuthenticated()) {
     var form = new formidable.IncomingForm();

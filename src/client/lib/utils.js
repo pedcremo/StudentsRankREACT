@@ -80,6 +80,10 @@ function loadTemplate(urlTemplate,callback,method='GET',params='',cached=true) {
         xhttp.setRequestHeader('Content-Type', 'application/json');
       }else if (urlTemplate === 'api/uploadImage') {
         console.log('uploading image'); //No special content-type
+      }else if (urlTemplate === 'api/uploadPDF') {
+        var loading = document.getElementById("loading");
+	  	  loading.style.display = "block";
+        console.log('uploading PDF'); //No special content-type
       }else {
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       }

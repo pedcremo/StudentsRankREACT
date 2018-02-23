@@ -41,24 +41,40 @@ class UploadPage extends React.Component {
       event.preventDefault();
       console.log(event.target);
       var formData = new FormData(event.target);
-      formData.append('subjectName',event.target.subjectName.value);
+      
+      for (var [key, value] of formData.entries()) { 
+        console.log(key, value);
+      }
+      debugger;
+      //formData.append('subjectName',event.target.subjectName.value);
       events.publish('menu/sendFile',{'formData':formData,'subjectName':event.target.subjectName.value});
     }
     
     render() {
         const dropzoneStyle = {
           width  : "100%",
-          height : "30%",
+          height : "35%",
           border : "5px dashed #42c5f4",
-          paddingBottom: "15px"
+          padding: "15px"
+        };
+        const overlayStyle = {
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          padding: '2.5em 0',
+          background: 'rgba(0,0,0,0.5)',
+          textAlign: 'center',
+          color: '#fff'
         };
         const { accept, files, dropzoneActive } = this.state;
         return (
         <section>
           <hr className="hr-text" data-content="OR"/>
-            <p className="desc">Drag and Drop your ITACA Student's class PDF report</p>
+            <p className="desc small">Drag and Drop your ITACA Student's class PDF report</p>
             <div className="dropzone">
-              <form id="newFile" className="formDetail" onSubmit={this.handleSubmit}>
+              <form id="newFile" enctype="multipart/form-data" className="formDetail small" onSubmit={this.handleSubmit}>
                 <Dropzone
                     onDrop={this.onDrop.bind(this)}
                     style={dropzoneStyle}
@@ -68,15 +84,20 @@ class UploadPage extends React.Component {
                     name='myFile'
                 >
                     <p>Drop a PDF file exported from <a href="http://docent.edu.gva.es">http:/docent.edu.gva.es</a>, or click to select files to upload.</p>
-                    <p>Only PDFs are accepted</p>
+                    Dropped files
+                  <ul>
+                    {
+                      files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
+                    }
+                  </ul>
                 </Dropzone>
                 <img src="ajax-loader.gif" id="loading" style={{display:'none'}} />
-                <br/>
+                
                 {this.state.pdfUploaded ? 
                 <div className="formInput"><label>Subject Name: </label>
                   <input type="text" name="subjectName" required/>
                 </div> : null}
-                 
+               
               <input type="submit" className="btn btn-primary" value="Click here to create subject"/>
               </form>
             </div>

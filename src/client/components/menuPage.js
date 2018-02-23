@@ -52,8 +52,8 @@ class MenuPage extends React.Component {
                 <div className="collapse navbar-collapse" id="navbarNav" >
                     <table>
                         <tbody>
-                        <tr><td> 
-                    {this.state.displayName}&nbsp;
+                        <tr><td className="text-center"> 
+                      <span className="small">{this.state.displayName}</span>
                     </td></tr>
                     <tr><td>
                      <select name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
@@ -63,35 +63,51 @@ class MenuPage extends React.Component {
                                 <option name="new subject" defaultValue="NEW subject">NEW SUBJECT</option>
                             </select>
                     </td></tr>
-                    <tr><td>      
-                            <span id="termMenu">{this.state.defaultTerm} </span> &nbsp;   
+                    <tr><td className="text-center">      
+                            <span className="small" id="termMenu">{this.state.defaultTerm} </span> &nbsp;   
                      </td></tr>
                      </tbody>
-                     </table>      
+                     </table>   
+                     {/*<a className="nav-link" href="#addStudent">
+                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add new Student"> <i class="fa fa-user"></i> </button>
+                            </a>
+                     <a className="nav-link" href="#settings">
+                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cogs"></i></button>
+                            </a>
+                     <a className="nav-link" href="#settings">
+                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cogs"></i></button>
+                            </a>
+                     <a className="nav-link" href="#logout">
+                                <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></button>
+                            </a>          */}
                     <ul id="menuButtons" className="nav navbar-nav navbar-right">
                         
                         <li className="nav-item">
                             <a className="nav-link" href="#addStudent">
-                                <button className="btn btn-secondary"> + Students </button>
+                            {/* <i class="fa fa-user"></i> +Student*/}
+                               <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add new Student"> <i className="fa fa-user"></i> </button>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#addGradedTask">
-                                <button className="btn btn-secondary"> + Graded task</button>
+                                {/* <i class="fa fa-tasks"></i>+Graded Task*/}
+                                 <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add graded task"><i className="fa fa-tasks"></i></button>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#settings">
-                                <button className="btn btn-secondary">Settings</button>
+                                {/* <i class="fa fa-cogs"></i>Settings*/}
+                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Settings"><i className="fa fa-cogs"></i></button>
                             </a>
                         </li>
                         
                         <li className="nav-item">
                             <a className="nav-link" href="#logout">
-                                <button className="btn btn-danger"> LOGOUT</button>
+                                 {/* <i class="fa fa-sign-out"></i>LogOut*/}
+                              <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Logout"><i className="fa fa-sign-out"></i></button>
                             </a>
                         </li>
-                    </ul>
+                            </ul> 
                     
                 </div>
             

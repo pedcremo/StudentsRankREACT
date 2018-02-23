@@ -37,7 +37,7 @@ class GradedTaskPage extends React.Component {
     render() {
         return (
             <div>
-            <h3>Add new Graded Task REACT COMPONENT</h3>  
+            <h3>Add new Graded Task</h3>  
             We understand as a graded task any test or practice that will be marked by teacher and should be reflected in the final mark.
             <form id="newGradedTask" onSubmit={this.handleSubmit}>
                 <div className="form-group">   
