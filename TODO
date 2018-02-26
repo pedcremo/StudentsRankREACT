@@ -1,13 +1,13 @@
 1. Login screern. Log in with Teacher in domain iestacio.com or as student using a code
-2. Change  REACT DROP ZONE CSS . More attractive look and feel -> Llore
+2. Change  REACT DROP ZONE CSS . More attractive look and feel
 3. Delete unused code ,all imported and not used modules and packages not used anymore and refactor
 4. Fix upload PDF and refactor server
 5. Rethink react rankingListPage with a search filter and a checkbox selector to apply global actions -> Carlos Axel Castex y Oscar Segui Guerola
-5.1 Double click on the profile image to enter on edit view or double click on name to change directly - Dani
+5.1 Double click on the profile image to enter on edit view or double click on name to change directly - Dani Martinez
 6. Related with previous one do a send email action on selected students. Show a modal to write the message and send the message using sendgrid -> Alejandro Garcia
 7. Implement in settings change subject name
 8. Lots and lots of more unit testing tests.
-9. Lots and lots of more E2E tests.
+9. Lots and lots of more E2E tests. -> Jorge Beneyto Castelló
 10. Rewrite README and whole project DOC
 11. i18n app - Gonzalo Tormo
 12. Refactor the server. Specially routes.js . Descompose in several files
