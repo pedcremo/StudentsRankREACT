@@ -14,6 +14,19 @@ events.subscribe('settings/change',(obj) => {
   events.publish('students/change',Person.getStudentsFromMap());
 });
 
+/**
+ * Settings class. Create a settings file.
+ * 
+ * @constructor
+ * @param {number} weightXP - weight XP points %
+ * @param {number} weightGP - weight Graded Tasks %
+ * @param {number} weight - task 
+ * @param {string} defaultTerm 
+ * @param {array} terms - List of terms
+ * @tutorial pointing-criteria
+ */
+
+
 class Settings {
   constructor(weightXP,weightGP,defaultTerm,terms) {
     this.weightXP = weightXP;
