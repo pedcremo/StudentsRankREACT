@@ -1,5 +1,3 @@
-import Task from './task.js';
-
 /**
  * AttitudeTask class. Create a attitude task in order to be
  * assigned to an individual or group of students. This could be for
@@ -14,6 +12,7 @@ import Task from './task.js';
  * @tutorial pointing-criteria
  */
 
+import Task from './task.js';
 import {loadTemplate} from '../lib/utils.js';
 import {events} from '../lib/eventsPubSubs.js';
 import Person from './person.js';

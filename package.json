@@ -16,7 +16,8 @@
     "prebuild": "npm-run-all clean-dist build:html",
     "build": "babel-node tools/build.js",
     "postbuild": "node src/server/app.js",
-    "restart": "forever restart src/server/app.js"
+    "restart": "forever restart src/server/app.js",
+    "doc": "jsdoc -c jsdoc.json README.md src/client/**/*"
   },
   "author": "Pere Crespo",
   "license": "ISC",

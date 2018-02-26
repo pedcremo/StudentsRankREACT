@@ -10,6 +10,7 @@ import $ from "jquery";
  * GradedTask class. Create a graded task in order to be evaluated 
  * for every student engaged. Theory tests and procedure practices 
  * are part of this category.
+ * 
  * @constructor
  * @param {string} name - task name
  * @param {string} description - task description
