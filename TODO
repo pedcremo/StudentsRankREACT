@@ -10,6 +10,6 @@
 9. Lots and lots of more E2E tests. -> Oscar Martinez
 10. Rewrite README and whole project DOC
 11. i18n app - Gonzalo Tormo
-12. Refactor the server. Specially routes.js . Descompose in several files
+12. Refactor the server. Specially routes.js . Descompose in several files -> Oscar LL
 13. Introduce sqllite3 on server side replacing primitive json file storage system used now
 14. Implement students access using a code 
