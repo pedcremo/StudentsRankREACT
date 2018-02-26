@@ -8,7 +8,7 @@
 8. Lots and lots of more unit testing tests.
 9. Lots and lots of more E2E tests.
 10. Rewrite README and whole project DOC
-11. i18n app 
+11. i18n app - Gonzalo Tormo
 12. Refactor the server. Specially routes.js . Descompose in several files
 13. Introduce sqllite3 on server side replacing primitive json file storage system used now
 14. Implement students access using a code 
