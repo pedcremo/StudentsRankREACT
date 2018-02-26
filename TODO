@@ -7,7 +7,7 @@
 6. Related with previous one do a send email action on selected students. Show a modal to write the message and send the message using sendgrid -> Alejandro Garcia
 7. Implement in settings change subject name
 8. Lots and lots of more unit testing tests.
-9. Lots and lots of more E2E tests. -> Jorge Beneyto Castelló
+9. Lots and lots of more E2E tests. -> Oscar Martinez
 10. Rewrite README and whole project DOC
 11. i18n app - Gonzalo Tormo
 12. Refactor the server. Specially routes.js . Descompose in several files
