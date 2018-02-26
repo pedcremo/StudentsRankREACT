@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Proves de transpilacio amb babel",
   "main": "main.js",
-  "scripts": {
-    "test": "karma start --single-run --browsers ChromeHeadlessRANK karma.conf.js",
-    "tt": "karma start --single-run --no-auto-watch karma.conf.js",
+  "scripts": {    
+    "test": "karma start --single-run --no-auto-watch karma.conf.js",
+    "e2e-test": "(webdriver-manager start &) && sleep 2 && (babel-node src/server/appDev.js &) && protractor tests_e2e/conf.js",
     "prestart": "babel-node tools/startMessage.js",
     "start": "forever NODE_ENV='build' start src/server/app.js",
     "dev": "babel-node src/server/appDev.js",
