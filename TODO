@@ -5,7 +5,7 @@
 5. Rethink react rankingListPage with a search filter and a checkbox selector to apply global actions -> Carlos Axel Castex y Oscar Segui Guerola
 5.1 Double click on the profile image to enter on edit view or double click on name to change directly - Dani Martinez
 6. Related with previous one do a send email action on selected students. Show a modal to write the message and send the message using sendgrid -> Alejandro Garcia
-7. Implement in settings change subject name
+7. Implement in settings change subject name --> Marcos Martinez
 8. Lots and lots of more unit testing tests.
 9. Lots and lots of more E2E tests. -> Oscar Martinez
 10. Rewrite README and whole project DOC
