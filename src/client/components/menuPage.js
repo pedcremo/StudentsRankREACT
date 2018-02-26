@@ -107,6 +107,11 @@ class MenuPage extends React.Component {
                               <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Logout"><i className="fa fa-sign-out"></i></button>
                             </a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#i18n">
+                              <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="i18n"><i className="fa fa-sign-out"></i></button>
+                            </a>
+                        </li>
                             </ul> 
                     
                 </div>
