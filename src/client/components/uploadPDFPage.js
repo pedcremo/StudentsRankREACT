@@ -13,15 +13,14 @@ class UploadPage extends React.Component {
             objectURL:'',
             pdfUploaded:false
         };
-        this.handleSubmit = this.handleSubmit.bind(this);      
-
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onDragEnter() {
         this.setState({
           dropzoneActive: true
         });
-      }
+    }
     
     onDragLeave() {
       this.setState({
@@ -31,7 +30,7 @@ class UploadPage extends React.Component {
     
     onDrop(files) {
       this.setState({
-        files,
+        files: files,
         dropzoneActive: false,
         pdfUploaded:true
       });
@@ -41,7 +40,9 @@ class UploadPage extends React.Component {
       event.preventDefault();
       console.log(event.target);
       var formData = new FormData(event.target);
-      
+      if (this.state.pdfUploaded) {
+        formData.append('myFile',this.state.files[0], this.state.files[0]); 
+      }
       for (var [key, value] of formData.entries()) { 
         console.log(key, value);
       }
