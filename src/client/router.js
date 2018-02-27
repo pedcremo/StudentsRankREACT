@@ -72,6 +72,14 @@ function initRouter() {
                 context.isLogged();
                }
              break;
+              /** Edit Subject */
+             case /#editSubject/.test(isLink.href):
+               let reg2 = /editSubject\/(\w+)/;
+               let matchResults2 = isLink.href.match(reg2);
+               let newname = matchResults2[1];
+               let subject = context.user.defaultSubject;
+               context.editSubject(newname);
+             break;
             /** Show popup associated to an student in order to assign XP points  */
             case /#addXP/.test(isLink.href):
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));

@@ -54,6 +54,26 @@ class Context {
     let subjectsCopy = {'defaultSubject':this.user.defaultSubject,'subjects':this.user.subjects};
     saveSubjects(subjectsCopy, generateMenu);
   }
+
+  editSubject(newname) {
+    let oldsubject = this.user.defaultSubject;
+
+    this.user.defaultSubject = newname;
+    for (let i=0;i<this.user.subjects.length;i++) {
+        if (oldsubject === this.user.subjects[i]) {
+          if (i> -1) {
+            this.user.subjects[i] = newname;
+          }    
+        }
+    }
+    let subjectsCopy = {'defaultSubject':this.user.defaultSubject,'subjects':this.user.subjects};
+    console.log(subjectsCopy);
+    saveSubjects(subjectsCopy,  
+      loadTemplate('api/renameSubject',function(response) {            
+        generateMenu(); 
+      },'GET','newSubject=' + newname + '&oldSubject=' + oldsubject ,false)
+    );
+  }
   /* Check on server if user is logged */
   isLogged() {
     loadTemplate('api/loggedin',function(response) {      

@@ -9,7 +9,8 @@ class SettingsPage extends React.Component {
             weightXP:props.props.weightXP,
             terms: props.props.terms,
             defaultTerm: props.props.defaultTerm,
-            defaultSubject: props.defaultSubject
+            defaultSubject: props.defaultSubject,
+            NewNameSubject: props.defaultSubject,
         };                              
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -25,6 +26,7 @@ class SettingsPage extends React.Component {
         if (name === "weightXP"){
             this.state.weightGP = 100 - value;
         }
+        console.log(this.state);
         this.setState({  [name]: value }, () => this.SendChanges(name));    
     }
 
@@ -71,7 +73,12 @@ class SettingsPage extends React.Component {
                   </select>   
             
               </div>
-              <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
+              CHANGE SUBJECT:
+              <div className="form-group">
+                <input type="text" defaultValue={this.state.defaultSubject} onInput={this.handleInputChange} id="NewNameSubject" name='NewNameSubject' /><br/><br/>
+                <a href={'#editSubject/'+ this.state.NewNameSubject} ><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'></i> {this.state.NewNameSubject}</button></a>
+                <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
+              </div>
               {/*      
               {this.state.terms.map((term, i) =>
                     <div key={'formGroup'+i} className="form-group">
