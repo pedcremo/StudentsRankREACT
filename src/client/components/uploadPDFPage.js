@@ -11,7 +11,8 @@ class UploadPage extends React.Component {
             files: [],
             dropzoneActive: false,
             objectURL:'',
-            pdfUploaded:false
+            pdfUploaded:false,
+            border :"5px dashed red"
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,9 +33,11 @@ class UploadPage extends React.Component {
       this.setState({
         files: files,
         dropzoneActive: false,
-        pdfUploaded:true
-      });          
-      $("#newSubject").hide();
+        pdfUploaded:true,
+        border : "5px dashed green"
+      });
+      $('#newSubject').hide();
+       $('#hr-text').hide();
     }
      
     handleSubmit(event) {
@@ -56,8 +59,12 @@ class UploadPage extends React.Component {
         const dropzoneStyle = {
           width  : "100%",
           height : "35%",
-          border : "5px dashed #42c5f4",
-          padding: "15px"
+          border: this.state.border,
+          padding: "15px",
+          borderRadius:20 
+
+          
+          
         };
         const overlayStyle = {
           position: 'absolute',
@@ -70,21 +77,23 @@ class UploadPage extends React.Component {
           textAlign: 'center',
           color: '#fff'
         };
+
+        
         const { accept, files, dropzoneActive } = this.state;
         return (
-        <section id="dragPdfReport">
-          <hr className="hr-text" data-content="OR"/>
-            <p className="desc small">Drag and Drop your ITACA Student's class PDF report</p>
-            <div className="dropzone">
+        <div className="dragPdfReport">
+          <hr className="hr-text" data-content="OR" id="hr-text"/>
+            <p className="desc small">Drag and Drop your ITACA Students class PDF report</p>
+            <div> 
+            {/* Asi es la part del drop zone */}
               <form id="newFile" enctype="multipart/form-data" className="formDetail small" onSubmit={this.handleSubmit}>
-                <Dropzone
+                <Dropzone class="Dropzone"
                     onDrop={this.onDrop.bind(this)}
                     style={dropzoneStyle}
                     accept={accept}
                     onDragEnter={this.onDragEnter.bind(this)}
                     onDragLeave={this.onDragLeave.bind(this)}
-                    name='myFile'
-                >
+                    name="myFile">
                     <p>Drop a PDF file exported from <a href="http://docent.edu.gva.es">http:/docent.edu.gva.es</a>, or click to select files to upload.</p>
                     Dropped files
                   <ul>
@@ -93,18 +102,19 @@ class UploadPage extends React.Component {
                     }
                   </ul>
                 </Dropzone>
-                <img src="ajax-loader.gif" id="loading" style={{display:'none'}} />
-                
-                {this.state.pdfUploaded ? 
+                <br/>
+                <img src="ajax-loader.gif" id="loading" style={{display:"none"}} />
+                  
+                {this.state.pdfUploaded ?  
                 <div className="formInput"><label>Subject Name: </label>
                   <input type="text" name="subjectName" required/>
                 </div> : null}
-               
+               <br/>
               <input type="submit" className="btn btn-primary" value="Click here to create subject"/>
               </form>
             </div>
             <img id="output"/>
-        </section>
+        </div>
         );
     }
     
