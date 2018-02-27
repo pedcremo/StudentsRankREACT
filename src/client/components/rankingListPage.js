@@ -67,7 +67,6 @@ class RankingListPage extends React.Component {
         this.setState({
             [name]: value
         }); 
-        console.log(this.state.students);
         if(this.state.search.length>value.length){
             this.state.students.map((student) =>
                 studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
@@ -92,6 +91,7 @@ class RankingListPage extends React.Component {
     filterItems(query,array) {
         return array.filter(function(el) {
             let nameStudent=el[1];
+            console.log(nameStudent);
             return nameStudent.indexOf(query.toLowerCase()) > -1;
         })
     }
