@@ -11,6 +11,7 @@ class SettingsPage extends React.Component {
             terms: props.props.terms,
             defaultTerm: props.props.defaultTerm,
             defaultSubject: props.defaultSubject,
+            code:props.code,                            
             NewNameSubject: props.defaultSubject,                            
             language: props.props.language
         };        
@@ -64,7 +65,10 @@ class SettingsPage extends React.Component {
                 <label htmlFor="gt" id="idGPweight">Weight GT {this.state.weightGP}%</label>
               </div>
             </form> 
-            
+            <div className="col-6">
+                <span>Your code:</span>
+                <h1>{this.state.code}</h1>
+            </div>
             <form id="existingTerms">
               DEFAULT TERM:
               <div className="form-group">

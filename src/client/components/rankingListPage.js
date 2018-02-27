@@ -18,6 +18,7 @@ class RankingListPage extends React.Component {
             students:index,           
             gtWeight:props.gtWeight,
             xpWeight:props.xpWeight,
+            readOnly:props.readOnly ? true : false,
             search:"",
             searchmap:index
         };                             
@@ -98,18 +99,15 @@ class RankingListPage extends React.Component {
 
     render() {
         const studentsItems = this.state.searchmap.map((student) =>
-            <RankingListItemPage key={student[0]} index={student[2]} student={student} />            
+            <RankingListItemPage key={student[0]} index={student[2]} student={student} readOnly={this.state.readOnly} />            
         );  
         return (
             <table className="table table-striped table-condensed">
                 <thead className="thead-dark">
                 <tr>
-                    <th><a href="#expandedView" onClick={this.handleClick}><button id="more_gt"><i className="fa fa-hand-o-right fa-1x"></i></button></a></th>
-
+                    <th><button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th><input type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
                     <th>FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th> 
-
-            
                 </tr>
                 </thead>
                 <tbody id="idTableRankingBody">
