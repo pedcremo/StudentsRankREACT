@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var four0four = require('./utils/404')();
+var id = require('./utils/makeid')();
 var data = require('./data');
 
 var fuploadPDF = require('./uploadPDF')();
@@ -438,7 +439,7 @@ function addSubject(req, res, next) {
         });
       }
       dbcode.get('codes')
-        .push({'id':makeid(),'idUser':req.user.id,'idSubject': req.query.newSubject})
+        .push({'id':id.makeid(),'idUser':req.user.id,'idSubject': req.query.newSubject})
         .write();
         req.user.defaultSubject = req.query.newSubject
         req.user.subjects.push(req.query.newSubject);

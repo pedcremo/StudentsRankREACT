@@ -3,6 +3,7 @@ var exec = require('child_process').exec;
 var formidable = require('formidable');
 var mkdirp = require('mkdirp');
 var deleteFolder = require('./utils/deleteFolder')();
+var id = require('./utils/makeid')();
 module.exports = function() {
     var service = {
         uploadPDF:uploadPDF
@@ -65,7 +66,7 @@ module.exports = function() {
                                               .push({'defaultSubject':fields.subjectName,'src':'src/server/data/' + req.user.id + '/' + fields.subjectName + '/students.json','hits':0})
                                               .write();
                                               dbcode.get('codes')
-                                              .push({'id':makeid(),'idUser':req.user.id,'idSubject': fields.subjectName})
+                                              .push({'id':id.makeid(),'idUser':req.user.id,'idSubject': fields.subjectName})
                                               .write();
                                               req.user.defaultSubject = fields.subjectName;
                                               req.user.subjects.push(fields.subjectName);
@@ -114,15 +115,6 @@ module.exports = function() {
           hash |= 0; // Convert to 32bit integer
         }
         return hash;
-      }
-      function makeid() {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      
-        for (var i = 0; i < 5; i++)
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-      
-        return text;
       }
   };
   
