@@ -12,7 +12,6 @@ import PersonPage from './components/personPage.js';
 import PersonDetailPage from './components/personDetailPage.js';
 import SettingsPage from './components/settingsPage.js';
 import FooterPage from './components/footerPage.js';
-import I18nPage from './components/i18nPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
@@ -101,9 +100,6 @@ function initRouter() {
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));               
               reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));             	             
-              break;
-            case /#i18n/.test(isLink.href):
-              reactDOM.render(<I18nPage props={{}} />, document.getElementById('content'));             	             
               break;        
             default:
               //debugger;

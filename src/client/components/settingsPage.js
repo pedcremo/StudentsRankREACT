@@ -13,10 +13,10 @@ class SettingsPage extends React.Component {
             defaultSubject: props.defaultSubject,
             language: props.props.language
         };        
-        console.log(this.state);                      
+                   
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleLanguageChange = this.handleLanguageChange.bind(this);
+    
     }
 
     handleInputChange(event) {
@@ -30,11 +30,6 @@ class SettingsPage extends React.Component {
             this.state.weightGP = 100 - value;
         }
         this.setState({  [name]: value }, () => this.SendChanges(name));    
-    }
-
-    handleLanguageChange(event) {
-        console.log('language changed');
-        console.log(event.target.value);
     }
 
     SendChanges(name){
