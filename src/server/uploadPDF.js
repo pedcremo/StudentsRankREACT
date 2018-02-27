@@ -4,6 +4,7 @@ var formidable = require('formidable');
 var hashcode = require('./utils/hashcode')();
 var mkdirp = require('mkdirp');
 var updateSubjects = require('./utils/updateSubjects')();
+
 module.exports = function() {
     var service = {
         uploadPDF:uploadPDF
@@ -43,9 +44,9 @@ module.exports = function() {
                                   fs.readdir('./output', function (error, files) {
                                     files.forEach( function( file, index ) {
                                       var fileName = file.split(',');
-                                      var surname = fileName[0].toLowerCase();
+                                      var surname = fileName[0];
                                       var backFile = fileName[1].split('.');
-                                      var name = backFile[0].toLowerCase();
+                                      var name = backFile[0];
                                       finalJSON.push([hashcode.hashcode(name + surname),{"name":name,"surname":surname,"id":hashcode.hashcode(name + surname),"attitudeTasks":[]}]);
                                       //Copy pictures to "fotos" from "output" folder
                                       fs.createReadStream('output/'+file).pipe(fs.createWriteStream('src/server/data/fotos/'+hashcode.hashcode(name + surname)+'.jpg'));

@@ -33,7 +33,10 @@ events.subscribe('menu/sendFile',(obj)=>{
     context.user.defaultSubject = obj.subjectName;
     context.user.subjects.push(obj.subjectName);   
     reactDOM.unmountComponentAtNode(document.getElementById('modals'));
-    context.isLogged();
+    loadTemplate('api/changeSubject',function(response) {
+      updateFromServer();
+    },'GET','newsubject=' + obj.subjectName,false);
+    //context.isLogged();
   },'POST',obj.formData,'false'); 
 });
 
