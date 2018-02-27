@@ -9,7 +9,8 @@ class RankingListItemPage extends React.Component {
         this.state = {                
             id:props.student[0],         
             student:props.student[1],           
-            index:props.index
+            index:props.index,
+            readOnly:props.readOnly
         }; 
     }
     
@@ -17,7 +18,7 @@ class RankingListItemPage extends React.Component {
     render() {
         let index=0;
         const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
-            <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent}/>            
+            <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent} readOnly={this.state.readOnly}/>            
             
         );
         return (
@@ -41,15 +42,9 @@ class RankingListItemPage extends React.Component {
                         {this.state.student.getGTtotalPoints()}
                     </td>
                     <td className="w-40 text-right">
-                        <a href={'#addXP/'+this.state.id}>
-                        <button className="btnS btn btn-primary">+XP</button></a>
-                        &nbsp;
-                        <a href={'#editStudent/'+this.state.id}>
-                       <button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a>
-                       &nbsp;
-                       <a href={'#deleteStudent/'+this.state.id}>
-                       <button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a>
-                        
+                        {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}><button className="btnS btn btn-primary">+XP</button></a> : null}
+                        {!this.state.readOnly ? <a href={'#editStudent/'+this.state.id}><button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a> : null}
+                        {!this.state.readOnly ? <a href={'#deleteStudent/'+this.state.id}><button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a> : null}
                     </td>                    
                 </tr> 
                 </tbody> 

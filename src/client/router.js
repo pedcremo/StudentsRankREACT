@@ -25,6 +25,25 @@ events.subscribe('settings/change',(obj) => {
 /** Primitive routing mechanism based on detecting clicks on links and get the URL */
 function initRouter() {
   reactDOM.render(<FooterPage />, document.getElementsByTagName('footer')[0]);
+
+  window.addEventListener('hashchange', function(){
+    let hash = location.hash;
+    let a = hash.split('/');
+    console.log('--HASHCHANGE--');
+    console.log(a[0]);
+    if(a[0] === '#code'){
+      console.log('code');
+      events.publish('context/loginCode',a[1]);
+    }
+  });
+  let hash = location.hash;
+  console.log(location.hash)
+  let a = hash.split('/');
+  if(a[0] === '#code'){
+    console.log('code');
+    events.publish('context/loginCode',a[1]);
+  }
+  
   window.onclick = function(e) {
         e = e || event;
         var isLink = findParent('a',e.target || e.srcElement);
@@ -72,6 +91,14 @@ function initRouter() {
                 context.isLogged();
                }
              break;
+              /** Edit Subject */
+             case /#editSubject/.test(isLink.href):
+               let reg2 = /editSubject\/(\w+)/;
+               let matchResults2 = isLink.href.match(reg2);
+               let newname = matchResults2[1];
+               let subject = context.user.defaultSubject;
+               context.editSubject(newname);
+             break;
             /** Show popup associated to an student in order to assign XP points  */
             case /#addXP/.test(isLink.href):
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
@@ -104,7 +131,7 @@ function initRouter() {
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));               
               reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));             	             
-              break;            
+              break;        
             default:
               //debugger;
               context.isLogged();

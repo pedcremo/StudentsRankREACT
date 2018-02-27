@@ -49,6 +49,7 @@ router.get('/changeSubject', changeSubject);
 router.get('/addSubject',addSubject);
 router.get('/getSharedGroups',getSharedGroups);
 router.get('/getCode', getCode);
+router.get('/renameSubject', renameSubject);
 
 router.get('/read/:code',function(req, res, next){
   var response = {};
@@ -58,44 +59,20 @@ router.get('/read/:code',function(req, res, next){
   let counter = 0;
   console.log('Code')
   console.log(req.params.code)
-  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/students.json',function(err, data) {
-    if(err) {console.log(err);}
-    //res.status(200).send(data);
-    response.students = data.toString();
-    counter++;
-    if (counter === 4) {
-      res.status(200).send(response);
-    }
-  });
-  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/attitudetasks.json',function(err, data) {
-    if(err) {console.log(err);}
-    //res.status(200).send(data);
-    response.attitudetasks = data.toString();
-    counter++;
-    if (counter === 4) {
-      res.status(200).send(response);
-    }
-  });
-  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/gradedtasks.json',function(err, data) {
-    if(err) {console.log(err);}
-    //res.status(200).send(data);
-    response.gradedtasks = data.toString();
-    counter++;
-    if (counter === 4) {
-      res.status(200).send(response);
-    }
-  });
-  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/settings.json',function(err, data) {
-    if(err) {console.log(err);}
-    //res.status(200).send(data);
-    response.settings = data.toString();
-    console.log(response.attitudetasks);
-    counter++;
-    if (counter === 4) {
-      res.status(200).send(response);
-    }
-  });
-  
+
+  function sendStudentsReadOnly(arrayjson){
+    arrayjson.forEach((item)=>{
+      fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/'+item+'.json',function(err, data) {
+        if(err) {console.log(err);}
+        response[item] = data.toString();
+        counter++;
+        if (counter === 4) {
+              res.status(200).send(response);
+             }
+      });
+    });
+  }
+  sendStudentsReadOnly(['students','attitudetasks','gradedtasks','settings'])
 });
 
 function getCode(req, res, next){
@@ -107,6 +84,7 @@ function getCode(req, res, next){
     res.status(200).send(test.id);
   }
 }
+
 
 function changeSubject(req, res, next) {
   if (req.isAuthenticated()) {
@@ -485,9 +463,16 @@ function addSubject(req, res, next) {
     res.status(401).send("Not authorized");
   }
 }
-
-
-
+function renameSubject(req, res, next) {
+  fs.rename('src/server/data/' + req.user.id + '/' + req.query.oldSubject, 'src/server/data/' + req.user.id + '/' + req.query.newSubject, function (err) {
+    if (err) throw err;
+    console.log('renamed complete');
+    dbcode.get('codes')
+    .find({ 'idSubject':req.query.oldSubject})
+    .assign({ 'idSubject':req.query.newSubject})
+    .write()
+  });
+}
 function uploadPDF(req,res){
   fuploadPDF.uploadPDF(req,res,dbase,dbcode)
 }

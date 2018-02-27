@@ -9,7 +9,9 @@ class RankingListPage extends React.Component {
         this.state = {                
             students:props.students,           
             gtWeight:props.gtWeight,
-            xpWeight:props.xpWeight
+            xpWeight:props.xpWeight,
+            readOnly:props.readOnly ? true : false
+
         };                             
         this.handleClick=this.handleClick.bind(this);
     }
@@ -42,13 +44,13 @@ class RankingListPage extends React.Component {
     render() {
         let cont =1;
         const studentsItems = this.state.students.map((student) =>
-            <RankingListItemPage key={student[0]} index={cont++} student={student} />            
+            <RankingListItemPage key={student[0]} index={cont++} student={student} readOnly={this.state.readOnly} />            
         );        
         return (
             <table className="table table-striped table-condensed">
                 <thead className="thead-dark">
                 <tr>
-                    <th><a href="#expandedView" onClick={this.handleClick}><button id="more_gt"><i className="fa fa-hand-o-right fa-1x"></i></button></a></th>
+                    <th><button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th>The harder you work, the luckier you get</th>                 
                     <th>FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th>
                 </tr>
