@@ -28,7 +28,7 @@ events.subscribe('menu/changesubject',(obj) => {
 });
 
 events.subscribe('menu/sendFile',(obj)=>{
-  debugger;
+
   loadTemplate('api/uploadPDF',function(response) {
     context.user.defaultSubject = obj.subjectName;
     context.user.subjects.push(obj.subjectName);   

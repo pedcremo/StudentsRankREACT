@@ -38,6 +38,15 @@ class SubjectModalPage extends React.Component {
         this.setState({
           [name]: value
         });
+    
+        if (name==="newSubject" && value===""){
+            console.log("llore")
+            $(".dragPdfReport").show();
+            
+       }else{
+            $(".dragPdfReport").hide();
+            console.log("llore10")
+       }
     }
 
     render() {        
@@ -57,7 +66,7 @@ class SubjectModalPage extends React.Component {
                 <div className="modal-body">
                     <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-12">       
+                        <div className="col-md-12" >        
                             <form id="newSubject" className="form-inline" onSubmit={this.handleSubmit}> 
                                 <div className="form-group">
                                     <label htmlFor="text">Subject name:</label>
@@ -78,9 +87,7 @@ class SubjectModalPage extends React.Component {
                     <UploadPage />
                 </div>
                
-                <div className="modal-footer">                         
-                    <button type="button" className="btn btn-secondary" id="closeModal" data-dismiss="modal" onClick={this.modalBackdropClicked}>Close</button>          
-                </div>
+               
                 </div>
             </Modal>
         );

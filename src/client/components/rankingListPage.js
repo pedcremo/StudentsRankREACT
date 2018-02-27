@@ -49,7 +49,7 @@ class RankingListPage extends React.Component {
                 <thead className="thead-dark">
                 <tr>
                     <th><a href="#expandedView" onClick={this.handleClick}><button id="more_gt"><i className="fa fa-hand-o-right fa-1x"></i></button></a></th>
-                    <th>The harder you work, the luckier you get</th>                 
+                    <th></th>                 
                     <th>FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th>
                 </tr>
                 </thead>
