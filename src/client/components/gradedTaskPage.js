@@ -1,5 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
+import T from 'i18n-react';
+import Settings from '../classes/settings.js';
 
 class GradedTaskPage extends React.Component {
     constructor(props){
@@ -14,6 +16,9 @@ class GradedTaskPage extends React.Component {
                 allowedWeight:props.allowedWeight
         }        
         
+        let messages = Settings.getTraductedText();
+        T.setTexts(messages, { MDFlavor: 0 });
+
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);      
 
@@ -37,21 +42,21 @@ class GradedTaskPage extends React.Component {
     render() {
         return (
             <div>
-            <h3>Add new Graded Task</h3>  
-            We understand as a graded task any test or practice that will be marked by teacher and should be reflected in the final mark.
+            <h3>{T.translate("addGradedTaskTitle")}</h3>  
+            {T.translate("addGradedTaskSubtitle")}
             <form id="newGradedTask" onSubmit={this.handleSubmit}>
                 <div className="form-group">   
-                    <label htmlFor="name">Task name:</label>
+                    <label htmlFor="name">{T.translate("addGradedTaskLblName")}:</label>
                     <input type="text" className="form-control" id="idTaskName" name="name" value={this.state.name} onChange={this.handleInputChange} required/>  
 
                 </div>
                 
                 <div className="form-group">   
-                    <label htmlFor="description">Task description:</label>
+                    <label htmlFor="description">{T.translate("addGradedTaskLblDescription")}:</label>
                     <textarea rows="4" cols="50" className="form-control" id="idTaskDescription" name="description" defaultValue={this.state.description} onChange={this.handleInputChange}></textarea>
                 </div>
                 <div className="form-group">   
-                    <label htmlFor="term">Task term:</label>
+                    <label htmlFor="term">{T.translate("addGradedTaskLblTerm")}:</label>
                     <select id="termTask" name="term" value={this.state.term || '1st Term'} onChange={this.handleInputChange}>
                         <option value="1st Term">1st Term</option>
                         <option value="2nd Term">2nd Term</option>
@@ -60,10 +65,10 @@ class GradedTaskPage extends React.Component {
                 </div>
 
                 <div className="form-group">   
-                    <label id="labelWeight" htmlFor="weight">Task Weight (0-{this.state.allowedWeight} %):</label>
+                    <label id="labelWeight" htmlFor="weight">{T.translate("addGradedTaskLblWeight")} (0-{this.state.allowedWeight} %):</label>
                     <input type="number" name="weight" className="form-control" min="1" max ={this.state.allowedWeight} id="idTaskWeight" defaultValue={this.state.weight} onChange={this.handleInputChange} required/>
                 </div>
-                <input type="submit" className="btn btn-primary" value="Save"/>
+                <input type="submit" className="btn btn-primary" value={T.translate("addGradedTaskInputSave")}/>
             </form> 
 
             </div>
