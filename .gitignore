@@ -17,6 +17,8 @@ dist/
 src/server/data/333342/
 src/server/data/343242/
 src/server/data/fotos/
+src/server/data/*.json
+
 !huevon.jpg
 node_modules/
 
