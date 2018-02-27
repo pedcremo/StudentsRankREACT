@@ -1,10 +1,8 @@
 var fs = require('fs');
 var exec = require('child_process').exec;
 var formidable = require('formidable');
-var hashcode = require('./utils/hashcode')();
 var mkdirp = require('mkdirp');
-var updateSubjects = require('./utils/updateSubjects')();
-
+var deleteFolder = require('./utils/deleteFolder')();
 module.exports = function() {
     var service = {
         uploadPDF:uploadPDF
@@ -47,9 +45,9 @@ module.exports = function() {
                                       var surname = fileName[0];
                                       var backFile = fileName[1].split('.');
                                       var name = backFile[0];
-                                      finalJSON.push([hashcode.hashcode(name + surname),{"name":name,"surname":surname,"id":hashcode.hashcode(name + surname),"attitudeTasks":[]}]);
+                                      finalJSON.push([hashcode(name + surname),{"name":name,"surname":surname,"id":hashcode(name + surname),"attitudeTasks":[]}]);
                                       //Copy pictures to "fotos" from "output" folder
-                                      fs.createReadStream('output/'+file).pipe(fs.createWriteStream('src/server/data/fotos/'+hashcode.hashcode(name + surname)+'.jpg'));
+                                      fs.createReadStream('output/'+file).pipe(fs.createWriteStream('src/server/data/fotos/'+hashcode(name + surname)+'.jpg'));
                             
                                     });
                                       //Create folder subject if not exist
@@ -60,7 +58,7 @@ module.exports = function() {
                                             if (err) {
                                               throw err;
                                            }
-                                           updateSubjects.updateSubjects(req,res,fields.subjectName);
+                                           updateSubjects(req,res,fields.subjectName);
                                             //Change subects on lowdb
                                             if (!dbase.get('shares').find({'defaultSubject': fields.subjectName}).value()) {
                                               dbase.get('shares')
@@ -81,6 +79,38 @@ module.exports = function() {
            });
         }
       
+      }
+      function updateSubjects(req,res,subject='test'){
+        //Update subjects.json
+        fs.readFile('src/server/data/' + req.user.id + '/subjects.json','utf8', function(err, data) {
+          if (err) throw err;
+          console.log('OK:');
+          let newJSON = JSON.parse(data);
+          newJSON.defaultSubject = subject;
+          newJSON.subjects.push(subject);
+          fs.writeFile('src/server/data/' + req.user.id + '/subjects.json', JSON.stringify(newJSON), 'utf8', (err) => {
+            if (err) {
+              throw err;
+            }
+            //Delete temporal folders
+            deleteFolder.deleteFolderRecursive('src/server/tmp')
+            deleteFolder.deleteFolderRecursive('output')
+            res.status(200).send('[]');
+            console.log('The file has been saved empty!');
+          });
+        });
+      }
+      function hashcode(str) {
+        let hash = 0, i, chr;
+        if (str.length === 0) {
+          return hash;
+        }
+        for (i = 0; i < str.length; i++) {
+          chr   = str.charCodeAt(i);
+          hash  = ((hash << 5) - hash) + chr;
+          hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
       }
   };
   
