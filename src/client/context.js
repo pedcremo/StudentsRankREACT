@@ -68,11 +68,11 @@ class Context {
     }
     let subjectsCopy = {'defaultSubject':this.user.defaultSubject,'subjects':this.user.subjects};
     console.log(subjectsCopy);
-    saveSubjects(subjectsCopy,  
-      loadTemplate('api/renameSubject',function(response) {            
-        generateMenu(); 
-      },'GET','newSubject=' + newname + '&oldSubject=' + oldsubject ,false)
-    );
+    saveSubjects(subjectsCopy,  (obj) => {
+        loadTemplate('api/renameSubject',function(response) {            
+          generateMenu(); 
+        },'GET','newSubject=' + newname + '&oldSubject=' + oldsubject ,false);
+    });
   }
   /* Check on server if user is logged */
   isLogged() {
