@@ -56,7 +56,7 @@ class MenuPage extends React.Component {
                       <span className="small">{this.state.displayName}</span>
                     </td></tr>
                     <tr><td>
-                     <select name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
+                     <select ref={(node) => this.select = node} name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
                                 {this.state.subjects.map((sub, i) =>
                                     <option key={i} value={sub}>{sub}</option>
                                 )}
