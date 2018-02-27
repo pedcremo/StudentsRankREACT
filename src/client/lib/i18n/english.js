@@ -7,5 +7,12 @@ export default
     addStudentLblSurnames: 'Surnames',
     addStudentLblEmail: 'Email',
     addStudentLblProfileImage: 'Profile Image',
-    addStudentInputSave: 'Save'
+    addStudentInputSave: 'Save',
+    addGradedTaskTitle: 'Add new Graded Task',
+    addGradedTaskSubtitle: 'We understand as a graded task any test or practice that will be marked by teacher and should be reflected in the final mark',
+    addGradedTaskLblName: 'Task name',
+    addGradedTaskLblDescription: 'Task description',
+    addGradedTaskLblTerm: 'Task term',
+    addGradedTaskLblWeight: 'Task Weight',
+    addGradedTaskInputSave: 'Save',
 }
