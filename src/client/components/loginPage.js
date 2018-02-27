@@ -38,14 +38,14 @@ class LoginPage extends React.Component {
                 <div align="center">                       
                     <div className="col-xs-12 col-sm-6">
                         <a target="_self" href="api/loginGoogle" className="btn btn-block btn-social btn-google">
-                        <h3> As Teacher</h3>
-                            <span className="fa fa-google"></span>Sign in using iestacio.com
+                        <h5> As Teacher</h5>
+                            <span className="fa fa-google"></span> Sign in using iestacio.com
                         </a>
                     </div>          
                 </div> 
                 <hr className="hr-text" data-content="OR"/>
                 <div align="center">
-                <h3> As Student</h3>
+                <h5> As Student</h5>
                     <div className="col-xs-12 col-sm-6" styles="margin-top:30px">
                   
                         <form id="loginForm" className="omb_loginForm" autoComplete="off">
