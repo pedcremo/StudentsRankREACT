@@ -11,6 +11,7 @@ class SettingsPage extends React.Component {
             terms: props.props.terms,
             defaultTerm: props.props.defaultTerm,
             defaultSubject: props.defaultSubject,
+            NewNameSubject: props.defaultSubject,                            
             language: props.props.language
         };        
                    
@@ -29,6 +30,7 @@ class SettingsPage extends React.Component {
         if (name === "weightXP"){
             this.state.weightGP = 100 - value;
         }
+        console.log(this.state);
         this.setState({  [name]: value }, () => this.SendChanges(name));    
     }
 
@@ -75,10 +77,14 @@ class SettingsPage extends React.Component {
                   </select>   
             
               </div>
-              <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
-              
             </form> 
-            
+              CHANGE SUBJECT:
+            <div className="form-group">
+                <input type="text" defaultValue={this.state.defaultSubject} onInput={this.handleInputChange} id="NewNameSubject" name='NewNameSubject' /><br/><br/>
+                <a href={'#editSubject/'+ this.state.NewNameSubject} ><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'></i> {this.state.NewNameSubject}</button></a>
+                <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
+            </div>
+
             <div className="form-group">
                 <label htmlFor="pLanguage"> Preferred language </label>
                 <select name="language" defaultValue="English" onChange={this.handleInputChange}>

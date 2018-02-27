@@ -36,6 +36,7 @@ router.get('/getSettings', getSettings);
 router.get('/changeSubject', changeSubject);
 router.get('/addSubject',addSubject);
 router.get('/getSharedGroups',getSharedGroups);
+router.get('/renameSubject', renameSubject);
 
 function changeSubject(req, res, next) {
   if (req.isAuthenticated()) {
@@ -409,9 +410,12 @@ function addSubject(req, res, next) {
     res.status(401).send("Not authorized");
   }
 }
-
-
-
+function renameSubject(req, res, next) {
+  fs.rename('src/server/data/' + req.user.id + '/' + req.query.oldSubject, 'src/server/data/' + req.user.id + '/' + req.query.newSubject, function (err) {
+    if (err) throw err;
+    console.log('renamed complete');
+  });
+}
 function uploadPDF(req,res){
   fuploadPDF.uploadPDF(req,res,dbase)
 }
