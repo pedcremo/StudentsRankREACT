@@ -49,18 +49,20 @@ class RankingListPage extends React.Component {
         const name = target.name;
         let studentName=[];
         let newMapStudent=[];
+
+        this.setState({
+            [name]: value
+        }); 
+
         if(this.state.search.length>value.length){
             this.state.students.map((student) =>
-            studentName.push([student[0],student[1].surname+", "+student[1].name,student[1]])
-        );
+                studentName.push([student[0],student[1].surname+", "+student[1].name,student[1]])
+            );
         }else{
             this.state.searchmap.map((student) =>
-            studentName.push([student[0],student[1].surname+", "+student[1].name,student[1]])
-        );
+                studentName.push([student[0],student[1].surname+", "+student[1].name,student[1]])
+            );
         }
-        this.setState({
-          [name]: value
-        }); 
         
         studentName=this.filterItems(value,studentName);
         studentName.map((student) =>
@@ -78,12 +80,6 @@ class RankingListPage extends React.Component {
             console.log(nameStudent);
             return nameStudent.indexOf(query.toLowerCase()) > -1;
         })
-    }
-
-    searchDelete(){
-        this.setState({
-            searchmap: this.state.students
-        }); 
     }
 
     render() {
