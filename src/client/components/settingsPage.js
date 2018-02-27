@@ -1,5 +1,6 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
+import { translate } from '../lib/i18n/translation.js';
 
 class SettingsPage extends React.Component {
     constructor(props){
@@ -9,10 +10,13 @@ class SettingsPage extends React.Component {
             weightXP:props.props.weightXP,
             terms: props.props.terms,
             defaultTerm: props.props.defaultTerm,
-            defaultSubject: props.defaultSubject
-        };                              
+            defaultSubject: props.defaultSubject,
+            language: props.props.language
+        };        
+        console.log(this.state);                      
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleLanguageChange = this.handleLanguageChange.bind(this);
     }
 
     handleInputChange(event) {
@@ -28,8 +32,13 @@ class SettingsPage extends React.Component {
         this.setState({  [name]: value }, () => this.SendChanges(name));    
     }
 
+    handleLanguageChange(event) {
+        console.log('language changed');
+        console.log(event.target.value);
+    }
+
     SendChanges(name){
-        if (name === "weightXP" || name === "defaultTerm"){
+        if (name === "weightXP" || name === "defaultTerm" || name === "language"){
             events.publish('dataservice/saveSettings',this.state);
             events.publish('settings/change',this.state);
             events.publish('settings/saveSettings',this.state);
@@ -72,28 +81,17 @@ class SettingsPage extends React.Component {
             
               </div>
               <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
-              {/*      
-              {this.state.terms.map((term, i) =>
-                    <div key={'formGroup'+i} className="form-group">
-                        <label htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
-                        <input id={"idInput"+term.name} type="text" value={term.name}/>
-                        BEGIN<input id={term.name+"beginTerm"} type="date" value={term.begin}/>
-                        END<input id={term.name+"endTerm"} type="date" value={term.end}/>      
-                        <input type="submit" className="btn btn-primary" value="Change"/>
-                     </div>
-                )} */}
               
             </form> 
-            {/*
-            <form id="newTerm">
-                <div className="form-group">
-                  <label htmlFor="xp" id="termName">Term name</label><br/>
-                  <input id="nameTerm" type="text"/>
-                  BEGIN<input id="beginTerm" type="date"/>
-                  END<input id="endTerm" type="date"/>      
-                  <input type="submit" className="btn btn-primary" value="New term" />
-                </div>
-            </form> */}
+            
+            <div className="form-group">
+                <select name="language" defaultValue="English" onChange={this.handleInputChange}>
+                    <option key="0" value="en">English</option>
+                    <option key="1" value="es">Spaish</option>
+                    <option key="2" value="val">Valencian</option>
+                </select>
+            </div>
+
           </div>    
 
         );

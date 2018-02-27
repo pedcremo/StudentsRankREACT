@@ -1,6 +1,8 @@
 import React from 'react';
 import T from 'i18n-react';
 import { MDText } from 'i18n-react'; // Singleton
+import { getTraductionOfMessages } from '../lib/i18n/translation.js';
+import Settings from '../classes/settings.js';
 
 class I18nPage extends React.Component {
     constructor(props){
@@ -14,12 +16,10 @@ class I18nPage extends React.Component {
             second:  "How do you do? *{example}*"
         }, { MDFlavor: 0 });
 
-        let messages = {
-            headerTitle: "Students Rank",
-            headerSubtitle: "The harder you work, the luckier you get"
-        };
+        let messages = getTraductionOfMessages(Settings.getLanguage());
         
         this.traductor = new MDText(messages);
+
     }
 
     // handleInputChange(event) {
@@ -41,9 +41,9 @@ class I18nPage extends React.Component {
         
         return (
         <div>
-           <h3>i18n Proves</h3>
+           {/* <h3>i18n Proves</h3>
            <T.p text={{ key: "first", myName: "Gonzalo"}} />
-           <h1>{T.translate("second", { example: "gtormo" })}</h1>
+           <h1>{T.translate("second", { example: "gtormo" })}</h1> */}
            <p/>
 
            <this.traductor.span text="headerTitle" />
