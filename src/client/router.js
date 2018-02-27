@@ -100,7 +100,7 @@ function initRouter() {
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));               
               reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));             	             
-              break;            
+              break;        
             default:
               //debugger;
               context.isLogged();

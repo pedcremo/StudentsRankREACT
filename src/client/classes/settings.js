@@ -1,11 +1,12 @@
 import {events} from '../lib/eventsPubSubs.js';
 import Person from './person.js';
+import { getTraductionOfMessages } from '../lib/i18n/translation.js';
 
 let settings = {};
 
 events.subscribe('dataservice/getSettings',(obj) => {
   let settings_ = JSON.parse(obj);
-  settings = new Settings(settings_.weightXP,settings_.weightGP,settings_.defaultTerm,settings_.terms);
+  settings = new Settings(settings_.weightXP,settings_.weightGP,settings_.defaultTerm,settings_.terms,settings_.language);
   events.publish('settings/change',settings);
 });
 
@@ -28,11 +29,12 @@ events.subscribe('settings/change',(obj) => {
 
 
 class Settings {
-  constructor(weightXP,weightGP,defaultTerm,terms) {
+  constructor(weightXP,weightGP,defaultTerm,terms,language) {
     this.weightXP = weightXP;
     this.weightGP = weightGP;
     this.terms = terms;
     this.defaultTerm = this.getDefaultTerm(defaultTerm);
+    this.language = language;
   }
   getDefaultTerm(defaultTerm) {
     if (defaultTerm) {
@@ -61,6 +63,14 @@ class Settings {
       this.defaultTerm = out;
       return out;
     }
+  }
+
+  static getLanguage() {
+    return settings.language;
+  }
+
+  static getTraductedText() {
+    return getTraductionOfMessages(this.getLanguage());
   }
   
   static getSettings() {
