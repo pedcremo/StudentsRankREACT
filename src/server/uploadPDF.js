@@ -3,13 +3,14 @@ var exec = require('child_process').exec;
 var formidable = require('formidable');
 var mkdirp = require('mkdirp');
 var deleteFolder = require('./utils/deleteFolder')();
+var id = require('./utils/makeid')();
 module.exports = function() {
     var service = {
         uploadPDF:uploadPDF
     };
     return service;
   
-    function uploadPDF(req,res,dbase){
+    function uploadPDF(req,res,dbase,dbcode){
         if (req.isAuthenticated()) {
           var form = new formidable.IncomingForm();
           form.parse(req, function(err, fields, files) {
@@ -63,6 +64,9 @@ module.exports = function() {
                                             if (!dbase.get('shares').find({'defaultSubject': fields.subjectName}).value()) {
                                               dbase.get('shares')
                                               .push({'defaultSubject':fields.subjectName,'src':'src/server/data/' + req.user.id + '/' + fields.subjectName + '/students.json','hits':0})
+                                              .write();
+                                              dbcode.get('codes')
+                                              .push({'id':id.makeid(),'idUser':req.user.id,'idSubject': fields.subjectName})
                                               .write();
                                               req.user.defaultSubject = fields.subjectName;
                                               req.user.subjects.push(fields.subjectName);

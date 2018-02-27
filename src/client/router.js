@@ -1,5 +1,5 @@
 import {context} from './context.js'; //Singleton
-import {getIdFromURL,setCookie} from './lib/utils.js';
+import {getIdFromURL,setCookie,loadTemplate} from './lib/utils.js';
 import {logout,generateMenu} from './menu.js';
 import AttitudeTask from './classes/attitudetask.js';
 import GradedTask from './classes/gradedtask.js';
@@ -26,6 +26,25 @@ events.subscribe('settings/change',(obj) => {
 /** Primitive routing mechanism based on detecting clicks on links and get the URL */
 function initRouter() {
   reactDOM.render(<FooterPage />, document.getElementsByTagName('footer')[0]);
+
+  window.addEventListener('hashchange', function(){
+    let hash = location.hash;
+    let a = hash.split('/');
+    console.log('--HASHCHANGE--');
+    console.log(a[0]);
+    if(a[0] === '#code'){
+      console.log('code');
+      events.publish('context/loginCode',a[1]);
+    }
+  });
+  let hash = location.hash;
+  console.log(location.hash)
+  let a = hash.split('/');
+  if(a[0] === '#code'){
+    console.log('code');
+    events.publish('context/loginCode',a[1]);
+  }
+  
   window.onclick = function(e) {
         e = e || event;
         var isLink = findParent('a',e.target || e.srcElement);
@@ -92,7 +111,11 @@ function initRouter() {
               break;
             case /#settings/.test(isLink.href):              
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component              
-              reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} />, document.getElementById('content'));
+              let code = '';
+              loadTemplate('api/getCode',function(response) {
+                reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} code={response}/>, document.getElementById('content'));
+              },'GET','idSubject=' + context.user.defaultSubject,false);
+              
               break;
             /** logout */
             case /#logout/.test(isLink.href):
