@@ -17,6 +17,7 @@ import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
 import ListAttitudeTaskPage from './components/listAttitudeTaskPage.js';
+import { debug } from 'util';
 
 let settings;
 events.subscribe('settings/change',(obj) => {
@@ -63,9 +64,8 @@ function initRouter() {
               break;
              /** Delete Subject */
              case /#deleteSubject/.test(isLink.href):
-               let reg = /deleteSubject\/(\w+)/;
-               let matchResults = isLink.href.match(reg);
-               let selectedSubject = matchResults[1];
+               let arraydelete = isLink.href.split("/");
+               let selectedSubject  = arraydelete.pop();
                if (window.confirm('Are you sure you want to delete '+selectedSubject+' and all linked students?')) {
                 context.deleteSubject(selectedSubject);                     
                }else {
@@ -74,9 +74,8 @@ function initRouter() {
              break;
               /** Edit Subject */
              case /#editSubject/.test(isLink.href):
-               let reg2 = /editSubject\/(\w+)/;
-               let matchResults2 = isLink.href.match(reg2);
-               let newname = matchResults2[1];
+               let array = isLink.href.split("/");
+               let newname = array.pop();
                let subject = context.user.defaultSubject;
                context.editSubject(newname);
              break;
