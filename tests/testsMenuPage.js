@@ -30,5 +30,10 @@ describe('runKING tests on menuPage REACT component', function () {
             component = ReactTestUtils.renderIntoDocument(element);
         }).not.toThrow();   
     });
+    it('2. Change subject', () => { 
+        const node = this.select;
+        node.value = "PERRY";
+        ReactTestUtils.Simulate.click(node);
+    });
     
 });

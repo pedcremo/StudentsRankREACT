@@ -3,6 +3,7 @@
   transform: rotate(180deg);
 }
 
+
 .hr-text {
   line-height: 1em;
   position: relative;
@@ -71,6 +72,12 @@ button.xp {
   width: 33%;
 }
 
+.watchword{
+  margin: 0px;
+  margin-top: -15px;
+  color: #979797;
+}
+
 @media (max-width: 768px) {
     .btnS {
       font-size:8px;
@@ -98,3 +105,5 @@ button.xp {
       font-size:18px;
     }
  }
+
+ 

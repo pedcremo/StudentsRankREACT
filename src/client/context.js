@@ -21,6 +21,19 @@ import LoginPage from './components/loginPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 
+events.subscribe('context/loginCode',(obj)=>{
+  loadTemplate('api/read/'+obj,function(userData) {
+    userData = JSON.parse(userData)
+    events.publish('dataservice/getStudents',userData.students);
+    events.publish('dataservice/getSettings',userData.settings);
+    events.publish('dataservice/getAttitudeTasks',userData.attitudetasks);
+    events.publish('dataservice/getGradedTasks',userData.gradedtasks);
+    reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+    //reactDOM.unmountComponentAtNode(document.getElementById('navbarNav'));
+    reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students={Person.getStudentsFromMap()} readOnly={true}/>, document.getElementById('content'));
+  },'GET','',false);  
+});
+
 class Context {
 
   constructor() {
@@ -68,11 +81,11 @@ class Context {
     }
     let subjectsCopy = {'defaultSubject':this.user.defaultSubject,'subjects':this.user.subjects};
     console.log(subjectsCopy);
-    saveSubjects(subjectsCopy,  
-      loadTemplate('api/renameSubject',function(response) {            
-        generateMenu(); 
-      },'GET','newSubject=' + newname + '&oldSubject=' + oldsubject ,false)
-    );
+    saveSubjects(subjectsCopy,  (obj) => {
+        loadTemplate('api/renameSubject',function(response) {            
+          generateMenu(); 
+        },'GET','newSubject=' + newname + '&oldSubject=' + oldsubject ,false);
+    });
   }
   /* Check on server if user is logged */
   isLogged() {
