@@ -1,5 +1,8 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
+import T from 'i18n-react';
+import Settings from '../classes/settings.js';
+//import { getTraductionOfMessages } from '../lib/i18n/translation.js';
 
 class PersonPage extends React.Component {
     constructor(props){
@@ -11,6 +14,11 @@ class PersonPage extends React.Component {
                 id: props.student.personInstance?props.student.personInstance.id:'huevon'
                
         };        
+        
+        //let messages = getTraductionOfMessages(Settings.getLanguage());
+        let messages = Settings.getTraductedText();
+        T.setTexts(messages, { MDFlavor: 0 });
+        
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);    
         this.handleProfileChange = this.handleProfileChange.bind(this);
@@ -48,30 +56,30 @@ class PersonPage extends React.Component {
     render() {
         return (
             <div>
-            <h3>Add new Student</h3>
+            <h3>{T.translate("addStudentTitle")}</h3>
                 <form id="newStudent" onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">First name:</label>
+                        <label htmlFor="name">{T.translate("addStudentLblFirstName")}</label>
                         <input type="text"  className="form-control" id="idFirstName" name="name" value={this.state.name} onChange={this.handleInputChange} required />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="surnames">Surnames:</label>
-                        <input type="text"  className="form-control" id="idSurnames" name="surnames" value={this.state.surnames} onChange={this.handleInputChange} required />
+                        <label htmlFor="surnames">{T.translate("addStudentLblSurnames")}</label>
+                        <input type="text" className="form-control" id="idSurnames" name="surnames" value={this.state.surnames} onChange={this.handleInputChange} required />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="email">{T.translate("addStudentLblEmail")}</label>
                         <input type="email"  className="form-control" id="idEmail" name="email" value={this.state.email} onChange={this.handleInputChange}  />
                     </div>
 
                     <div className="form-group">
-                        <label>Profile image</label>
+                        <label>{T.translate("addStudentLblProfileImage")}</label>
                         <input type="file" id="myProfile" name="myImage" accept="image/jpeg" onChange={this.handleProfileChange} />
                         <img id="output" src={'src/server/data/fotos/'+this.state.id+'.jpg'} />
                     </div>
                 
-                    <input type="submit" className="btn btn-primary" value="Save" />
+                    <input type="submit" className="btn btn-primary" value={T.translate("addStudentInputSave")} />
                 </form> 
             </div>
             
