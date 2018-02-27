@@ -9,6 +9,7 @@ class RankingListItemPage extends React.Component {
         this.state = {                
             id:props.student[0],         
             student:props.student[1],           
+            studentIndex:props.student,
             index:props.index
         }; 
     }
