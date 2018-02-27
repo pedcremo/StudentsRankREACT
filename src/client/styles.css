@@ -64,6 +64,10 @@ button.xp {
   width:100%;
 }
 
+.searchDisplay{
+  display: none;
+}
+
 @media (max-width: 768px) {
     .btnS {
       font-size:8px;
