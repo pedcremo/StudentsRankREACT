@@ -1,5 +1,5 @@
 import {context} from './context.js'; //Singleton
-import {getIdFromURL,setCookie} from './lib/utils.js';
+import {getIdFromURL,setCookie,loadTemplate} from './lib/utils.js';
 import {logout,generateMenu} from './menu.js';
 import AttitudeTask from './classes/attitudetask.js';
 import GradedTask from './classes/gradedtask.js';
@@ -85,7 +85,11 @@ function initRouter() {
               break;
             case /#settings/.test(isLink.href):              
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component              
-              reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} />, document.getElementById('content'));
+              let code = '';
+              loadTemplate('api/getCode',function(response) {
+                reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} code={response}/>, document.getElementById('content'));
+              },'GET','idSubject=' + context.user.defaultSubject,false);
+              
               break;
             /** logout */
             case /#logout/.test(isLink.href):

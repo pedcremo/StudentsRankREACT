@@ -13,7 +13,10 @@ const FileAsync = require('lowdb/adapters/FileAsync');
 // Create database instance and start server
 const low = require('lowdb');
 const adapter = new FileAsync('src/server/data/shares.json');
+const cod = new FileAsync('src/server/data/codes.json');
+
 let dbase;
+let dbcode;
 
 low(adapter)
 .then((db) => {
@@ -25,6 +28,15 @@ low(adapter)
   //next();
 });
 
+low(cod)
+.then((db) => {
+  db.defaults({ codes: [] }).write();
+  return db;
+})
+.then((db) => {
+  dbcode = db;
+  //next();
+});
 //db.defaults({'shares': [] })
 //  .write();
 
@@ -36,6 +48,65 @@ router.get('/getSettings', getSettings);
 router.get('/changeSubject', changeSubject);
 router.get('/addSubject',addSubject);
 router.get('/getSharedGroups',getSharedGroups);
+router.get('/getCode', getCode);
+
+router.get('/read/:code',function(req, res, next){
+  var response = {};
+  var test = dbcode.get('codes')
+  .find({ id: req.params.code })
+  .value()
+  let counter = 0;
+  console.log('Code')
+  console.log(req.params.code)
+  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/students.json',function(err, data) {
+    if(err) {console.log(err);}
+    //res.status(200).send(data);
+    response.students = data.toString();
+    counter++;
+    if (counter === 4) {
+      res.status(200).send(response);
+    }
+  });
+  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/attitudetasks.json',function(err, data) {
+    if(err) {console.log(err);}
+    //res.status(200).send(data);
+    response.attitudetasks = data.toString();
+    counter++;
+    if (counter === 4) {
+      res.status(200).send(response);
+    }
+  });
+  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/gradedtasks.json',function(err, data) {
+    if(err) {console.log(err);}
+    //res.status(200).send(data);
+    response.gradedtasks = data.toString();
+    counter++;
+    if (counter === 4) {
+      res.status(200).send(response);
+    }
+  });
+  fs.readFile('src/server/data/' + test.idUser + '/' + test.idSubject + '/settings.json',function(err, data) {
+    if(err) {console.log(err);}
+    //res.status(200).send(data);
+    response.settings = data.toString();
+    console.log(response.attitudetasks);
+    counter++;
+    if (counter === 4) {
+      res.status(200).send(response);
+    }
+  });
+  
+});
+
+function getCode(req, res, next){
+  if (req.isAuthenticated()) {
+    var test = dbcode.get('codes')
+    .find({ idSubject: req.query.idSubject })
+    .value()
+    console.log(test)
+    res.status(200).send(test.id);
+  }
+}
 
 function changeSubject(req, res, next) {
   if (req.isAuthenticated()) {
@@ -388,6 +459,11 @@ function addSubject(req, res, next) {
          console.log('The file students.json has been copied from a share !');
         });
       }
+      dbcode.get('codes')
+        .push({'id':makeid(),'idUser':req.user.id,'idSubject': req.query.newSubject})
+        .write();
+        req.user.defaultSubject = req.query.newSubject
+        req.user.subjects.push(req.query.newSubject);
       let contents = fs.readFileSync('src/server/data/' + req.user.id + '/subjects.json');
       req.user.defaultSubject = req.query.newSubject;
       req.user.subjects.push(req.query.newSubject);
@@ -413,5 +489,5 @@ function addSubject(req, res, next) {
 
 
 function uploadPDF(req,res){
-  fuploadPDF.uploadPDF(req,res,dbase)
+  fuploadPDF.uploadPDF(req,res,dbase,dbcode)
 }

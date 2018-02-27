@@ -76,6 +76,9 @@ class Settings {
 
   static getGtWeight(){
     return settings.weightGP;
+  }
+  static getsettings(){
+    return settings;
   }  
 }
 
