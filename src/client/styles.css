@@ -3,6 +3,7 @@
   transform: rotate(180deg);
 }
 
+
 .hr-text {
   line-height: 1em;
   position: relative;
@@ -96,3 +97,5 @@ button.xp {
       font-size:18px;
     }
  }
+
+ 

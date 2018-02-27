@@ -37,7 +37,7 @@ class PersonPage extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);       
-        debugger;
+        
         events.publish('dataservice/SavePerson',{'studentProps':this.state,'formData':formData});        
     }
 
