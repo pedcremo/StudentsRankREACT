@@ -38,6 +38,11 @@ class SubjectModalPage extends React.Component {
         this.setState({
           [name]: value
         });
+        if (name==="newSubject" && value==="") {
+            $("#dragPdfReport").show();    
+        }else {
+            $("#dragPdfReport").hide();
+        }
     }
 
     render() {        

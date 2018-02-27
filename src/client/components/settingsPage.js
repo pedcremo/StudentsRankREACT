@@ -86,10 +86,11 @@ class SettingsPage extends React.Component {
             </div>
 
             <div className="form-group">
+                <label htmlFor="pLanguage"> Preferred language </label>
                 <select name="language" defaultValue="English" onChange={this.handleInputChange}>
                     <option key="0" value="en">English</option>
-                    <option key="1" value="es">Spaish</option>
-                    <option key="2" value="val">Valencian</option>
+                    <option key="1" value="es">Spanish</option>
+                    <option key="2" value="val">Valencia</option>
                 </select>
             </div>
 
