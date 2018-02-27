@@ -1,9 +1,5 @@
 # Introduction 
-The purpose of this project is to program a Students rank mini app using entiterly raw ES6 without the use
-of any third party library. The aim is to learn as much as possible only in javascript.
-
-Obviously we know that real web frontend development doesn't work this way, but the real chance now is, to 
-focus on learning javascript in order to be able in the future to really appreciate how much useful is a framework or 3rd party library.
+The purpose of this project is to program a Students rank mini app using raw ES6 rith REACT components for the UI. The aim is to learn as much as possible about REACT and how to build a componed based architecture. We focus the development in broad testing using unit tests and e2e testing
 
 # Prerequisites
 npm and node should be installed on your system
@@ -17,14 +13,18 @@ We wait until node_modules folder has been filled with all development modules n
 
 # For continous development 
 
-npm run-script dev
+<pre>npm run-script dev</pre>
 
 Other interesting npm scripts  
 
-*npm run-script build 
+<pre>npm run-script build </pre>
 Creates dist/ folder with all files optimized for production
 
 Take a look at package.json scripts
+<pre>npm run-script test</pre> Launching unit tests
+<pre>npm run-script e2e-test</pre> Launching e2e tests with protractor
+
+
 
 # For production deployment
 Start node server with forever <pre>npm start</pre>
@@ -48,54 +48,6 @@ In order to enable this webhook it is mandatory to proceed with some configurati
 RECOMMENDED READING:
 http://blog.karmadust.com/automatic-node-js-deployments-on-a-linux-server-via-github/
 
-# Key points about the development stack  we have chosen for this app
-
-* Gulp as a mechanism to automate all our tasks: transpiling, concatenate, minify js code, pass code quality checkings, testing, launch test server ...
-* ES6 as a base for all javascript code
-* It is forbidden the use of any third party javascript library for deployment purposes. We program all with raw ES6
-* Babel as a transpiler from ES6 code to ES5 code 100% compatible with all modern and quite old browser ecosystem
-* SPA. Single page application. Business logic on client side at the maximum as possible
-* We use npm and node only as developing helping tools never as modules to be used in the production environment.
-* Intensive use of AJAX (consequence of SPA model)
-
-# Interesting
-ES6 Modules - Single Instance Pattern https://k94n.com/es6-modules-single-instance-pattern
-
-ES6 template literals
-
-# Worth to understand
-
-* "This"common problems in javascript
-* How Forms submit via post or get data
-* AJAX technique
-* CALLBACKS patterns in javascript
-* Template system | ES6 template literals
-
-gradedtasks branch
-==================
-
-* 2 points context.students conversion and app adaptation from array to Map
-* 2 points basic routing mechanism
-* 2 points CRUD student 
-* 1 points CRUD gradedtasks
-* 1 point jsdoc3 documentation up to date according to changes
-* 1 point worthy css
-* 1 More visible graded tasks feature implemented. A button to show one mode gradedtasks. We are able to see the last one when we create ranking list 
-
-Optional -> 2 points Remove any createElement present in code (All tag generation templated based) 
-
-SUPER GREAT: Implement a ng-repeat attribute inside basic template system (2 points more in the 1st term final mark)
-
-
-templator branch
-================
-* 2 points. New settings menu button to fine tune % assigned to XP tasks and % Assigned to graded tasks. Save in localstorage at the moment 
-* 1 point. Sort Students ranking taking into account new finalGrade() method aimed to calculate final grade using GT% and XP%
-* 2 points. Enhance student form adding new field to upload an image profile to server using as name student id 
-* 2 deploy inside docker container our app
-* 1 updated documentation able to generate with jsdoc3
-* 2 points custom css from scratch  
-
 #docker. We want to create a container for our app
 
 1. Install docker
@@ -108,7 +60,7 @@ Ex. docker save -o /tmp/runking gifted_goldberg
 Load docker container -> docker load -i runking.tar 
 READ: getting started with docker blogs.msdn.microsoft.com
 
-== Apache2 + node app living in same server serving https ==
+# Apache2 + node app living in same server serving https 
 
 We want to use a VPS with a preexisting web app running on port 80 in apache2.
 Our server side is built using nodeJS and we want to serve the web app via https.
@@ -166,5 +118,5 @@ NameVirtualHost *:80
 
 </pre>
 
-== Test workflow ==
+# Test workflow 
 http://busypeoples.github.io/post/testing-workflow-with-es6/

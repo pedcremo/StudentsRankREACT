@@ -1,5 +1,6 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
+import { translate } from '../lib/i18n/translation.js';
 
 class SettingsPage extends React.Component {
     constructor(props){
@@ -10,10 +11,13 @@ class SettingsPage extends React.Component {
             terms: props.props.terms,
             defaultTerm: props.props.defaultTerm,
             defaultSubject: props.defaultSubject,
-            NewNameSubject: props.defaultSubject,
-        };                              
+            NewNameSubject: props.defaultSubject,                            
+            language: props.props.language
+        };        
+                   
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+    
     }
 
     handleInputChange(event) {
@@ -31,7 +35,7 @@ class SettingsPage extends React.Component {
     }
 
     SendChanges(name){
-        if (name === "weightXP" || name === "defaultTerm"){
+        if (name === "weightXP" || name === "defaultTerm" || name === "language"){
             events.publish('dataservice/saveSettings',this.state);
             events.publish('settings/change',this.state);
             events.publish('settings/saveSettings',this.state);
@@ -73,34 +77,22 @@ class SettingsPage extends React.Component {
                   </select>   
             
               </div>
+            </form> 
               CHANGE SUBJECT:
-              <div className="form-group">
+            <div className="form-group">
                 <input type="text" defaultValue={this.state.defaultSubject} onInput={this.handleInputChange} id="NewNameSubject" name='NewNameSubject' /><br/><br/>
                 <a href={'#editSubject/'+ this.state.NewNameSubject} ><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'></i> {this.state.NewNameSubject}</button></a>
                 <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
-              </div>
-              {/*      
-              {this.state.terms.map((term, i) =>
-                    <div key={'formGroup'+i} className="form-group">
-                        <label htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
-                        <input id={"idInput"+term.name} type="text" value={term.name}/>
-                        BEGIN<input id={term.name+"beginTerm"} type="date" value={term.begin}/>
-                        END<input id={term.name+"endTerm"} type="date" value={term.end}/>      
-                        <input type="submit" className="btn btn-primary" value="Change"/>
-                     </div>
-                )} */}
-              
-            </form> 
-            {/*
-            <form id="newTerm">
-                <div className="form-group">
-                  <label htmlFor="xp" id="termName">Term name</label><br/>
-                  <input id="nameTerm" type="text"/>
-                  BEGIN<input id="beginTerm" type="date"/>
-                  END<input id="endTerm" type="date"/>      
-                  <input type="submit" className="btn btn-primary" value="New term" />
-                </div>
-            </form> */}
+            </div>
+
+            <div className="form-group">
+                <select name="language" defaultValue="English" onChange={this.handleInputChange}>
+                    <option key="0" value="en">English</option>
+                    <option key="1" value="es">Spaish</option>
+                    <option key="2" value="val">Valencian</option>
+                </select>
+            </div>
+
           </div>    
 
         );

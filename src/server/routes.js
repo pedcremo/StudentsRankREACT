@@ -2,6 +2,7 @@ var router = require('express').Router();
 var four0four = require('./utils/404')();
 var data = require('./data');
 
+var fuploadPDF = require('./uploadPDF')();
 var exec = require('child_process').exec;
 var auth = require('./authentication');
 var passport = require('passport');
@@ -409,136 +410,12 @@ function addSubject(req, res, next) {
     res.status(401).send("Not authorized");
   }
 }
-function hashcode(str) {
-  let hash = 0, i, chr;
-  if (str.length === 0) {
-    return hash;
-  }
-  for (i = 0; i < str.length; i++) {
-    chr   = str.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
-}
-function updateSubjects(req,res,subject='test'){
-  //Update subjects.json
-  fs.readFile('src/server/data/' + req.user.id + '/subjects.json','utf8', function(err, data) {
+function renameSubject(req, res, next) {
+  fs.rename('src/server/data/' + req.user.id + '/' + req.query.oldSubject, 'src/server/data/' + req.user.id + '/' + req.query.newSubject, function (err) {
     if (err) throw err;
-    console.log('OK:');
-    let newJSON = JSON.parse(data);
-    newJSON.defaultSubject = subject;
-    newJSON.subjects.push(subject);
-    fs.writeFile('src/server/data/' + req.user.id + '/subjects.json', JSON.stringify(newJSON), 'utf8', (err) => {
-      if (err) {
-        throw err;
-      }
-      //Delete temporal folders
-      deleteFolderRecursive('src/server/tmp');
-      deleteFolderRecursive('output')
-      res.status(200).send('[]');
-      console.log('The file has been saved empty!');
-    });
+    console.log('renamed complete');
   });
 }
-var deleteFolderRecursive = function(path) {
-  if( fs.existsSync(path) ) {
-    fs.readdirSync(path).forEach(function(file,index){
-      var curPath = path + "/" + file;
-      if(fs.lstatSync(curPath).isDirectory()) { // recurse
-        deleteFolderRecursive(curPath);
-      } else { // delete file
-        fs.unlinkSync(curPath);
-      }
-    });
-    fs.rmdirSync(path);
-  }
-};
-
 function uploadPDF(req,res){
-  if (req.isAuthenticated()) {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-         var oldPath = files.myFile.path,
-             fileSize = files.myFile.size,
-             fileExt = files.myFile.name.split('.').pop(),
-             index = oldPath.lastIndexOf('/') + 1,
-             fileName = oldPath.substr(index);
-
-             //Create tmp folder
-             if (!fs.existsSync('src/server/tmp')){
-              fs.mkdirSync('src/server/tmp');
-            }
-            
-             //Create temporal PDF
-             fs.readFile(oldPath, function(err, data) {
-              fs.writeFile('src/server/tmp/tempPDF.pdf', data, function(err) {
-                  fs.unlink(oldPath, function(err) {
-                      if (err) {
-                        res.status(500);
-                        res.send(err);
-                      } else {
-
-                        //Execute script
-                        exec('./src/server/scripts/pedfextractor.sh src/server/tmp/tempPDF.pdf', function(error, stdout, stderr) {
-                          if(error != null) {
-                                  console.log('Error during the execution of redeploy: ' + stderr);
-                          }
-                          var finalJSON = [];
-                            fs.readdir('./output', function (error, files) {
-                              files.forEach( function( file, index ) {
-                                var fileName = file.split(',');
-                                var surname = fileName[0].toLowerCase();
-                                var backFile = fileName[1].split('.');
-                                var name = backFile[0].toLowerCase();
-                                finalJSON.push([hashcode(name + surname),{"name":name,"surname":surname,"id":hashcode(name + surname),"attitudeTasks":[]}]);
-                                //Copy pictures to "fotos" from "output" folder
-                                fs.createReadStream('output/'+file).pipe(fs.createWriteStream('src/server/data/fotos/'+hashcode(name + surname)+'.jpg'));
-                      
-                              });
-                              //Create students file 
-                              if (fs.existsSync('src/server/data/' + req.user.id +'/'+ fields.subjectName+'/students.json')) {
-                                fs.writeFile('src/server/data/' + req.user.id +'/'+ fields.subjectName+'/students.json', JSON.stringify(finalJSON), 'utf8', (err) => {
-                                  if (err) {
-                                    throw err;
-                                  }
-                                  console.log('The file has been saved empty!');
-                                });
-                              }else{
-                                //Create folder subject if not exist
-                                mkdirp('src/server/data/' + req.user.id + '/'+fields.subjectName+'/', function (err) {
-                                  if (err) console.error(err)
-                                  else console.log('dir created')
-                                });
-                               fs.writeFile('src/server/data/' + req.user.id + '/'+ fields.subjectName+'/students.json', JSON.stringify(finalJSON), 'utf8', (err) => {
-                                 if (err) {
-                                   throw err;
-                                }
-                                console.log('The file has been saved empty!');
-                              });   
-                              }
-                              updateSubjects(req,res,fields.subjectName);
-
-                              //Change subects on lowdb
-                              if (!dbase.get('shares').find({'defaultSubject': fields.subjectName}).value()) {
-                                dbase.get('shares')
-                                .push({'defaultSubject':fields.subjectName,'src':'src/server/data/' + req.user.id + '/' + fields.subjectName + '/students.json','hits':0})
-                                .write();
-                                req.user.defaultSubject = fields.subjectName;
-                                req.user.subjects.push(fields.subjectName);
-                              }
-                            });
-                        });
-                      }
-                    });
-                });
-            });
-     });
-  }
+  fuploadPDF.uploadPDF(req,res,dbase)
 }
-  function renameSubject(req, res, next) {
-    fs.rename('src/server/data/' + req.user.id + '/' + req.query.oldSubject, 'src/server/data/' + req.user.id + '/' + req.query.newSubject, function (err) {
-      if (err) throw err;
-      console.log('renamed complete');
-    });
-  }
