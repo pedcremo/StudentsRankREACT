@@ -1,9 +1,0 @@
-{
-  "shares": [
-    {
-      "defaultSubject": "tets",
-      "src": "src/server/data/343242/tets/students.json",
-      "hits": 4
-    }
-  ]
-}
