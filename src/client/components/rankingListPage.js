@@ -92,7 +92,7 @@ class RankingListPage extends React.Component {
         return array.filter(function(el) {
             let nameStudent=el[1];
             console.log(nameStudent);
-            return nameStudent.indexOf(query.toLowerCase()) > -1;
+            return nameStudent.toLowerCase().indexOf(query.toLowerCase()) > -1;
         })
     }
 
