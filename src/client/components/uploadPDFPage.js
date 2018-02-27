@@ -33,7 +33,8 @@ class UploadPage extends React.Component {
         files: files,
         dropzoneActive: false,
         pdfUploaded:true
-      });
+      });          
+      $("#newSubject").hide();
     }
      
     handleSubmit(event) {
@@ -71,7 +72,7 @@ class UploadPage extends React.Component {
         };
         const { accept, files, dropzoneActive } = this.state;
         return (
-        <section>
+        <section id="dragPdfReport">
           <hr className="hr-text" data-content="OR"/>
             <p className="desc small">Drag and Drop your ITACA Student's class PDF report</p>
             <div className="dropzone">
