@@ -30,9 +30,13 @@ class RankingListPage extends React.Component {
 
     componentDidMount() {
         this.subscription = events.subscribe('students/change',(obj) => {  
-            //debugger;          
+            let index=[];
+            let cont=1;
+            obj.map((student) =>
+                index.push([student[0],student[1],cont++])
+            );          
             this.setState({
-                students: obj
+                students: index
             });                 
         });
         if (getCookie('expandedView')==='true') this.handleClick(null);
