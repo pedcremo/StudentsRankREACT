@@ -63,6 +63,12 @@ button.xp {
   width:100%;
 }
 
+.watchword{
+  margin: 0px;
+  margin-top: -15px;
+  color: #979797;
+}
+
 @media (max-width: 768px) {
     .btnS {
       font-size:8px;
