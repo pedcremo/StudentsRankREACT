@@ -48,6 +48,8 @@ class SettingsPage extends React.Component {
         this.setState({
             traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
         });
+
+        events.publish('language/change', this.state.traductions);  
         //this.state.traduction.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
     }
    

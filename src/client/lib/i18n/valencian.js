@@ -23,4 +23,8 @@ export default
     settingsLblDefaultTerm: 'Avaluació per defecte',
     settingsLblChangeSubject: "Cambi d'asignatura",
     settingsLblPreferredLanguage: 'Idioma preferit',
+    menuTitleAddStudent: 'Afegir estudiant',
+    menuTitleAddGradedTask: 'Afegir tasca avaluable',
+    menuTitleSettings: 'Configuració',
+    menuTitleLogout: 'Sortir',
 }

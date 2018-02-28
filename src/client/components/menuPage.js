@@ -15,13 +15,17 @@ class MenuPage extends React.Component {
             subjects: props.props.subjects,
             defaultSubject: props.props.defaultSubject,
             defaultTerm: props.props.defaultTerm,
-            sharedGroups: props.props.sharedGroups
+            sharedGroups: props.props.sharedGroups,
+            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
         };  
-
-        let messages = Settings.getTraductedText();
-        T.setTexts(messages, { MDFlavor: 0 });
         
-        this.handleInputChange = this.handleInputChange.bind(this); 
+        this.handleInputChange = this.handleInputChange.bind(this);
+
+        events.subscribe('language/change',(obj) => {
+            this.setState({
+                traductions: obj
+            });
+        });
     }
 
     handleInputChange(event) {
@@ -91,26 +95,26 @@ class MenuPage extends React.Component {
                         <li className="nav-item">
                             <a className="nav-link" href="#addStudent">
                             
-                               <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add new Student"> <i className="fa fa-user"></i> </button>
+                               <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleAddStudent")}> <i className="fa fa-user"></i> </button>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#addGradedTask">
                                 
-                                 <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add graded task"><i className="fa fa-tasks"></i></button>
+                                 <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleAddGradedTask")}><i className="fa fa-tasks"></i></button>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#settings">
                                 
-                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Settings"><i className="fa fa-cogs"></i></button>
+                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleSettings")}><i className="fa fa-cogs"></i></button>
                             </a>
                         </li>
                         
                         <li className="nav-item">
                             <a className="nav-link" href="#logout">
                                  
-                              <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Logout"><i className="fa fa-sign-out"></i></button>
+                              <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleLogout")}><i className="fa fa-sign-out"></i></button>
                             </a>
                         </li>
                             </ul> 

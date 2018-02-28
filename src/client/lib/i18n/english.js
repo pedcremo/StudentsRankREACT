@@ -23,4 +23,8 @@ export default
     settingsLblDefaultTerm: 'Default term',
     settingsLblChangeSubject: 'Change subject',
     settingsLblPreferredLanguage: 'Preferred language',
+    menuTitleAddStudent: 'Add student',
+    menuTitleAddGradedTask: 'Add graded task',
+    menuTitleSettings: 'Settings',
+    menuTitleLogout: 'Logout',
 }

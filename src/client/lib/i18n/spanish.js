@@ -23,4 +23,8 @@ export default
     settingsLblDefaultTerm: 'Evaluación por defecto',
     settingsLblChangeSubject: 'Cambiar de asignatura',
     settingsLblPreferredLanguage: 'Idioma preferido',
+    menuTitleAddStudent: 'Añadir estudiante',
+    menuTitleAddGradedTask: 'Añadir tarea evaluable',
+    menuTitleSettings: 'Configuración',
+    menuTitleLogout: 'Salir',
 }
