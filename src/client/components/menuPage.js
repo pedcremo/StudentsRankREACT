@@ -90,26 +90,26 @@ class MenuPage extends React.Component {
                         
                         <li className="nav-item">
                             <a className="nav-link" href="#addStudent">
-                            {/* <i class="fa fa-user"></i> +Student*/}
+                            
                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add new Student"> <i className="fa fa-user"></i> </button>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#addGradedTask">
-                                {/* <i class="fa fa-tasks"></i>+Graded Task*/}
+                                
                                  <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add graded task"><i className="fa fa-tasks"></i></button>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#settings">
-                                {/* <i class="fa fa-cogs"></i>Settings*/}
+                                
                                 <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Settings"><i className="fa fa-cogs"></i></button>
                             </a>
                         </li>
                         
                         <li className="nav-item">
                             <a className="nav-link" href="#logout">
-                                 {/* <i class="fa fa-sign-out"></i>LogOut*/}
+                                 
                               <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Logout"><i className="fa fa-sign-out"></i></button>
                             </a>
                         </li>
