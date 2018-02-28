@@ -1,6 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
-import { translate } from '../lib/i18n/translation.js';
+import T from 'i18n-react';
+import Settings from '../classes/settings.js';
 
 class SettingsPage extends React.Component {
     constructor(props){
@@ -13,9 +14,10 @@ class SettingsPage extends React.Component {
             defaultSubject: props.defaultSubject,
             code:props.code,                            
             NewNameSubject: props.defaultSubject,                            
-            language: props.props.language
+            language: props.props.language,
+            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
         };        
-                   
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     
@@ -30,8 +32,8 @@ class SettingsPage extends React.Component {
           });
         if (name === "weightXP"){
             this.state.weightGP = 100 - value;
-        }
-        console.log(this.state);
+        } 
+
         this.setState({  [name]: value }, () => this.SendChanges(name));    
     }
 
@@ -42,6 +44,11 @@ class SettingsPage extends React.Component {
             events.publish('settings/saveSettings',this.state);
             
         } else { console.log("OK") }
+
+        this.setState({
+            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
+        });
+        //this.state.traduction.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
     }
    
 
@@ -57,20 +64,20 @@ class SettingsPage extends React.Component {
     render() {        
         return (            
             <div>
-            <h3>Settings</h3>
+            <h3>{T.translate("settingsTitle")}</h3>
             <form id="newSettings">
               <div className="form-group">
-                <label htmlFor="xp" id="idXPweight">Weight XP {this.state.weightXP}%</label><br/>
+                <label htmlFor="xp" id="idXPweight">{T.translate("settingsLblXP")} {this.state.weightXP}%</label><br/>
                 <input type="range" min="0" max="100" defaultValue={this.state.weightXP} onInput={this.handleInputChange} id="weightChanger" name='weightXP' /><br/>
-                <label htmlFor="gt" id="idGPweight">Weight GT {this.state.weightGP}%</label>
+                <label htmlFor="gt" id="idGPweight">{T.translate("settingsLblGT")} {this.state.weightGP}%</label>
               </div>
             </form> 
             <div className="col-6">
-                <span>Your code:</span>
+                <span>{T.translate("settingsLblCode")}:</span>
                 <h1>{this.state.code}</h1>
             </div>
             <form id="existingTerms">
-              DEFAULT TERM:
+            {T.translate("settingsLblDefaultTerm")}:
               <div className="form-group">
               
                   <select name="defaultTerm" id="termsItems" onChange={this.handleInputChange} defaultValue={this.state.defaultTerm}>
@@ -82,7 +89,7 @@ class SettingsPage extends React.Component {
             
               </div>
             </form> 
-              CHANGE SUBJECT:
+            {T.translate("settingsLblChangeSubject")}:
             <div className="form-group">
                 <input type="text" defaultValue={this.state.defaultSubject} onInput={this.handleInputChange} id="NewNameSubject" name='NewNameSubject' /><br/><br/>
                 <a href={'#editSubject/'+ this.state.NewNameSubject} ><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'></i> {this.state.NewNameSubject}</button></a>
@@ -90,7 +97,7 @@ class SettingsPage extends React.Component {
             </div>
 
             <div className="form-group">
-                <label htmlFor="pLanguage"> Preferred language </label>
+                <label htmlFor="pLanguage"> {T.translate("settingsLblPreferredLanguage")} </label>
                 <select name="language" defaultValue={this.state.language} onChange={this.handleInputChange}>
                     <option key="0" value="en">English</option>
                     <option key="1" value="es">Spanish</option>

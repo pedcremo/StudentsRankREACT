@@ -2,6 +2,7 @@ export default
 {
     headerTitle: "Ranking de estudiantes",
     headerSubtitle: "Cuanto más duro trabajes, más suerte tendrás",
+    menuOptionNewSubject: 'NUEVA ASIGNATURA',
     addStudentTitle: 'Añadir nuevo estudiante',
     addStudentLblFirstName: 'Nombre',
     addStudentLblSurnames: 'Apellidos',
@@ -15,4 +16,11 @@ export default
     addGradedTaskLblTerm: 'Evaluación de la tarea',
     addGradedTaskLblWeight: 'Peso de la tarea',
     addGradedTaskInputSave: 'Guardar',
+    settingsTitle: 'Configuración',
+    settingsLblXP: 'Peso XP',
+    settingsLblGT: 'Peso GT',
+    settingsLblCode: 'Tu código',
+    settingsLblDefaultTerm: 'Evaluación por defecto',
+    settingsLblChangeSubject: 'Cambiar de asignatura',
+    settingsLblPreferredLanguage: 'Idioma preferido',
 }

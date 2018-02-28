@@ -3,6 +3,8 @@ import reactDOM from 'react-dom';
 import {events} from '../lib/eventsPubSubs.js';
 //import NewSubjectPage from './newSubjectPage.js';
 import SubjectModalPage from './subjectModalPage.js'; 
+import T from 'i18n-react';
+import Settings from '../classes/settings.js';
 
 class MenuPage extends React.Component {
     constructor(props){
@@ -15,6 +17,10 @@ class MenuPage extends React.Component {
             defaultTerm: props.props.defaultTerm,
             sharedGroups: props.props.sharedGroups
         };  
+
+        let messages = Settings.getTraductedText();
+        T.setTexts(messages, { MDFlavor: 0 });
+        
         this.handleInputChange = this.handleInputChange.bind(this); 
     }
 
@@ -60,7 +66,7 @@ class MenuPage extends React.Component {
                                 {this.state.subjects.map((sub, i) =>
                                     <option key={i} value={sub}>{sub}</option>
                                 )}
-                                <option name="new subject" defaultValue="NEW subject">NEW SUBJECT</option>
+                                <option name="new subject" defaultValue="NEW subject">{T.translate("menuOptionNewSubject")}</option>
                             </select>
                     </td></tr>
                     <tr><td className="text-center">      
