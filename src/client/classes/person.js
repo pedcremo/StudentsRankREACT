@@ -11,6 +11,7 @@
 
 import {formatDate,updateObject,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
 import {events} from '../lib/eventsPubSubs.js';
+import {context} from '../context.js';
 import $ from "jquery";
 import React from 'react';
 import reactDOM from 'react-dom';
@@ -65,7 +66,7 @@ events.subscribe('react/sendemail',(obj) => {
   console.log(obj);
   loadTemplate('/api/email',function(response) {
     reactDOM.unmountComponentAtNode("modals");
-},'POST','student='+obj.student + '&subject='+obj.data.asunto+'&text='+obj.data.text,'false');
+},'POST','teacher='+context.user.email+'&student='+obj.student + '&subject='+obj.data.asunto+'&text='+obj.data.text,'false');
 });
 
 

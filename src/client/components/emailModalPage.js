@@ -30,7 +30,6 @@ class EmailModalPage extends React.Component {
     }
     
     handleSubmit(event) {
-        event.preventDefault();
         this.state.arraystudents.forEach((studentemail)=>{
             let obj = {
                 student:studentemail,

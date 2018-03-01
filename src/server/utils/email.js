@@ -10,7 +10,7 @@ exports.sendEmail=function(req,res){
         var body = '';
         console.log(req.body);
             emailTo = req.body.student;
-            emailFrom = "alejandrogarsanz@gmail.com";
+            emailFrom = req.body.teacher;
             subject = req.body.subject;
             body = req.body.text;
         
