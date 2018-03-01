@@ -19,6 +19,7 @@ src/server/tmp/
 src/server/data/*
 src/server/data/fotos/*
 !src/server/data/fotos/huevon.jpg
+!src/server/data/fotos/README
 !src/server/data/*_skeleton.json
 !src/server/data/README
 
