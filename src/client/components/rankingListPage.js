@@ -48,10 +48,12 @@ class RankingListPage extends React.Component {
         let arraySelecteds= this.state.selected;
         let actualid=datafromchild.id;
 
+        console.log(this.state.selected);
+
         if(arraySelecteds.length==0){
 
             if(datafromchild.option=='add'){
-                arraySelecteds.push(datafromchild.id); 
+                arraySelecteds.push(datafromchild.id);
             }
 
         }else{
@@ -101,17 +103,16 @@ class RankingListPage extends React.Component {
 
 
     handleChecked (event) {
-        debugger;
-        event.preventDefault();
-       this.setState({checkall: !this.state.checkall});
+        if(this.state.checkall==false){
+            this.setState({checkall:true});
+        }else{
+            this.setState({checkall:false});
+        }  
     }
 
 
     handleClick(event) {
-        debugger;
-        if(event) event.preventDefault();
-       /*  let eventid= event.target.id;
-        if(eventid=='more_gt' || eventid == 'checkall' || eventid=='expandedView' || eventid=='expandedViewIcon'){ */
+
             $('.tableGradedTasks').toggle();              
             if ($('.tableGradedTasks').is(':visible')) {       
                 $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
@@ -120,7 +121,6 @@ class RankingListPage extends React.Component {
                 $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');    
                 setCookie('expandedView','false',12);    
             }
-       /*  } */
     }
 
 

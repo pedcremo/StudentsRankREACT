@@ -4,6 +4,9 @@ import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js'
 
 class RankingListItemPage extends React.Component {
     constructor(props){
+
+        console.log(props.selectedAll);
+
         super(props);
         this.state = {                
             id:props.student[0],         
@@ -16,29 +19,29 @@ class RankingListItemPage extends React.Component {
     }
 
     componentWillReceiveProps(selectedAll) {
-        if(this.state.selected==true){
-            this.setState({selected: !this.state.selected});
-            this.props.callbackFromParent({'option':'delete','id':this.state.id});
-        }else{
-            this.setState({selected: !this.state.selected});
+        if(selectedAll.selectedAll==true){
+            this.setState({selected:true});
             this.props.callbackFromParent({'option':'add','id':this.state.id});
+        }else{
+            this.setState({selected:false});
+            this.props.callbackFromParent({'option':'delete','id':this.state.id});
         }
     }
 
 
-    handleCheckedChild () {
-
+    handleCheckedChild (event) {
         if(this.state.selected==true){
-            this.setState({selected: !this.state.selected});
+            this.setState({selected:false});
             this.props.callbackFromParent({'option':'delete','id':this.state.id});
         }else{
-            this.setState({selected: !this.state.selected});
+            this.setState({selected:true});
             this.props.callbackFromParent({'option':'add','id':this.state.id});
         }
     }
 
     
     render() {
+
         let index=0;
         const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
             <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent}/>            

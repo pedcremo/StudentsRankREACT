@@ -258,13 +258,15 @@ class Person {
 
   static deleteAllById(arrayIds) {
 
-    if (window.confirm('Are you sure?')) {
+    console.log(arrayIds);
+
+  if (window.confirm('Are you sure?')) {
         arrayIds.forEach(function(idPerson){
         students.delete(idPerson);
       });
       events.publish('dataservice/saveStudents',JSON.stringify([...students]));
   }
-  events.publish('dataservice/saveStudents',JSON.stringify([...students]));
+  Person.getRankingTable(true); 
 }
 
 }
