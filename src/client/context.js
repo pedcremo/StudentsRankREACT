@@ -20,6 +20,8 @@ import RankingListPage from './components/rankingListPage.js';
 import LoginPage from './components/loginPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
+import MenuPage from './components/menuPage.js';
+
 
 events.subscribe('context/loginCode',(obj)=>{
   loadTemplate('api/read/'+obj,function(userData) {
@@ -30,6 +32,9 @@ events.subscribe('context/loginCode',(obj)=>{
     events.publish('dataservice/getGradedTasks',userData.gradedtasks);
     reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
     //reactDOM.unmountComponentAtNode(document.getElementById('navbarNav'));
+    setCookie('code',userData.code,12);
+    let menudata = {'displayName' : 'Guest'};
+    reactDOM.render(<MenuPage key={context.user} props={menudata} readOnly={true}/>, document.getElementById('menuButtons'));    
     reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students={Person.getStudentsFromMap()} readOnly={true}/>, document.getElementById('content'));
   },'GET','',false);  
 });
@@ -89,6 +94,10 @@ class Context {
   }
   /* Check on server if user is logged */
   isLogged() {
+    if(getCookie('code')){
+      console.log(getCookie('code'));
+      events.publish('context/loginCode',(getCookie('code')));
+    }else{
     loadTemplate('api/loggedin',function(response) {      
       /* Not logged */
       if (response === '0') {
@@ -109,6 +118,7 @@ class Context {
         return true;
       }
     }.bind(this),'GET','',false);
+  }
   }
   /** Show login form template when not authenticated */
   login() {

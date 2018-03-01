@@ -1,6 +1,6 @@
 'use strict';
 import {context} from './context.js';
-import {deleteCookie,setCookie,loadTemplate} from './lib/utils.js';
+import {deleteCookie,setCookie,loadTemplate, getCookie} from './lib/utils.js';
 import {updateFromServer} from './dataservice.js';
 import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
@@ -66,6 +66,9 @@ function logout() {
   context.user = '';
   deleteCookie('user');
   deleteCookie('connect.sid');
+  if(getCookie('code')){
+    deleteCookie('code');
+  }
   hideMenu();
   loadTemplate('api/logout',function(response) {
                 context.clear();

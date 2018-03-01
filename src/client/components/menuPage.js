@@ -16,7 +16,8 @@ class MenuPage extends React.Component {
             defaultSubject: props.props.defaultSubject,
             defaultTerm: props.props.defaultTerm,
             sharedGroups: props.props.sharedGroups,
-            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
+            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 }),
+            readOnly:props.readOnly ? true : false
         };  
         
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -54,56 +55,47 @@ class MenuPage extends React.Component {
                       <span className="small">{this.state.displayName}</span>
                     </td></tr>
                     <tr><td>
-                     <select ref={(node) => this.select = node} name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
-                                {this.state.subjects.map((sub, i) =>
-                                    <option key={i} value={sub}>{sub}</option>
-                                )}
-                                <option name="new subject" defaultValue="NEW subject">{T.translate("menuOptionNewSubject")}</option>
-                            </select>
+                    {!this.state.readOnly ? <select ref={(node) => this.select = node} name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
+                        {this.state.subjects.map((sub, i) =>
+                        <option key={i} value={sub}>{sub}</option>
+                        )}
+                        <option name="new subject" defaultValue="NEW subject">{T.translate("menuOptionNewSubject")}</option>
+                    </select> : null}
+                     
                     </td></tr>
                     <tr><td className="text-center">      
                             <span className="small" id="termMenu">{this.state.defaultTerm} </span> &nbsp;   
                      </td></tr>
                      </tbody>
                      </table>   
-                     {/*<a className="nav-link" href="#addStudent">
-                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Add new Student"> <i class="fa fa-user"></i> </button>
-                            </a>
-                     <a className="nav-link" href="#settings">
-                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cogs"></i></button>
-                            </a>
-                     <a className="nav-link" href="#settings">
-                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cogs"></i></button>
-                            </a>
-                     <a className="nav-link" href="#logout">
-                                <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></button>
-                            </a>          */}
                     <ul id="menuButtons" className="nav navbar-nav navbar-right">
                         
                         <li className="nav-item">
-                            <a className="nav-link" href="#addStudent">
-                            
+                            {!this.state.readOnly ? <a className="nav-link" href="#addStudent">
                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleAddStudent")}> <i className="fa fa-user"></i> </button>
-                            </a>
+                            </a> : null}
+                            
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#addGradedTask">
-                                
+                        {!this.state.readOnly ? <a className="nav-link" href="#addGradedTask">
                                  <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleAddGradedTask")}><i className="fa fa-tasks"></i></button>
-                            </a>
+                            </a> : null}
+                            
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#settings">
-                                
+                        {!this.state.readOnly ? <a className="nav-link" href="#settings">
                                 <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleSettings")}><i className="fa fa-cogs"></i></button>
-                            </a>
+                            </a>: null}
+
                         </li>
                         
                         <li className="nav-item">
-                            <a className="nav-link" href="#logout">
-                                 
+                        {!this.state.readOnly ? <a className="nav-link" href="#logout">
                               <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleLogout")}><i className="fa fa-sign-out"></i></button>
-                            </a>
+                            </a>: <a className="nav-link" href="#logout">
+                              <button className="btn btn-danger" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleLogout")}><i className="fa fa-sign-out"></i></button>
+                            </a>}
+
                         </li>
                             </ul> 
                     

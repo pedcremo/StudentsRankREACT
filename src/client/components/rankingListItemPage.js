@@ -28,7 +28,7 @@ class RankingListItemPage extends React.Component {
             <td className="w-35">
                 <table>
                     <tbody>
-                        <tr>
+                        
                             <td><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></td>
                             <td className="tdStudentLink">
                                 <label htmlFor="surnames" className="control-label">
@@ -48,7 +48,7 @@ class RankingListItemPage extends React.Component {
                                 </label>
                                 <input id="edit-input" type="text" className="emailInput" idstudent={this.state.id} required />
                             </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </td>
