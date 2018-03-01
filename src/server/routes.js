@@ -68,6 +68,7 @@ router.get('/read/:code',function(req, res, next){
         response[item] = data.toString();
         counter++;
         if (counter === arrayjson.length) {
+          response.code = req.params.code;
               res.status(200).send(response);
              }
       });
@@ -78,11 +79,21 @@ router.get('/read/:code',function(req, res, next){
 
 function getCode(req, res, next){
   if (req.isAuthenticated()) {
-    var test = dbcode.get('codes')
-    .find({ idSubject: req.query.idSubject })
-    .value()
-    console.log(test)
-    res.status(200).send(test.id);
+    try {
+      var test = dbcode.get('codes')
+      .find({ idSubject: req.query.idSubject })
+      .value()
+      console.log(test)
+      res.status(200).send(test.id);
+  }
+  catch(err) {
+    var idSub = id.makeid();
+    dbcode.get('codes')
+    .push({'id':idSub,'idUser':req.user.id,'idSubject': req.query.idSubject})
+    .write();
+    res.status(200).send(idSub);
+  }
+    
   }
 }
 
