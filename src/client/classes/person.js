@@ -16,6 +16,8 @@ import React from 'react';
 import reactDOM from 'react-dom';
 import RankingListPage from '../components/rankingListPage.js';
 import Settings from './settings.js';
+import {getIdFromURL} from '../lib/utils.js';
+import PersonDetailPage from '../components/personDetailPage.js';
 
 let students = new Map();
 let attitudeMAP = new Map();
@@ -230,14 +232,18 @@ class Person {
       }
       reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));       
 
-      // On link single click
-      $('.studentLink').click(function () {
-        var href = $(this).attr('href');
-        
+            // On link single click
+      $('.studentLink').click(function (event) {
+        let href = $(this).attr('href');
+        let link = $("#prueba");
         // Redirect only after 500 milliseconds
         if (!$(this).data('timer')) {
            $(this).data('timer', setTimeout(function () {
-              window.location = href;
+             event.preventDefault();
+             window.location = href;
+             reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
+             let personInstance = Person.getPersonById(getIdFromURL(href));
+             reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));
            }, 500));
         }
         return false; // Prevent default action (redirecting)
@@ -260,15 +266,23 @@ class Person {
           return false;
       });
 
+      $('.edit-input').each(function(index) {
+        $(this).keypress(function(e){
+          if(e.which == 13){
+              $(this).focusout();    
+          }
+        });
+      });
+
       // On input focus out
       $('input[type=text]').focusout(function() {
         if (!$(this).val()==""){
           let person = {};
           let idStudent = this.getAttribute('idstudent');   
           person=students.get(parseInt(idStudent));
-          let classNameInput = this.className;
+          let idNameInput = this.id;
           
-          switch(classNameInput){
+          switch(idNameInput){
             case "nameInput":
               let newName = $(this).val(); 
               person.name = newName;
