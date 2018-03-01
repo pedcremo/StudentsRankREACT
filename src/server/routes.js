@@ -67,7 +67,7 @@ router.get('/read/:code',function(req, res, next){
         if(err) {console.log(err);}
         response[item] = data.toString();
         counter++;
-        if (counter === 4) {
+        if (counter === arrayjson.length) {
               res.status(200).send(response);
              }
       });
@@ -441,8 +441,6 @@ function addSubject(req, res, next) {
       dbcode.get('codes')
         .push({'id':id.makeid(),'idUser':req.user.id,'idSubject': req.query.newSubject})
         .write();
-        req.user.defaultSubject = req.query.newSubject
-        req.user.subjects.push(req.query.newSubject);
       let contents = fs.readFileSync('src/server/data/' + req.user.id + '/subjects.json');
       req.user.defaultSubject = req.query.newSubject;
       req.user.subjects.push(req.query.newSubject);

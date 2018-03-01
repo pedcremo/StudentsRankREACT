@@ -12,6 +12,7 @@ import PersonPage from './components/personPage.js';
 import PersonDetailPage from './components/personDetailPage.js';
 import SettingsPage from './components/settingsPage.js';
 import FooterPage from './components/footerPage.js';
+import LogoPage from './components/logoPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from './lib/eventsPubSubs.js';
@@ -25,6 +26,7 @@ events.subscribe('settings/change',(obj) => {
 });
 /** Primitive routing mechanism based on detecting clicks on links and get the URL */
 function initRouter() {
+  reactDOM.render(<LogoPage />, document.getElementById('logo'));
   reactDOM.render(<FooterPage />, document.getElementsByTagName('footer')[0]);
 
   window.addEventListener('hashchange', function(){

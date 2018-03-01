@@ -26,8 +26,31 @@ class RankingListItemPage extends React.Component {
             <tr className="js-rowStudent" >
             <td className="w-5" id="sorting"><h3>{this.state.index}</h3></td>
             <td className="w-35">
-                <img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/>
-                <a className="text-info" href={'#student/'+this.state.id}> {this.state.student.surname}, {this.state.student.name}</a>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></td>
+                            <td className="tdStudentLink">
+                                <label htmlFor="surnames" className="control-label">
+                                    <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.surname}</a>
+                                </label>
+                                <input id="edit-input" type="text" className="surnamesInput" idstudent={this.state.id} required/>
+                            </td>
+                            <td className="tdStudentLink">
+                            <label htmlFor="name" className="control-label">
+                                    <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.name}</a>
+                                </label>
+                                <input id="edit-input" type="text" className="nameInput" idstudent={this.state.id} required/>
+                            </td>
+                            <td className="tdStudentLink">
+                            <label htmlFor="email" className="control-label">
+                                    <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.email}</a>
+                                </label>
+                                <input id="edit-input" type="text" className="emailInput" idstudent={this.state.id} required />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </td>
             <td className="w-60">
               <table id="scoreTable" className="table-condensed" width="100%">

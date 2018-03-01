@@ -220,7 +220,74 @@ class Person {
         reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
       }
       reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));       
-  }
+
+      // On link single click
+      $('.studentLink').click(function () {
+        var href = $(this).attr('href');
+        
+        // Redirect only after 500 milliseconds
+        if (!$(this).data('timer')) {
+           $(this).data('timer', setTimeout(function () {
+              window.location = href;
+           }, 500));
+        }
+        return false; // Prevent default action (redirecting)
+      });
+    
+      // On link double click
+      $('.studentLink').dblclick(function () {
+          clearTimeout($(this).data('timer'));
+          $(this).data('timer', null);
+          // Do something else on double click
+          
+          var dad = $(this).parent().parent();
+          var labelChild = dad.find('label');
+          var labelValue = labelChild.text();
+          
+          //Hide the label and show input text
+          labelChild.hide();
+          dad.find('input[type="text"]').show().focus().val(labelValue);
+      
+          return false;
+      });
+
+      // On input focus out
+      $('input[type=text]').focusout(function() {
+        if (!$(this).val()==""){
+          let person = {};
+          let idStudent = this.getAttribute('idstudent');   
+          person=students.get(parseInt(idStudent));
+          let classNameInput = this.className;
+          
+          switch(classNameInput){
+            case "nameInput":
+              let newName = $(this).val(); 
+              person.name = newName;
+              break;
+              
+            case "surnamesInput":
+              let newSurnames= $(this).val(); 
+              person.surname = newSurnames;
+              break;
+
+            case "emailInput":
+              let newEmail = $(this).val(); 
+              person.email = newEmail;
+              break;
+          }
+
+          //Save student
+          events.publish('dataservice/saveStudents',JSON.stringify([...students]));      
+          Person.getRankingTable();
+        } else {
+          alert("The field can't be blank.");
+        }
+          //Show the label and hide input text
+          var dad = $(this).parent();
+          $(this).hide();
+          dad.find('label').show();
+      });
+    }
 
   static addStudent(studentInstance) {    
     students.set(studentInstance.id,studentInstance);

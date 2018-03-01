@@ -64,6 +64,14 @@ button.xp {
   width:100%;
 }
 
+.nameInput, .surnamesInput, .emailInput{
+  display: none;  
+}
+
+.tdStudentLink {
+  width: 33%;
+}
+
 .watchword{
   margin: 0px;
   margin-top: -15px;

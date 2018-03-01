@@ -12,13 +12,16 @@ npm-debug*
 package-lock.json
 # Project generated folders #
 #############################
+output/
 doc/
 dist/
-src/server/data/333342/
-src/server/data/343242/
-src/server/data/fotos/
-src/server/data/*.json
+src/server/tmp/
+src/server/data/*
+src/server/data/fotos/*
+!src/server/data/fotos/huevon.jpg
+!src/server/data/fotos/README
+!src/server/data/*_skeleton.json
+!src/server/data/README
 
-!huevon.jpg
 node_modules/
 
