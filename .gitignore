@@ -17,6 +17,7 @@ doc/
 dist/
 src/server/tmp/
 src/server/data/*
+src/server/data/fotos/*
 !src/server/data/fotos/huevon.jpg
 !src/server/data/*_skeleton.json
 !src/server/data/README
