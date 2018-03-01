@@ -66,7 +66,7 @@ button.xp {
   width:100%;
 }
 
-.nameInput, .surnamesInput, .emailInput{
+.edit-input{
   display: none;  
 }
 

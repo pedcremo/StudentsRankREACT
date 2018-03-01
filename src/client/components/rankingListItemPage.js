@@ -34,19 +34,19 @@ class RankingListItemPage extends React.Component {
                                 <label htmlFor="surnames" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.surname}</a>
                                 </label>
-                                <input id="edit-input" type="text" className="surnamesInput" idstudent={this.state.id} required/>
+                                <input id="surnamesInput" type="text" className="edit-input" idstudent={this.state.id} required/>
                             </td>
                             <td className="tdStudentLink">
                             <label htmlFor="name" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.name}</a>
                                 </label>
-                                <input id="edit-input" type="text" className="nameInput" idstudent={this.state.id} required/>
+                                <input id="nameInput" type="text" className="edit-input" idstudent={this.state.id} required/>
                             </td>
                             <td className="tdStudentLink">
                             <label htmlFor="email" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.email}</a>
                                 </label>
-                                <input id="edit-input" type="text" className="emailInput" idstudent={this.state.id} required />
+                                <input id="emailInput" type="text" className="edit-input" idstudent={this.state.id} required />
                             </td>
                         
                     </tbody>
