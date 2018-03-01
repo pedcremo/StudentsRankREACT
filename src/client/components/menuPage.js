@@ -39,21 +39,9 @@ class MenuPage extends React.Component {
         }else {
             this.setState({  
                 [name]: value 
-            },() => { events.publish('menu/changesubject',this.state)});
-            //debugger;
-            //events.publish('menu/changesubject',this.state);
-        }
-        //, () => this.changesubject(value));
-    }
-    
-   /* changesubject(value) {
-        if (value === 'NEW SUBJECT') {            
-            reactDOM.unmountComponentAtNode(document.getElementById('modals'));
-            reactDOM.render(<SubjectModalPage  key={new Date()} sharedGroups={this.state.sharedGroups}/>, document.getElementById('modals'));    
-        }else {
-            events.publish('menu/changesubject',this.state);
-        }
-    }*/
+            },() => { events.publish('menu/changesubject',this.state)});           
+        }       
+    }     
 
     render() {
        

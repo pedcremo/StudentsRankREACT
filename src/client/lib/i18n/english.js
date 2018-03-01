@@ -1,5 +1,6 @@
 export default
 {
+    motto: "The harder you work, the luckier you get",
     headerTitle: "Students Rank",
     headerSubtitle: "The harder you work, the luckier you get",
     menuOptionNewSubject: 'NEW SUBJECT',

@@ -1,5 +1,6 @@
 export default
 {
+    motto: "Més s'estima allò que amb més treball es guanya",
     headerTitle: "Ranking d'estudiants",
     headerSubtitle: "Quant mès dur treballes, mès sort tindràs",
     menuOptionNewSubject: 'NOVA ASIGNATURA',

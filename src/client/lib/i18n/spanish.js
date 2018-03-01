@@ -1,5 +1,6 @@
 export default
 {
+    motto: "Trabajar con hambre no es nada bueno",
     headerTitle: "Ranking de estudiantes",
     headerSubtitle: "Cuanto más duro trabajes, más suerte tendrás",
     menuOptionNewSubject: 'NUEVA ASIGNATURA',

@@ -12,7 +12,6 @@ class LoginPage extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);      
         this.handleSubmitCode = this.handleSubmitCode.bind(this);
-
     }
 
     handleInputChange(event) {

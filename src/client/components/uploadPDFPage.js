@@ -87,7 +87,7 @@ class UploadPage extends React.Component {
             <div> 
             {/* Asi es la part del drop zone */}
               <form id="newFile" enctype="multipart/form-data" className="formDetail small" onSubmit={this.handleSubmit}>
-                <Dropzone class="Dropzone"
+                <Dropzone className="Dropzone"
                     onDrop={this.onDrop.bind(this)}
                     style={dropzoneStyle}
                     accept={accept}
