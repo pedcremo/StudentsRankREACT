@@ -74,6 +74,15 @@ events.subscribe('/context/newGradedTask',(gtask) => {
   });
 });
 
+events.subscribe('/component/selectedAction',(obj) =>{
+  switch (obj.option){
+    case 'deleteall':
+      Person.deleteAllById(obj.arraySelecteds);
+    break;
+  }
+});
+
+
 const privateAddTotalPoints = Symbol('privateAddTotalPoints'); /** To accomplish private method */
 const _totalXPpoints = Symbol('TOTAL_XP_POINTS'); /** To acomplish private property */
 
@@ -307,6 +316,17 @@ class Person {
     students.delete(idPerson);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));
   }
+
+  static deleteAllById(arrayIds) {
+
+    if (window.confirm('Are you sure?')) {
+          arrayIds.forEach(function(idPerson){
+          students.delete(idPerson);
+        });
+        events.publish('dataservice/saveStudents',JSON.stringify([...students]));
+    }
+      Person.getRankingTable(true); 
+    }
 }
 
 export default Person;

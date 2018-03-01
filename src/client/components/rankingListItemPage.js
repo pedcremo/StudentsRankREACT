@@ -4,16 +4,44 @@ import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js'
 
 class RankingListItemPage extends React.Component {
     constructor(props){
+
+        console.log(props.selectedAll);
+
         super(props);
-        
         this.state = {                
             id:props.student[0],         
-            student:props.student[1],           
+            student:props.student[1],  
             readOnly:props.readOnly,
-            studentIndex:props.student,
-            index:props.index
+            studentIndex:props.student,        
+            index:props.index,
+            selected:false,
+            checked:[]
         }; 
+        this.handleCheckedChild=this.handleCheckedChild.bind(this);
     }
+    
+
+    componentWillReceiveProps(selectedAll) {
+        if(selectedAll.selectedAll==true){
+            this.setState({selected:true});
+            this.props.callbackFromParent({'option':'add','id':this.state.id});
+        }else{
+            this.setState({selected:false});
+            this.props.callbackFromParent({'option':'delete','id':this.state.id});
+        }
+    }
+
+
+    handleCheckedChild (event) {
+        if(this.state.selected==true){
+            this.setState({selected:false});
+            this.props.callbackFromParent({'option':'delete','id':this.state.id});
+        }else{
+            this.setState({selected:true});
+            this.props.callbackFromParent({'option':'add','id':this.state.id});
+        }
+    }
+
     
     
     render() {
@@ -24,7 +52,7 @@ class RankingListItemPage extends React.Component {
         );
         return (
             <tr className="js-rowStudent" >
-            <td className="w-5" id="sorting"><h3>{this.state.index}</h3></td>
+            <td className="w-5" id="sorting"><h3><input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}/>{this.state.index}</h3></td>
             <td className="w-35">
                 <table>
                     <tbody>
