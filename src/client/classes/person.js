@@ -16,6 +16,8 @@ import React from 'react';
 import reactDOM from 'react-dom';
 import RankingListPage from '../components/rankingListPage.js';
 import Settings from './settings.js';
+import {getIdFromURL} from '../lib/utils.js';
+import PersonDetailPage from '../components/personDetailPage.js';
 
 let students = new Map();
 let attitudeMAP = new Map();
