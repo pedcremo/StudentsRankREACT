@@ -1,5 +1,5 @@
 # Introduction 
-The purpose of this project is to program a Students rank mini app using raw ES6 rith REACT components for the UI. The aim is to learn as much as possible about REACT and how to build a componed based architecture. We focus the development in broad testing using unit tests and e2e testing
+The purpose of this project is to set up a Students rank mini app using raw ES6 with REACT components for the UI. The aim is to learn as much as possible about REACT and how to build a componed based architecture web app. We focus the development in broad unit and end to end (e2e) testing
 
 # Prerequisites
 npm and node should be installed on your system
@@ -16,7 +16,7 @@ We wait until node_modules folder has been filled with all development modules n
 <pre>npm run-script dev</pre>
 
 Other interesting npm scripts  
-
+ 
 <pre>npm run-script build </pre>
 Creates dist/ folder with all files optimized for production
 
