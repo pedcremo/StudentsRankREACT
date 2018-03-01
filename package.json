@@ -18,7 +18,7 @@
     "postbuild": "node src/server/app.js",
     "restart": "forever restart src/server/app.js",
     "doc": "jsdoc -c jsdoc.json README.md src/client/**/*",
-    "make:traductions": "node ./src/server/traductor"
+    "make:traductions": "node ./src/server/traductor.js"
   },
   "author": "Pere Crespo",
   "license": "ISC",

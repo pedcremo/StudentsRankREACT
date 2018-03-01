@@ -146,7 +146,7 @@ Object.keys(gtaLangs).forEach((keyGTA) => {
     translate(englishLang[key], {to: keyGTA}).then(res => {
       fileJSON[key] = res.text;
       
-      fs.writeFile('../client/lib/i18n/other/' + gtaLangs[keyGTA] + '.js', 'export default ' + JSON.stringify(fileJSON), 'utf8', (err) => {
+      fs.writeFile('src/client/lib/i18n/other/' + gtaLangs[keyGTA] + '.js', 'export default ' + JSON.stringify(fileJSON), 'utf8', (err) => {
         if (err) {
           throw err;
         }
