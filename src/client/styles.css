@@ -57,6 +57,8 @@ tr {
 }
 .table td, .table th {
   vertical-align: middle;
+  border-top: none !important;
+  padding: 5px !important;
  
 }
 button.xp {
