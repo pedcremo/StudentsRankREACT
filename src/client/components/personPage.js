@@ -9,7 +9,7 @@ class PersonPage extends React.Component {
         super(props);
         this.state = {                
                 name: props.student.personInstance?props.student.personInstance.name:'',
-                surnames: props.student.personInstance?props.student.personInstance.surname:'',
+                surname: props.student.personInstance?props.student.personInstance.surname:'',
                 email: props.student.personInstance?props.student.personInstance.email:'',
                 id: props.student.personInstance?props.student.personInstance.id:'huevon'
                
@@ -64,8 +64,8 @@ class PersonPage extends React.Component {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="surnames">{T.translate("addStudentLblSurnames")}</label>
-                        <input type="text" className="form-control" id="idSurnames" name="surnames" value={this.state.surnames} onChange={this.handleInputChange} required />
+                        <label htmlFor="surname">{T.translate("addStudentLblsurnames")}</label>
+                        <input type="text" className="form-control" id="idsurname" name="surname" value={this.state.surname} onChange={this.handleInputChange} required />
                     </div>
 
                     <div className="form-group">

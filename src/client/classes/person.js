@@ -32,7 +32,7 @@ events.subscribe('dataservice/SavePerson',(obj) => {
      Person.getRankingTable();
   //NEW  
   }else{
-    person = new Person(obj.studentProps.name,obj.studentProps.surnames,obj.studentProps.email,[]);
+    person = new Person(obj.studentProps.name,obj.studentProps.surname,obj.studentProps.email,[]);
     //students.set(person.id,person);      
     Person.addStudent(person);
   }

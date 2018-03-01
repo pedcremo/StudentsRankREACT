@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils'; // ES6
 import MenuPage from '../src/client/components/menuPage.js';
+import { context } from '../src/client/context.js';
 
 /** 
  * Read https://reactjs.org/docs/test-utils.html
@@ -31,9 +32,6 @@ describe('runKING tests on menuPage REACT component', function () {
         }).not.toThrow();   
     });
     it('2. Change subject', () => { 
-        const node = this.select;
-        node.value = "PERRY";
-        ReactTestUtils.Simulate.click(node);
     });
     
 });
