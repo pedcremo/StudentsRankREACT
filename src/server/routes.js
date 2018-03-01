@@ -67,7 +67,7 @@ router.get('/read/:code',function(req, res, next){
         if(err) {console.log(err);}
         response[item] = data.toString();
         counter++;
-        if (counter === 4) {
+        if (counter === arrayjson.length) {
               res.status(200).send(response);
              }
       });
