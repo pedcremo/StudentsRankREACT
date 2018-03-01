@@ -44,6 +44,21 @@ events.subscribe('dataservice/SavePerson',(obj) => {
   }
 );
 
+//'option':this.state.action,'arraySelecteds':arraySelecteds}
+events.subscribe('/component/selectedAction',(obj) =>{
+  /* let optionSelected=obj.option; */
+  console.log(obj);
+  console.log(obj.option);
+  console.log(obj.arraySelecteds);
+
+  switch (obj.option){
+    case 'deleteall':
+      Person.deleteAllById(obj.arraySelecteds);
+    break;
+  }
+});
+
+
 events.subscribe('attitudeTask/change',(obj) => {
   attitudeMAP = obj;  
 });
@@ -240,6 +255,18 @@ class Person {
     students.delete(idPerson);
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));
   }
+
+  static deleteAllById(arrayIds) {
+
+    if (window.confirm('Are you sure?')) {
+        arrayIds.forEach(function(idPerson){
+        students.delete(idPerson);
+      });
+      events.publish('dataservice/saveStudents',JSON.stringify([...students]));
+  }
+  events.publish('dataservice/saveStudents',JSON.stringify([...students]));
+}
+
 }
 
 export default Person;
