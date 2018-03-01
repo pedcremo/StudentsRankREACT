@@ -1,26 +1,6 @@
-import * as en from './english.js';
-import * as es from './spanish.js';
-import * as val from './valencian.js';
-
-function getTraductionOfMessages(language) {
-    switch(language) {
-      case "en":
-        return en.default;
-        break;
-      case "es":
-        return es.default;
-        break;
-      case "val":
-        return val.default;
-        break;
-      default:
-        return en.default;
-        break;
-    }
-}
-
-// Google Translate API list of avaliable languanges to translate
-let gtaLangs = {
+const translate = require('google-translate-api');
+const fs = require('fs');
+const gtaLangs = {
   'af': 'Afrikaans',
   'sq': 'Albanian',
   'am': 'Amharic',
@@ -126,5 +106,59 @@ let gtaLangs = {
   'yo': 'Yoruba',
   'zu': 'Zulu'
 };
+const englishLang = {
+  headerTitle: "Students Rank",
+  headerSubtitle: "The harder you work, the luckier you get",
+  menuOptionNewSubject: 'NEW SUBJECT',
+  addStudentTitle: 'Add new Student',
+  addStudentLblFirstName: 'First name',
+  addStudentLblSurnames: 'Surnames',
+  addStudentLblEmail: 'Email',
+  addStudentLblProfileImage: 'Profile Image',
+  addStudentInputSave: 'Save',
+  addGradedTaskTitle: 'Add new Graded Task',
+  addGradedTaskSubtitle: 'We understand as a graded task any test or practice that will be marked by teacher and should be reflected in the final mark',
+  addGradedTaskLblName: 'Task name',
+  addGradedTaskLblDescription: 'Task description',
+  addGradedTaskLblTerm: 'Task term',
+  addGradedTaskLblWeight: 'Task Weight',
+  addGradedTaskInputSave: 'Save',
+  settingsTitle: 'Settings',
+  settingsLblXP: 'Weight XP',
+  settingsLblGT: 'Weight GT',
+  settingsLblCode: 'Your code',
+  settingsLblDefaultTerm: 'Default term',
+  settingsLblChangeSubject: 'Change subject',
+  settingsLblPreferredLanguage: 'Preferred language',
+  menuTitleAddStudent: 'Add student',
+  menuTitleAddGradedTask: 'Add graded task',
+  menuTitleSettings: 'Settings',
+  menuTitleLogout: 'Logout',
+};
 
-export { getTraductionOfMessages, gtaLangs }
+
+Object.keys(gtaLangs).forEach((keyGTA) => {
+  let fileJSON = {};  
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! ' + keyGTA);
+  
+  Object.keys(englishLang).forEach((key) => {
+    
+    translate(englishLang[key], {to: keyGTA}).then(res => {
+      fileJSON[key] = res.text;
+      
+      fs.writeFile('src/client/lib/i18n/other/' + gtaLangs[keyGTA] + '.js', 'export default ' + JSON.stringify(fileJSON), 'utf8', (err) => {
+        if (err) {
+          throw err;
+        }
+        console.log('The file src/client/lib/i18n/' + gtaLangs[keyGTA] + '.js has been saved!');
+        
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+    
+  });
+});
+
+
+

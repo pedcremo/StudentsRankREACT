@@ -2,7 +2,6 @@ import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import T from 'i18n-react';
 import Settings from '../classes/settings.js';
-//import { getTraductionOfMessages } from '../lib/i18n/translation.js';
 
 class PersonPage extends React.Component {
     constructor(props){

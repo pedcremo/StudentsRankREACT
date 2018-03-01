@@ -2,6 +2,7 @@ import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import T from 'i18n-react';
 import Settings from '../classes/settings.js';
+import { gtaLangs } from '../lib/i18n/translation.js';
 
 class SettingsPage extends React.Component {
     constructor(props){
@@ -15,8 +16,9 @@ class SettingsPage extends React.Component {
             code:props.code,                            
             NewNameSubject: props.defaultSubject,                            
             language: props.props.language,
-            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
-        };        
+            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 }),
+            gtaLangs: ''
+        };    
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -63,7 +65,11 @@ class SettingsPage extends React.Component {
         $('.modal-backdrop').remove();
     }
 
-    render() {        
+    render() {
+        let index = -1;
+        const gtaLangsItems = Object.entries(gtaLangs).map(([key, value]) =>
+            <option key={index++} value={key}>{value}</option>
+        );
         return (            
             <div>
             <h3>{T.translate("settingsTitle")}</h3>
@@ -104,6 +110,13 @@ class SettingsPage extends React.Component {
                     <option key="0" value="en">English</option>
                     <option key="1" value="es">Spanish</option>
                     <option key="2" value="val">Valencia</option>
+                </select>
+            </div>
+
+            <div className="form-group">
+                <label>Preferred other languages:</label>
+                <select name="gtaLangs" defaultValue={this.state.gtaLangs} onChange={this.handleInputChange}>
+                    {gtaLangsItems}
                 </select>
             </div>
 
