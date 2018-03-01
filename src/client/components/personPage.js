@@ -2,7 +2,6 @@ import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import T from 'i18n-react';
 import Settings from '../classes/settings.js';
-import { runGTA } from '../lib/i18n/translation.js';
 
 class PersonPage extends React.Component {
     constructor(props){
@@ -14,7 +13,7 @@ class PersonPage extends React.Component {
                 id: props.student.personInstance?props.student.personInstance.id:'huevon'
                
         };        
-        runGTA();
+        
         //let messages = getTraductionOfMessages(Settings.getLanguage());
         let messages = Settings.getTraductedText();
         T.setTexts(messages, { MDFlavor: 0 });
