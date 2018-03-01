@@ -4,6 +4,7 @@ var id = require('./utils/makeid')();
 var data = require('./data');
 
 var fuploadPDF = require('./uploadPDF')();
+var email= require("./utils/email");
 var exec = require('child_process').exec;
 var auth = require('./authentication');
 var passport = require('passport');
@@ -119,6 +120,9 @@ function changeSubject(req, res, next) {
 
 router.post('/uploadImage', uploadImage);
 router.post('/uploadPDF', uploadPDF);
+router.post('/email', function(req, res) {
+  email.sendEmail(req,res);
+});
 
 router.post('/saveStudents',function(req, res) {
   if (req.isAuthenticated()) {

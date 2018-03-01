@@ -5,52 +5,51 @@ import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js'
 class RankingListItemPage extends React.Component {
     constructor(props){
         super(props);
-        
         this.state = {                
             id:props.student[0],         
             student:props.student[1],           
-            readOnly:props.readOnly,
-            studentIndex:props.student,
-            index:props.index
+            index:props.index,
+            selected:false,
+            checked:[]
         }; 
+        this.handleCheckedChild=this.handleCheckedChild.bind(this);
     }
-    
+
+    componentWillReceiveProps(selectedAll) {
+        if(this.state.selected==true){
+            this.setState({selected: !this.state.selected});
+            this.props.callbackFromParent({'option':'delete','id':this.state.id});
+        }else{
+            this.setState({selected: !this.state.selected});
+            this.props.callbackFromParent({'option':'add','id':this.state.id});
+        }
+    }
+
+
+    handleCheckedChild () {
+
+        if(this.state.selected==true){
+            this.setState({selected: !this.state.selected});
+            this.props.callbackFromParent({'option':'delete','id':this.state.id});
+        }else{
+            this.setState({selected: !this.state.selected});
+            this.props.callbackFromParent({'option':'add','id':this.state.id});
+        }
+    }
+
     
     render() {
         let index=0;
         const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
-            <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent} readOnly={this.state.readOnly}/>            
+            <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent}/>            
             
         );
         return (
             <tr className="js-rowStudent" >
-            <td className="w-5" id="sorting"><h3>{this.state.index}</h3></td>
+            <td className="w-5" id="sorting"><h3><input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}/>{this.state.index}</h3></td> 
             <td className="w-35">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></td>
-                            <td className="tdStudentLink">
-                                <label htmlFor="surnames" className="control-label">
-                                    <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.surname}</a>
-                                </label>
-                                <input id="edit-input" type="text" className="surnamesInput" idstudent={this.state.id} required/>
-                            </td>
-                            <td className="tdStudentLink">
-                            <label htmlFor="name" className="control-label">
-                                    <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.name}</a>
-                                </label>
-                                <input id="edit-input" type="text" className="nameInput" idstudent={this.state.id} required/>
-                            </td>
-                            <td className="tdStudentLink">
-                            <label htmlFor="email" className="control-label">
-                                    <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.email}</a>
-                                </label>
-                                <input id="edit-input" type="text" className="emailInput" idstudent={this.state.id} required />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/>
+                <a className="text-info" href={'#student/'+this.state.id}> {this.state.student.surname}, {this.state.student.name}</a>
             </td>
             <td className="w-60">
               <table id="scoreTable" className="table-condensed" width="100%">
@@ -66,9 +65,8 @@ class RankingListItemPage extends React.Component {
                         {this.state.student.getGTtotalPoints()}
                     </td>
                     <td className="w-40 text-right">
-                        {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}><button className="btnS btn btn-primary">+XP</button></a> : null}
-                        {!this.state.readOnly ? <a href={'#editStudent/'+this.state.id}><button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a> : null}
-                        {!this.state.readOnly ? <a href={'#deleteStudent/'+this.state.id}><button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a> : null}
+                        <a href={'#addXP/'+this.state.id}>
+                        <button className="btnS btn btn-primary">+XP</button></a>
                     </td>                    
                 </tr> 
                 </tbody> 

@@ -39,6 +39,8 @@
     "jquery": "^3.2.1",
     "lowdb": "^1.0.0",
     "morgan": "^1.1.1",
+    "nodemailer": "^2.1.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "npm": "^5.6.0",
     "observable-map": "0.0.4",
     "passport": "*",
