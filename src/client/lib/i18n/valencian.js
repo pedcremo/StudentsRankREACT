@@ -2,6 +2,7 @@ export default
 {
     headerTitle: "Ranking d'estudiants",
     headerSubtitle: "Quant mès dur treballes, mès sort tindràs",
+    menuOptionNewSubject: 'NOVA ASIGNATURA',
     addStudentTitle: 'Afegir nou estudiant',
     addStudentLblFirstName: 'Nom',
     addStudentLblSurnames: 'Cognoms',
@@ -15,4 +16,15 @@ export default
     addGradedTaskLblTerm: 'Avaluació de la tasca',
     addGradedTaskLblWeight: 'Pes de la tasca',
     addGradedTaskInputSave: 'Guardar',
+    settingsTitle: 'Configuració',
+    settingsLblXP: 'Pes XP',
+    settingsLblGT: 'Pes GT',
+    settingsLblCode: 'El teu còdic',
+    settingsLblDefaultTerm: 'Avaluació per defecte',
+    settingsLblChangeSubject: "Cambi d'asignatura",
+    settingsLblPreferredLanguage: 'Idioma preferit',
+    menuTitleAddStudent: 'Afegir estudiant',
+    menuTitleAddGradedTask: 'Afegir tasca avaluable',
+    menuTitleSettings: 'Configuració',
+    menuTitleLogout: 'Sortir',
 }

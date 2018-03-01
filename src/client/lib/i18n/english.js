@@ -2,6 +2,7 @@ export default
 {
     headerTitle: "Students Rank",
     headerSubtitle: "The harder you work, the luckier you get",
+    menuOptionNewSubject: 'NEW SUBJECT',
     addStudentTitle: 'Add new Student',
     addStudentLblFirstName: 'First name',
     addStudentLblSurnames: 'Surnames',
@@ -15,4 +16,15 @@ export default
     addGradedTaskLblTerm: 'Task term',
     addGradedTaskLblWeight: 'Task Weight',
     addGradedTaskInputSave: 'Save',
+    settingsTitle: 'Settings',
+    settingsLblXP: 'Weight XP',
+    settingsLblGT: 'Weight GT',
+    settingsLblCode: 'Your code',
+    settingsLblDefaultTerm: 'Default term',
+    settingsLblChangeSubject: 'Change subject',
+    settingsLblPreferredLanguage: 'Preferred language',
+    menuTitleAddStudent: 'Add student',
+    menuTitleAddGradedTask: 'Add graded task',
+    menuTitleSettings: 'Settings',
+    menuTitleLogout: 'Logout',
 }
