@@ -16,11 +16,10 @@ output/
 doc/
 dist/
 src/server/tmp/
-src/server/data/333342/
-src/server/data/343242/
-src/server/data/fotos/
-src/server/data/*.json
+src/server/data/*
+!src/server/data/fotos/huevon.jpg
+!src/server/data/*_skeleton.json
+!src/server/data/README
 
-!huevon.jpg
 node_modules/
 
