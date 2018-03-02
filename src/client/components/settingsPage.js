@@ -16,7 +16,8 @@ class SettingsPage extends React.Component {
             code:props.code,                            
             NewNameSubject: props.defaultSubject,                            
             language: props.props.language,
-            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 }),
+            //traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 }),
+            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             gtaLangs: ''
         };    
 
@@ -36,6 +37,7 @@ class SettingsPage extends React.Component {
             this.state.weightGP = 100 - value;
         } 
 
+        console.log(value);
         this.setState({  [name]: value }, () => this.SendChanges(name));    
     }
 
@@ -47,12 +49,13 @@ class SettingsPage extends React.Component {
             
         } else { console.log("OK") }
 
+        
         this.setState({
-            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
+            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
         });
 
         events.publish('language/change', this.state.traductions);  
-        //this.state.traduction.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
+        
     }
    
 
@@ -68,7 +71,7 @@ class SettingsPage extends React.Component {
     render() {
         let index = -1;
         const gtaLangsItems = Object.entries(gtaLangs).map(([key, value]) =>
-            <option key={index++} value={key}>{value}</option>
+            <option key={index++} value={value}>{value}</option>
         );
         return (            
             <div>
@@ -107,15 +110,15 @@ class SettingsPage extends React.Component {
             <div className="form-group">
                 <label htmlFor="pLanguage"> {T.translate("settingsLblPreferredLanguage")} </label>
                 <select name="language" defaultValue={this.state.language} onChange={this.handleInputChange}>
-                    <option key="0" value="en">English</option>
-                    <option key="1" value="es">Spanish</option>
-                    <option key="2" value="val">Valencia</option>
+                    <option key="0" value="English">English</option>
+                    <option key="1" value="spanishNative">Spanish</option>
+                    <option key="2" value="valencianNative">Valencia</option>
                 </select>
             </div>
 
             <div className="form-group">
                 <label>Preferred other languages:</label>
-                <select name="gtaLangs" defaultValue={this.state.gtaLangs} onChange={this.handleInputChange}>
+                <select name="language" defaultValue={this.state.gtaLangs} onChange={this.handleInputChange}>
                     {gtaLangsItems}
                 </select>
             </div>

@@ -16,8 +16,9 @@ class GradedTaskPage extends React.Component {
                 allowedWeight:props.allowedWeight
         }        
         
-        let messages = Settings.getTraductedText();
-        T.setTexts(messages, { MDFlavor: 0 });
+        //let messages = Settings.getTraductedText();
+        //T.setTexts(messages, { MDFlavor: 0 });
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
 
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);      

@@ -1,6 +1,5 @@
 import {events} from '../lib/eventsPubSubs.js';
 import Person from './person.js';
-import { getTraductionOfMessages } from '../lib/i18n/translation.js';
 
 let settings = {};
 
@@ -66,11 +65,11 @@ class Settings {
   }
 
   static getLanguage() {
+    if (settings.language == undefined) {
+      settings.language = "English";
+    } 
+  
     return settings.language;
-  }
-
-  static getTraductedText() {
-    return getTraductionOfMessages(this.getLanguage());
   }
   
   static getSettings() {

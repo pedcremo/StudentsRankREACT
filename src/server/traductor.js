@@ -139,18 +139,18 @@ const englishLang = {
 
 Object.keys(gtaLangs).forEach((keyGTA) => {
   let fileJSON = {};  
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!! ' + keyGTA);
+  console.log('Translating to ' + keyGTA);
   
   Object.keys(englishLang).forEach((key) => {
     
     translate(englishLang[key], {to: keyGTA}).then(res => {
       fileJSON[key] = res.text;
       
-      fs.writeFile('src/client/lib/i18n/other/' + gtaLangs[keyGTA] + '.js', 'export default ' + JSON.stringify(fileJSON), 'utf8', (err) => {
+      fs.writeFile('src/client/lib/i18n/' + gtaLangs[keyGTA] + '.json', JSON.stringify(fileJSON), 'utf8', (err) => {
         if (err) {
           throw err;
         }
-        console.log('The file src/client/lib/i18n/' + gtaLangs[keyGTA] + '.js has been saved!');
+        console.log('The file src/client/lib/i18n/' + gtaLangs[keyGTA] + '.json has been saved!');
         
       });
     }).catch(err => {

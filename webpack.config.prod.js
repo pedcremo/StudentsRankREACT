@@ -41,6 +41,7 @@ export default {
       {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=10000"},
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}*/
+      {test: /\.json$/, loader: 'json-loader'},
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},     
       //{test: /(\.css)$/, loaders: ['style', 'css']},

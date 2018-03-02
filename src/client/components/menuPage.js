@@ -16,17 +16,25 @@ class MenuPage extends React.Component {
             defaultSubject: props.props.defaultSubject,
             defaultTerm: props.props.defaultTerm,
             sharedGroups: props.props.sharedGroups,
-            traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 }),
+            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             readOnly:props.readOnly ? true : false
-        };  
+        };
+        console.log('menuuu');  
+        console.log(Settings.getLanguage());
         
         this.handleInputChange = this.handleInputChange.bind(this);
 
-        events.subscribe('language/change',(obj) => {
-            this.setState({
-                traductions: obj
-            });
+    }
+
+    componentDidMount() {
+        this.setState({
+            traductions:T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
         });
+        this.subscription = events.subscribe('settings/change',(obj) => {  
+            this.setState({
+                traductions:T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
+            });               
+        });      
     }
 
     handleInputChange(event) {
