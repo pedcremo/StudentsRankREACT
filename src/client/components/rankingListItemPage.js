@@ -51,61 +51,52 @@ class RankingListItemPage extends React.Component {
             
         );
         return (
-        <tr className="js-rowStudent d-flex" >
-            <td className="col-sm-1 align-middle" id="sorting"><h3><input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}/>{this.state.index}</h3></td>
+        <tr className="js-rowStudent d-flex align-items-center" >
+            <td className="col-sm-1" id="sorting"><h3><input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}/>{this.state.index}</h3></td>
             
-            <td className="col-sm-8 align-middle">
-                <table>
-                    <tbody>
-                            <td className="align-middle"><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></td>
-                            <td className="tdStudentLink ">
+            <td className="col-sm-8">
+                <div  className="row">
+                    <div className="col-sm-2 vertical-center"><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></div>
+                    <div className="tdStudentLink col-sm-4 vertical-center">
                                 <label htmlFor="surnames" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.surname}</a>
                                 </label>
                                 <input id="surnamesInput" type="text" className="edit-input" idstudent={this.state.id} required/>
-                            </td>
-                            <td className="tdStudentLink">
+                    </div>
+                    <div className="tdStudentLink col-sm-3 vertical-center">
                             <label htmlFor="name" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.name}</a>
                                 </label>
                                 <input id="nameInput" type="text" className="edit-input" idstudent={this.state.id} required/>
-                            </td>
-                            <td className="tdStudentLink">
+                    </div>
+                    <div className="tdStudentLink col-sm-3 vertical-center">
                             <label htmlFor="email" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.email}</a>
                                 </label>
                                 <input id="emailInput" type="text" className="edit-input" idstudent={this.state.id} required />
-                            </td> 
-                        
-                    </tbody>
-                </table>
+                    </div> 
+                 </div>      
             </td>
             <td className="col-sm-3">
-              <table id="scoreTable" className="table table-condensed" width="100%">
-               <tbody>
-                <tr className="d-flex"> 
-                    <td className="col-3">        
+                <div className="row align-items-center"> 
+                    <div className="col-sm-3">        
                         <strong>{this.state.student.getFinalGrade()}</strong>
-                    </td>
-                    <td className="col-3">
+                    </div>
+                    <div className="col-sm-3">
                         {this.state.student.getXPtotalPoints()}
-                    </td>
-                    <td className="col-3">
+                    </div>
+                    <div className="col-sm-2">
                         {this.state.student.getGTtotalPoints()}
-                    </td>
-                    <td className="col-3 text-right">
+                    </div>
+                    <div className="col-sm-1">
                         {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}><button className="btnS btn btn-success">+XP</button></a> : null}
                         {/*{!this.state.readOnly ? <a href={'#editStudent/'+this.state.id}><button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a> : null}
                         {!this.state.readOnly ? <a href={'#deleteStudent/'+this.state.id}><button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a> : null}*/}
-                    </td>                    
-                </tr> 
-                </tbody> 
-                <tbody className="tableGradedTasks" style={{display:'none'}}>                        
-                    <tr>
+                    </div>                    
+                </div>
+                <div className="tableGradedTasks row" style={{display:'none'}}>        
                         {studentsGT}                        
-                    </tr>
-                </tbody> 
-             </table>  
+                </div>
             </td>             
         </tr>
             

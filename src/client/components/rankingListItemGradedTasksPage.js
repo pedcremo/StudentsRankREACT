@@ -32,7 +32,7 @@ class RankingListItemGradedTasksPage extends React.Component {
     render() {
       
         return (                
-                        <td>
+                        <div className="col-sm-2">
                             {!this.state.readOnly ? <a className="text-info" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a> 
                         : <span className="text-info">{this.state.name}({this.state.weight}%)</span>}
 
@@ -42,7 +42,7 @@ class RankingListItemGradedTasksPage extends React.Component {
 
                                 {/* <a className="text-info" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a>           
                                 <input type='number' name='points' className='gradedTaskInput' idstud={this.state.id_student} idgtask={this.state.id}  min='0' max='100' value={this.state.points} onChange={this.handleInputChange}/>
-                       */} </td>                         
+                       */} </div>                         
             );
     }
 }

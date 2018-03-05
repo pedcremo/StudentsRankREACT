@@ -49,13 +49,17 @@
 .navbar-right li a {
     text-align: right;
 }
-
+.custom {
+  background-color: transparent;
+  background: transparent;
+  border-color: transparent;
+}
 .table td, .table th {  
   vertical-align: middle;
   border-top: none !important;
-  padding: 5px !important;
- 
+  padding: 5px !important; 
 }
+
 button.xp {
   white-space:normal !important;
   width:100%;
@@ -65,8 +69,12 @@ button.xp {
   display: none;  
 }
 
-.tdStudentLink {
-  width: 33%;
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  
+
+  display: flex;
+  align-items: center;
 }
 
 .watchword{

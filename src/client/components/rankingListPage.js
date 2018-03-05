@@ -160,10 +160,10 @@ class RankingListPage extends React.Component {
         return (
             <table className="table table-striped ">
                 <thead className="thead-dark">
-                <tr className="d-flex ">
-                    <th className="col-1 align-middle"><input id="checkall" type="checkbox" onChange={this.handleChecked}/>&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
-                    <th className="col-5 align-middle"><input type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
-                    <th className="col-6  align-middle text-right">FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th> 
+                <tr className="d-flex vertical-center">
+                    <th height="35" className="col-1"><input id="checkall" type="checkbox" onChange={this.handleChecked}/>&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
+                    <th height="35" className="col-5"><input type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
+                    <th height="35" className="col-6 text-right">FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th> 
                 </tr>
                 </thead>
                 <tbody id="idTableRankingBody">
