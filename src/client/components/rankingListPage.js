@@ -158,26 +158,29 @@ class RankingListPage extends React.Component {
             <RankingListItemPage key={student[0]} index={student[2]} student={student} readOnly={this.state.readOnly}  callbackFromParent={this.myCallback} selectedAll={this.state.checkall}/>            
         );  
         return (
-            <table className="table table-striped table-condensed">
+            <table className="table table-striped ">
                 <thead className="thead-dark">
-                <tr>
-                    <th><input id="checkall" type="checkbox" onChange={this.handleChecked}/>&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
-                    <th><input type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
-                    <th>FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th> 
+                <tr className="d-flex ">
+                    <th className="col-1 align-middle"><input id="checkall" type="checkbox" onChange={this.handleChecked}/>&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
+                    <th className="col-5 align-middle"><input type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
+                    <th className="col-6  align-middle text-right">FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th> 
                 </tr>
                 </thead>
                 <tbody id="idTableRankingBody">
-                    {studentsItems}               
+                     {studentsItems}               
                 </tbody>
-                <thead>
+                <tfoot>
                     <tr>
-                        <th><select value={this.state.action} onChange={this.handleChange}>
-                            <option value="-- Select one action --"> -- Select one action --</option>
-                            <option value="deleteall">Delete All Selected</option>
-                            <option value="sendmails">Send Email to All Selected</option>
-                        </select></th><th/><th/>
+                        <th>
+                            <select value={this.state.action} onChange={this.handleChange}>
+                                <option value="-- Select one action --"> -- Select one action --</option>
+                                <option value="deleteall">Delete All Selected</option>
+                                <option value="sendmails">Send Email to All Selected</option>
+                            </select>
+                        </th>
+                        <th/><th/>
                     </tr>
-                </thead>
+                </tfoot>
             </table>
         );
     }

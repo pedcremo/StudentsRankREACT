@@ -64,7 +64,7 @@ class Settings {
     }
   }
 
-  static getLanguage() {
+  static getLanguage() {  
     if (settings.language == undefined) {
       settings.language = "English";
     } 

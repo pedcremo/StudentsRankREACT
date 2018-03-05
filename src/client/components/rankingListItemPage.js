@@ -51,14 +51,14 @@ class RankingListItemPage extends React.Component {
             
         );
         return (
-            <tr className="js-rowStudent" >
-            <td className="w-5" id="sorting"><h3><input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}/>{this.state.index}</h3></td>
-            <td className="w-35">
+        <tr className="js-rowStudent d-flex" >
+            <td className="col-sm-1 align-middle" id="sorting"><h3><input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}/>{this.state.index}</h3></td>
+            
+            <td className="col-sm-8 align-middle">
                 <table>
                     <tbody>
-                        
-                            <td><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></td>
-                            <td className="tdStudentLink">
+                            <td className="align-middle"><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></td>
+                            <td className="tdStudentLink ">
                                 <label htmlFor="surnames" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.surname}</a>
                                 </label>
@@ -75,28 +75,28 @@ class RankingListItemPage extends React.Component {
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.email}</a>
                                 </label>
                                 <input id="emailInput" type="text" className="edit-input" idstudent={this.state.id} required />
-                            </td>
+                            </td> 
                         
                     </tbody>
                 </table>
             </td>
-            <td className="w-60">
-              <table id="scoreTable" className="table-condensed" width="100%">
+            <td className="col-sm-3">
+              <table id="scoreTable" className="table table-condensed" width="100%">
                <tbody>
-                <tr> 
-                    <td className="w-20">        
+                <tr className="d-flex"> 
+                    <td className="col-3">        
                         <strong>{this.state.student.getFinalGrade()}</strong>
                     </td>
-                    <td className="w-20">
+                    <td className="col-3">
                         {this.state.student.getXPtotalPoints()}
                     </td>
-                    <td className="w-20">
+                    <td className="col-3">
                         {this.state.student.getGTtotalPoints()}
                     </td>
-                    <td className="w-40 text-right">
-                        {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}><button className="btnS btn btn-primary">+XP</button></a> : null}
-                        {!this.state.readOnly ? <a href={'#editStudent/'+this.state.id}><button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a> : null}
-                        {!this.state.readOnly ? <a href={'#deleteStudent/'+this.state.id}><button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a> : null}
+                    <td className="col-3 text-right">
+                        {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}><button className="btnS btn btn-success">+XP</button></a> : null}
+                        {/*{!this.state.readOnly ? <a href={'#editStudent/'+this.state.id}><button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a> : null}
+                        {!this.state.readOnly ? <a href={'#deleteStudent/'+this.state.id}><button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a> : null}*/}
                     </td>                    
                 </tr> 
                 </tbody> 
