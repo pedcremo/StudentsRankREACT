@@ -75,7 +75,10 @@ class RankingListItemPage extends React.Component {
                                 </label>
                                 <input id="emailInput" type="text" className="edit-input" idstudent={this.state.id} required />
                     </div> 
-                 </div>      
+                 </div>   
+                         
+                        {studentsGT}                        
+                  
             </td>
             <td className="col-sm-3">
                 <div className="row align-items-center"> 
@@ -94,9 +97,7 @@ class RankingListItemPage extends React.Component {
                         {!this.state.readOnly ? <a href={'#deleteStudent/'+this.state.id}><button className='btnS btn btn-danger'>&nbsp;<i className='fa fa-trash-o fa-1x'></i></button></a> : null}*/}
                     </div>                    
                 </div>
-                <div className="tableGradedTasks row" style={{display:'none'}}>        
-                        {studentsGT}                        
-                </div>
+               
             </td>             
         </tr>
             
