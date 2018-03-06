@@ -57,13 +57,13 @@ function initRouter() {
             case /#student/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));             
+              reactDOM.render(<PersonDetailPage student={{personInstance}} readOnly={context.readOnly} />, document.getElementById('content'));             
               break;
             /** Modify student information */
             case /#editStudent/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
-              reactDOM.render(<PersonPage student={{personInstance}} />, document.getElementById('content'));              
+              reactDOM.render(<PersonPage student={{personInstance}} readOnly={context.readOnly}  />, document.getElementById('content'));              
               break;
             /** Delete student with confirmation */
             case /#deleteStudent/.test(isLink.href):
@@ -80,7 +80,7 @@ function initRouter() {
                 personInstance = Person.getPersonById(matchResults[1]);
                 personInstance.deleteXP(parseInt(getIdFromURL(isLink.href)));
                 reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-                reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));                
+                reactDOM.render(<PersonDetailPage student={{personInstance}} readOnly={context.readOnly} />, document.getElementById('content'));                
               }
               break;
              /** Delete Subject */

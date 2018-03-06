@@ -36,6 +36,9 @@ class MenuPage extends React.Component {
             });               
         });      
     }
+    componentWillUnmount() {
+        this.subscription.remove();
+    }
 
     handleInputChange(event) {
         const target = event.target;

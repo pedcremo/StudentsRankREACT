@@ -1,15 +1,21 @@
-1. Login screen. Log in with Teacher in domain iestacio.com or as student using a code. Llorens
-2. Change  REACT DROP ZONE CSS . More attractive look and feel -> Llore
+
 3. Delete unused code ,all imported and not used modules and packages not used anymore and refactor => German Rodriguez
-4. Fix upload PDF and refactor server -> Sergio
+
 5. Rethink react rankingListPage with a search filter and a checkbox selector to apply global actions -> Carlos Axel Castex y Oscar Segui Guerola
+Point 5 fails. We lose selection when we add new XP points
+Add XP should be a multiple action too
+Inverse selection could be a practical action
+We don't have an edit button
+In read only view we should remove delete XP action
+We should improve person detailed view. Specially graded tasks
+
 5.1 Double click on the profile image to enter on edit view or double click on name to change directly - Dani Martinez
 6. Related with previous one do a send email action on selected students. Show a modal to write the message and send the message using sendgrid -> Alejandro Garcia
-7. Implement in settings change subject name --> Marcos Martinez
+
 8. Lots and lots of more unit testing tests. - > Jorge Beneyto
 9. Lots and lots of more E2E tests. -> Oscar Martinez
 10. Rewrite README and whole project DOC -> PERE
-11. i18n app - Gonzalo Tormo
+
 12. Refactor the server. Specially routes.js . Descompose in several files -> Oscar LL
 13. Introduce sqllite3 on server side replacing primitive json file storage system used now
-14. Implement students access using a code -> Sergio
+

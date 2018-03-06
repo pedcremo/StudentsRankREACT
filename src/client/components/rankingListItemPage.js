@@ -14,31 +14,23 @@ class RankingListItemPage extends React.Component {
             readOnly:props.readOnly,
             studentIndex:props.student,        
             index:props.index,
-            selected:false,
-            checked:[]
+            selected:props.selected
+            
         }; 
         this.handleCheckedChild=this.handleCheckedChild.bind(this);
-    }
-    
+    }    
 
-    componentWillReceiveProps(selectedAll) {
-        if(selectedAll.selectedAll==true){
-            this.setState({selected:true});
-            this.props.callbackFromParent({'option':'add','id':this.state.id});
-        }else{
-            this.setState({selected:false});
-            this.props.callbackFromParent({'option':'delete','id':this.state.id});
-        }
+    componentWillReceiveProps(props) {      
+       this.setState({selected:props.selected});       
     }
-
 
     handleCheckedChild (event) {
         if(this.state.selected==true){
             this.setState({selected:false});
-            this.props.callbackFromParent({'option':'delete','id':this.state.id});
+            this.props.updateSelectedListFromParent({'option':'delete','id':this.state.id});
         }else{
             this.setState({selected:true});
-            this.props.callbackFromParent({'option':'add','id':this.state.id});
+            this.props.updateSelectedListFromParent({'option':'add','id':this.state.id});
         }
     }
 

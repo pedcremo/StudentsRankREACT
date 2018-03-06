@@ -26,6 +26,7 @@ import MenuPage from './components/menuPage.js';
 events.subscribe('context/loginCode',(obj)=>{
   loadTemplate('api/read/'+obj,function(userData) {
     userData = JSON.parse(userData)
+    context.readOnly = true;
     events.publish('dataservice/getStudents',userData.students);
     events.publish('dataservice/getSettings',userData.settings);
     events.publish('dataservice/getAttitudeTasks',userData.attitudetasks);
@@ -35,7 +36,7 @@ events.subscribe('context/loginCode',(obj)=>{
     setCookie('code',userData.code,12);
     let menudata = {'displayName' : ''};
     reactDOM.render(<MenuPage key={context.user} props={menudata} readOnly={true}/>, document.getElementById('menuButtons'));    
-    reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students={Person.getStudentsFromMap()} readOnly={true}/>, document.getElementById('content'));
+    reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students={Person.getStudentsFromMap()} readOnly={true} selectedIds={context.selectedIds}/>, document.getElementById('content'));
   },'GET','',false);  
 });
 
@@ -44,7 +45,11 @@ class Context {
   constructor() {
     if (getCookie('user')) {
       this.user = JSON.parse(getCookie('user'));
+      this.readOnly = true;
+    }else {
+      this.readOnly = false;
     }
+    this.selectedIds = [];
     events.subscribe('/context/addXP', (obj) => { 
       let typeToastr = 'success';
       if (obj.attitudeTask.points < 0) {typeToastr = 'error';};

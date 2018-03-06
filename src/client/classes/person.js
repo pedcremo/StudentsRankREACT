@@ -8,7 +8,7 @@
  * @param {number} id - Person id default value null whwen created first time
  * @tutorial pointing-criteria
  */
-
+import {context} from '../context.js'; //Singleton
 import {formatDate,updateObject,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
 import {events} from '../lib/eventsPubSubs.js';
 import $ from "jquery";
@@ -230,7 +230,7 @@ class Person {
       if (umount) {
         reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
       }
-      reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()}  />, document.getElementById('content'));       
+      reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
 
             // On link single click
       $('.studentLink').click(function (event) {
@@ -243,7 +243,7 @@ class Person {
              window.location = href;
              reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
              let personInstance = Person.getPersonById(getIdFromURL(href));
-             reactDOM.render(<PersonDetailPage student={{personInstance}} />, document.getElementById('content'));
+             reactDOM.render(<PersonDetailPage student={{personInstance}} readOnly={context.readOnly} />, document.getElementById('content'));
            }, 500));
         }
         return false; // Prevent default action (redirecting)

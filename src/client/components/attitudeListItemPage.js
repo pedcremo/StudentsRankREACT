@@ -8,14 +8,15 @@ class AttitudeListItemPage extends React.Component {
         this.state = {   
             datetime:props.datetime,
             studentId:props.studentId,            
-            attitudeInstance:props.attitudeInstance               
+            attitudeInstance:props.attitudeInstance,
+            readOnly:props.readOnly             
         };   
          
     }
     
     render() {
         return (               
-                    <li  className="list-group-item"><a href={'#deleteXP/'+ this.state.studentId+'/'+this.state.attitudeInstance.id }><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i></button></a> {this.state.attitudeInstance.points} points due to {this.state.attitudeInstance.description} on  {formatDate(new Date(this.state.datetime))} </li>                                
+                    <li  className="list-group-item">{!this.state.readOnly ?<a href={'#deleteXP/'+ this.state.studentId+'/'+this.state.attitudeInstance.id }><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i></button></a>:null} {this.state.attitudeInstance.points} points due to {this.state.attitudeInstance.description} on  {formatDate(new Date(this.state.datetime))} </li>                                
                        
         );
     }
