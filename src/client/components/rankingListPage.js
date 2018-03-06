@@ -161,26 +161,28 @@ class RankingListPage extends React.Component {
             <table className="table table-striped ">
                 <thead className="thead-dark">
                 <tr className="d-flex vertical-center">
-                    <th height="35" className="col-1"><input id="checkall" type="checkbox" onChange={this.handleChecked}/>&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
+                    <th height="35" className="col-1">{!this.state.readOnly ?<input id="checkall" type="checkbox" onChange={this.handleChecked}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th height="35" className="col-5"><input type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
-                    <th height="35" className="col-6 text-right">FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}%</th> 
+                    <th height="35" className="col-6 text-right"><span className="small">FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}% &nbsp;</span></th> 
                 </tr>
                 </thead>
                 <tbody id="idTableRankingBody">
                      {studentsItems}               
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>
-                            <select value={this.state.action} onChange={this.handleChange}>
-                                <option value="-- Select one action --"> -- Select one action --</option>
-                                <option value="deleteall">Delete All Selected</option>
-                                <option value="sendmails">Send Email to All Selected</option>
-                            </select>
-                        </th>
-                        <th/><th/>
-                    </tr>
-                </tfoot>
+                {!this.state.readOnly ?
+                    <tfoot>                    
+                        <tr>
+                            <th>
+                                <select value={this.state.action} onChange={this.handleChange}>
+                                    <option value="-- Select one action --"> -- Select one action --</option>
+                                    <option value="deleteall">Delete All Selected</option>
+                                    <option value="sendmails">Send Email to All Selected</option>
+                                </select>
+                            </th>
+                            <th/><th/>
+                        </tr>
+                    </tfoot>
+                :null}
             </table>
         );
     }

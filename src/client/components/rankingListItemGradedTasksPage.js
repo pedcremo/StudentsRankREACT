@@ -32,17 +32,16 @@ class RankingListItemGradedTasksPage extends React.Component {
     render() {
       
         return (                
-            <div className="tableGradedTasks row" style={{display:'none'}}>
-                        <div className="row">
-                            {!this.state.readOnly ? <a className="text-info" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a> 
-                        : <span className="text-info">{this.state.name}({this.state.weight}%)</span>}
-                        </div>
-                        <div className="row">
-                            {!this.state.readOnly ? 
-                                <input type='number' name='points' className='gradedTaskInput' idstud={this.state.id_student} idgtask={this.state.id}  min='0' max='100' value={this.state.points} onChange={this.handleInputChange}/>
-                                : <span className="text-info">{this.state.points}</span>}
-
-                        </div>   
+            <div className="tableGradedTasks row" style={{display:'none'}}>                        
+                <div className="col-6">
+                    {!this.state.readOnly ? <a className="text-info" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a> 
+                    : <span className="text-info">{this.state.name}({this.state.weight}%)</span>}
+                </div>
+                <div className="col-2">
+                    {!this.state.readOnly ? 
+                    <input type='number' name='points' className='gradedTaskInput' idstud={this.state.id_student} idgtask={this.state.id}  min='0' max='100' value={this.state.points} onChange={this.handleInputChange}/>
+                    : <span className="text-info">{this.state.points}</span>}
+                </div>                   
             </div>                       
             );
     }

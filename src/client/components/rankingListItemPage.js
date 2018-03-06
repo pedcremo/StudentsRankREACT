@@ -52,7 +52,9 @@ class RankingListItemPage extends React.Component {
         );
         return (
         <tr className="js-rowStudent d-flex align-items-center" >
-            <td className="col-sm-1" id="sorting"><h3><input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}/>{this.state.index}</h3></td>
+            <td className="col-sm-1" id="sorting">
+                <h3> 
+                    {!this.state.readOnly ? <input id={"check"+this.state.id} checked={this.state.selected} type="checkbox" onChange={this.handleCheckedChild}  />:null}{this.state.index}</h3></td>
             
             <td className="col-sm-8">
                 <div  className="row">
@@ -76,8 +78,9 @@ class RankingListItemPage extends React.Component {
                                 <input id="emailInput" type="text" className="edit-input" idstudent={this.state.id} required />
                     </div> 
                  </div>   
-                         
-                        {studentsGT}                        
+                    <div className="border-top">   
+                        {studentsGT}  
+                    </div>                      
                   
             </td>
             <td className="col-sm-3">
