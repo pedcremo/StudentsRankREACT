@@ -70,7 +70,7 @@ class MenuPage extends React.Component {
                         {this.state.subjects.map((sub, i) =>
                         <option key={i} value={sub}>{sub}</option>
                         )}
-                        <option name="new subject" defaultValue="NEW subject">{T.translate("menuOptionNewSubject")}</option>
+                        <option name="new subject" value="NEW SUBJECT">{T.translate("menuOptionNewSubject")}</option>
                     </select> : null}
                      
                     </td></tr>

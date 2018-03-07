@@ -58,13 +58,10 @@ class UploadPage extends React.Component {
     render() {
         const dropzoneStyle = {
           width  : "100%",
-          height : "35%",
+          height : "25%",
           border: this.state.border,
           padding: "15px",
-          borderRadius:20 
-
-          
-          
+          borderRadius:20                    
         };
         const overlayStyle = {
           position: 'absolute',
@@ -86,7 +83,7 @@ class UploadPage extends React.Component {
             <p className="desc small">Drag and Drop your ITACA Students class PDF report</p>
             <div> 
             {/* Asi es la part del drop zone */}
-              <form id="newFile" enctype="multipart/form-data" className="formDetail small" onSubmit={this.handleSubmit}>
+              <form id="newFile" encType="multipart/form-data" className="formDetail small" onSubmit={this.handleSubmit}>
                 <Dropzone className="Dropzone"
                     onDrop={this.onDrop.bind(this)}
                     style={dropzoneStyle}

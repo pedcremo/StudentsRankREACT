@@ -39,7 +39,7 @@ class RankingListPage extends React.Component {
         this.setState({action: event.target.value});
         if(event.target.value == 'inverseSelection') {
             let arraySelecteds = this.state.students.filter((student) =>{
-                if (this.state.selectedIds.indexOf(student[0])) {
+                if (this.state.selectedIds.indexOf(student[0])>=0) {
                     return false;
                 }else{
                     return true;
