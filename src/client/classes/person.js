@@ -230,7 +230,8 @@ class Person {
       if (umount) {
         reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
       }
-      reactDOM.render(<RankingListPage gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
+      
+      reactDOM.render(<RankingListPage displayName={context.user.displayName} defaultTerm={Settings.getDefaultTerm()} gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
 
             // On link single click
       $('.studentLink').click(function (event) {
@@ -303,7 +304,7 @@ class Person {
           events.publish('dataservice/saveStudents',JSON.stringify([...students]));      
           Person.getRankingTable();
         } else {
-          alert("The field can't be blank.");
+          //alert("The field can't be blank.");
         }
           //Show the label and hide input text
           var dad = $(this).parent();

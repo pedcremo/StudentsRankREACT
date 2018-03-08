@@ -78,7 +78,9 @@ class Settings {
   static getTerms() {
     return settings.terms;
   }
-  
+  static getDefaultTerm() {
+    return settings.defaultTerm;
+  }
   static getXpWeight(){
     return settings.weightXP;
   }
