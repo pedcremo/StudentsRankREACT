@@ -30,7 +30,7 @@ class LogoPage extends React.Component {
         return (
             <span>
             <a className="navbar-brand" href="#home"><h2><i className="fa fa-cubes"></i>&nbsp;+x<strong>BRAIN</strong></h2></a>
-            <p className="watchword">{this.state.motto}</p>            
+            <p className="watchword d-none d-md-block">{this.state.motto}</p>            
             </span>
         );
     }

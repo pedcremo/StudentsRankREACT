@@ -57,31 +57,23 @@ class MenuPage extends React.Component {
 
     render() {
        
-        return (
-        
-                <div className="collapse navbar-collapse" id="navbarNav" >
-                    <table>
-                        <tbody>
-                        <tr><td className="text-center"> 
-                      <span className="small">{this.state.displayName}</span>
-                    </td></tr>
-                    <tr><td>
-                    {!this.state.readOnly ? <select ref={(node) => this.select = node} name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
-                        {this.state.subjects.map((sub, i) =>
-                        <option key={i} value={sub}>{sub}</option>
-                        )}
-                        <option name="new subject" value="NEW SUBJECT">{T.translate("menuOptionNewSubject")}</option>
-                    </select> : null}
-                     
-                    </td></tr>
-                    <tr><td className="text-center">      
-                            <span className="small" id="termMenu">{this.state.defaultTerm} </span> &nbsp;   
-                     </td></tr>
-                     </tbody>
-                     </table>   
-                    <ul id="menuButtons" className="nav navbar-nav navbar-right">
-                        
+        return (          
+                                
+                    <ul  className="navbar-nav ml-auto">
+                      
                         <li className="nav-item">
+                        <div className="input-group">
+                           
+                         {!this.state.readOnly ? <select className="form-control form-control-sm mt-sm-2 mr-sm-2" ref={(node) => this.select = node} name="defaultSubject" value={this.state.defaultSubject} id="subjectsItems" onChange={this.handleInputChange}>
+                                            {this.state.subjects.map((sub, i) =>
+                                            <option key={i} value={sub}>{sub}</option>
+                                            )}
+                                            <option name="new subject" value="NEW SUBJECT">{T.translate("menuOptionNewSubject")}</option>
+                                        </select> : null}  
+                           
+                        </div>
+                        </li>
+                      <li className="nav-item">
                             {!this.state.readOnly ? <a className="nav-link" href="#addStudent">
                                <button className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={T.translate("menuTitleAddStudent")}> <i className="fa fa-user"></i> </button>
                             </a> : null}
@@ -108,10 +100,9 @@ class MenuPage extends React.Component {
                             </a>}
 
                         </li>
-                            </ul> 
-                    
-                </div>
-            
+                    </ul> 
+                                           
+                
         );
     }
 }

@@ -45,12 +45,7 @@
   overflow-y: auto;
   
 }
-.navbar {
-  padding-left: 0px;
-}
-.navbar-right li a {
-    text-align: right;
-}
+
 .custom {
   background-color: transparent;
   background: transparent;
