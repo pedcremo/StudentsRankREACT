@@ -47,9 +47,11 @@ function initRouter() {
     events.publish('context/loginCode',a[1]);
   }
   
-  window.onclick = function(e) {
-        e = e || event;
-        var isLink = findParent('a',e.target || e.srcElement);
+  var routerFunction = function(e) {
+        //e = e || event;
+        //var isLink = findParent('a',e.target || e.srcElement);
+        let isLink = {};
+        isLink.href = window.location.href;
         if (isLink) {
           
           switch (true) {
@@ -139,8 +141,12 @@ function initRouter() {
           }
         }
     };
+    //window.onclick = routerFunction;
+    $(window).bind('hashchange',routerFunction);
 }
 
+
+//$(window).bind('hashchange',routerFunction);
 /** find first parent with tagName [tagname] so nested links <a> are triggered too */
 function findParent(tagname,el) {
   while (el) {
