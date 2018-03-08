@@ -2,11 +2,10 @@
 3. Delete unused code ,all imported and not used modules and packages not used anymore and refactor => German Rodriguez
 
 5. Rethink react rankingListPage with a search filter and a checkbox selector to apply global actions -> Carlos Axel Castex y Oscar Segui Guerola
-Point 5 fails. We lose selection when we add new XP points
+
 Add XP should be a multiple action too
-Inverse selection could be a practical action
-We don't have an edit button
-In read only view we should remove delete XP action
+
+n
 We should improve person detailed view. Specially graded tasks
 
 5.1 Double click on the profile image to enter on edit view or double click on name to change directly - Dani Martinez

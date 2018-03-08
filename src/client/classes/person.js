@@ -231,7 +231,13 @@ class Person {
         reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
       }
       
-      reactDOM.render(<RankingListPage displayName={context.user.displayName} defaultTerm={Settings.getDefaultTerm()} gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
+      let displayName = '';
+      try{
+        displayName = context.user.displayName;
+      }catch(err){
+        displayName = '';
+      }
+      reactDOM.render(<RankingListPage displayName={displayName} defaultTerm={Settings.getDefaultTerm()} gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
 
             // On link single click
       $('.studentLink').click(function (event) {
