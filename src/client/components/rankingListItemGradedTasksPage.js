@@ -32,7 +32,7 @@ class RankingListItemGradedTasksPage extends React.Component {
     render() {
       
         return (                
-            <div className="tableGradedTasks row" style={{display:'none'}}>                        
+            <div className="row ">                        
                 <div className="col-6">
                     {!this.state.readOnly ? <a className="text-info" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a> 
                     : <span className="text-info">{this.state.name}({this.state.weight}%)</span>}

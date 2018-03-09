@@ -71,7 +71,8 @@ class RankingListItemPage extends React.Component {
                                 <input id="emailInput" type="text" className="edit-input" idstudent={this.state.id} required />
                     </div> 
                  </div>   
-                    <div className="border-top">   
+                
+                    <div className="tableGradedTasks border border-top border-secondary rounded p-2 mt-3"  style={{display:'none'}}>   
                         {studentsGT}  
                     </div>                      
                   
