@@ -195,7 +195,7 @@ class RankingListPage extends React.Component {
                     <th className="col-sm-2 mt-sm-2  d-none d-md-block" ><span className="small">{this.state.displayName} </span></th>
                     <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
                     <th className="col-sm-2 mt-sm-2"><span className="small">{this.state.defaultTerm}</span> </th>
-                    <th className="col-sm-4 text-right mt-sm-2"><span className="small">FG 100% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}% &nbsp;</span></th> 
+                    <th className="col-sm-4 text-right mt-sm-2"><span className="small">FG {parseInt(this.state.xpWeight)+parseInt(this.state.gtWeight)}% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}% &nbsp;</span></th> 
                 </tr>
                 </thead>
                 <tbody id="idTableRankingBody">

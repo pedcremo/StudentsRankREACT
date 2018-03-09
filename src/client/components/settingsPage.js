@@ -34,7 +34,8 @@ class SettingsPage extends React.Component {
             [name]: value
           });
         if (name === "weightXP"){
-            this.state.weightGP = 100 - value;
+            //this.state.weightGP = 100 - value;
+            this.state.weightGP = 100;
         } 
 
         console.log(value);
@@ -80,7 +81,7 @@ class SettingsPage extends React.Component {
               <div className="form-group">
                 <label htmlFor="xp" id="idXPweight">{T.translate("settingsLblXP")} {this.state.weightXP}%</label><br/>
                 <input type="range" min="0" max="100" defaultValue={this.state.weightXP} onInput={this.handleInputChange} id="weightChanger" name='weightXP' /><br/>
-                <label htmlFor="gt" id="idGPweight">{T.translate("settingsLblGT")} {this.state.weightGP}%</label>
+                {/*<label htmlFor="gt" id="idGPweight">{T.translate("settingsLblGT")} {this.state.weightGP}%</label>*/}
               </div>
             </form> 
             <div className="col-6">
