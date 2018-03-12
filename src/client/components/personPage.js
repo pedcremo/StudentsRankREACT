@@ -64,7 +64,7 @@ class PersonPage extends React.Component {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="surname">{T.translate("addStudentLblsurnames")}</label>
+                        <label htmlFor="surname">{T.translate("addStudentLblSurname")}</label>
                         <input type="text" className="form-control" id="idsurname" name="surname" value={this.state.surname} onChange={this.handleInputChange} required />
                     </div>
 
