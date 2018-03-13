@@ -25,6 +25,7 @@ class RankingListItemPage extends React.Component {
     }
 
     handleCheckedChild (event) {
+        event.preventDefault();
         if(this.state.selected==true){
             this.setState({selected:false});
             this.props.updateSelectedListFromParent({'option':'delete','id':this.state.id});

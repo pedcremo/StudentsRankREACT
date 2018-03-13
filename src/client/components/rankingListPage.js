@@ -22,14 +22,14 @@ class RankingListPage extends React.Component {
             gtWeight:props.gtWeight,
             xpWeight:props.xpWeight,
             readOnly:props.readOnly ? true : false,
-            search:"",
+            searchFilter:"",
             searchmap:index,
             checkall:false,
             action:'-- Select one action --',
             selectedIds:props.selectedIds
         };                             
         this.handleClick=this.handleClick.bind(this);
-        this.search=this.search.bind(this);
+        this.searchEvent=this.searchEvent.bind(this);
         this.handleCheckedAll=this.handleCheckedAll.bind(this);
         this.updateSelectedList=this.updateSelectedList.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -38,7 +38,7 @@ class RankingListPage extends React.Component {
 
 
     handleChange(event) {
-        
+        event.preventDefault();
         if(event.target.value == 'inverseSelection') {
             let arraySelecteds = this.state.students.filter((student) =>{
                 if (this.state.selectedIds.indexOf(student[0])>=0) {
@@ -47,7 +47,7 @@ class RankingListPage extends React.Component {
                     return true;
                 } 
             }).map((student) => {return student[0]});
-            debugger;
+           
             this.setState({
                 selectedIds:arraySelecteds
             },function() {context.selectedIds = arraySelecteds});
@@ -97,7 +97,7 @@ class RankingListPage extends React.Component {
 
 
     handleCheckedAll (event) {
-        
+        event.preventDefault();
         if(this.state.checkall==false){
             let arraySelecteds = []; 
             this.setState({checkall:true},function(){
@@ -122,7 +122,8 @@ class RankingListPage extends React.Component {
     }
 
 
-    handleClick(event) {        
+    handleClick(event) {     
+        event.preventDefault();
         $('.tableGradedTasks').toggle();              
         if ($('.tableGradedTasks').is(':visible')) {       
           $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
@@ -133,17 +134,18 @@ class RankingListPage extends React.Component {
         }
     }
     
-    search(event){
+    searchEvent(event){
+        event.preventDefault();
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         let studentName=[];
         let newMapStudent=[];
-
+        
         this.setState({
             [name]: value
         }); 
-        if(this.state.search.length>value.length){
+        if(this.state.searchFilter.length>value.length){
             this.state.students.map((student) =>
                 studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
             );
@@ -159,8 +161,7 @@ class RankingListPage extends React.Component {
         );
         console.log(studentName);
         this.setState({
-            searchmap: newMapStudent,
-            search: value
+            searchmap: newMapStudent
         });
     }
 
@@ -193,13 +194,13 @@ class RankingListPage extends React.Component {
                 <tr className="d-flex text-white">
                     <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th className="col-sm-2 mt-sm-2  d-none d-md-block" ><span className="small">{this.state.displayName} </span></th>
-                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  type="text"  id="idFirstName" name="search" value={this.state.search} onChange={this.search} /></th>
+                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="" type="text"  name="searchFilter" value={this.state.searchFilter} onChange={this.searchEvent} /></th>
                     <th className="col-sm-2 mt-sm-2"><span className="small">{this.state.defaultTerm}</span> </th>
                     <th className="col-sm-4 text-right mt-sm-2"><span className="small">FG {parseInt(this.state.xpWeight)+parseInt(this.state.gtWeight)}% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}% &nbsp;</span></th> 
                 </tr>
                 </thead>
                 <tbody id="idTableRankingBody">
-                     {studentsItems}               
+                     {studentsItems}             
                 </tbody>
                 {!this.state.readOnly ?
                     <tfoot>                    
