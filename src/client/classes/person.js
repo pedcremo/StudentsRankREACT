@@ -1,13 +1,5 @@
-/**
- * Person class. We store personal information and attitudePoints that reflect daily classroom job
- *
- * @constructor
- * @param {string} name - Person name
- * @param {string} surname - Person surname
- * @param {array} attitudeTasks - Person awarded AttitudeTasks array   
- * @param {number} id - Person id default value null whwen created first time
- * @tutorial pointing-criteria
- */
+'use strict';
+
 import {context} from '../context.js'; //Singleton
 import {formatDate,updateObject,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
 import {events} from '../lib/eventsPubSubs.js';
@@ -19,6 +11,18 @@ import Settings from './settings.js';
 import {getIdFromURL} from '../lib/utils.js';
 import PersonDetailPage from '../components/personDetailPage.js';
 
+/**
+ * Person class. We store personal information and attitudePoints that reflect daily classroom job
+ *
+ * @constructor
+ * @param {string} name - Person name
+ * @param {string} surname - Person surname
+ * @param {string} email - Person email
+ * @param {string} attitudeTasks - Person awarded AttitudeTasks array   
+ * @param {number} id - Person id default value null whwen created first time
+ * @tutorial pointing-criteria
+ */
+  
 let students = new Map();
 let attitudeMAP = new Map();
 let gradedtaskMAP = new Map();
@@ -156,7 +160,8 @@ class Person {
             this.attitudeTasks.splice(index, 1);
           }
         }
-      });
+      });  
+         
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));
   }
 

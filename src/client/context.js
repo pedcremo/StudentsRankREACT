@@ -43,6 +43,7 @@ events.subscribe('context/loginCode',(obj)=>{
 class Context {
 
   constructor() {
+    this.user = {};
     if (getCookie('user')) {
       this.user = JSON.parse(getCookie('user'));
       this.readOnly = true;
@@ -54,9 +55,9 @@ class Context {
       let typeToastr = 'success';
       if (obj.attitudeTask.points < 0) {typeToastr = 'error';};
       this.notify('Added ' +  obj.attitudeTask.points + ' ' + obj.attitudeTask.description + ' to ' + obj.person.name + ',' + obj.person.surname, obj.person.surname + ' ,' + obj.person.name,typeToastr);
-    });
-  
+    });  
   }
+
   /** Clear context  */
   clear() {
     this.user = undefined;
