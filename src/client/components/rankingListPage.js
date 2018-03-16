@@ -123,7 +123,7 @@ class RankingListPage extends React.Component {
 
 
     handleClick(event) {     
-        event.preventDefault();
+        //event.preventDefault();
         $('.tableGradedTasks').toggle();              
         if ($('.tableGradedTasks').is(':visible')) {       
           $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
@@ -144,25 +144,29 @@ class RankingListPage extends React.Component {
         
         this.setState({
             [name]: value
+        },function(){
+            debugger;
+            if(this.state.searchFilter.length>value.length){
+                this.state.students.map((student) =>
+                    studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
+                );
+            }else{
+                this.state.searchmap.map((student) =>
+                    studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
+                );
+            }
+            
+            studentName=this.filterItems(value,studentName);
+            studentName.map((student) =>
+                newMapStudent.push([student[0],student[2],student[3]])
+            );
+            console.log(studentName);
+            this.setState({
+                searchmap: newMapStudent,
+                searchFilter:value
+            }); 
         }); 
-        if(this.state.searchFilter.length>value.length){
-            this.state.students.map((student) =>
-                studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
-            );
-        }else{
-            this.state.searchmap.map((student) =>
-                studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
-            );
-        }
         
-        studentName=this.filterItems(value,studentName);
-        studentName.map((student) =>
-            newMapStudent.push([student[0],student[2],student[3]])
-        );
-        console.log(studentName);
-        this.setState({
-            searchmap: newMapStudent
-        });
     }
 
     filterItems(query,array) {

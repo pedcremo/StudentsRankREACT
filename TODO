@@ -1,15 +1,23 @@
 
-3. Delete unused code ,all imported and not used modules and packages not used anymore and refactor => German Rodriguez
+1. Test popper-utils package is installed on target server, otherwise pdf upload
+is not feasible
+
+2. Redo filter students rankingListPage input field
+
+3. Bug. XP delete button pn person detailed vieu has dissapeared on teacher view
+
+4. Delete unused code ,all imported and not used modules and packages not used anymore and refactor => German Rodriguez
 
 5. Rethink react rankingListPage with a search filter and a checkbox selector to apply global actions -> Carlos Axel Castex y Oscar Segui Guerola
 
 Add XP should be a multiple action too
 
-n
 We should improve person detailed view. Specially graded tasks
+for example using chartJS to show some charts.
 
 5.1 Double click on the profile image to enter on edit view or double click on name to change directly - Dani Martinez
-6. Related with previous one do a send email action on selected students. Show a modal to write the message and send the message using sendgrid -> Alejandro Garcia
+6. Related with previous one do a send email action on selected students preferably using 
+teacher's login email and using gmail api in order to save communications send to pupils in gmail too. Show a modal to write the message and send the message using sendgrid -> Alejandro Garcia
 
 8. Lots and lots of more unit testing tests. - > Jorge Beneyto
 9. Lots and lots of more E2E tests. -> Oscar Martinez

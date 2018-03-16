@@ -154,7 +154,7 @@ class Context {
   /** Draw Students ranking table in descendent order using total points as a criteria */
   getTemplateRanking(umount=false) {
     generateMenu();   
-    debugger;
+    //debugger;
     Person.getRankingTable(umount);    
   }
 
