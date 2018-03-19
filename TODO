@@ -1,14 +1,21 @@
 
-1. Test popper-utils package is installed on target server, otherwise pdf upload
+BUGS
+
+1. Write a test to check if popper-utils package is installed on target server, otherwise pdf upload
 is not feasible
 
-2. Redo filter students rankingListPage input field
+2. Redo filter students rankingListPage input field. Dissapears with blur and is empty
 
-3. Bug. XP delete button pn person detailed vieu has dissapeared on teacher view
+3. Email column doesn't collapse on mobile view 
 
 4. Delete unused code ,all imported and not used modules and packages not used anymore and refactor => German Rodriguez
 
 5. Rethink react rankingListPage with a search filter and a checkbox selector to apply global actions -> Carlos Axel Castex y Oscar Segui Guerola
+
+
+NEW FEATURES
+
+Reset XP points on every new term
 
 Add XP should be a multiple action too
 

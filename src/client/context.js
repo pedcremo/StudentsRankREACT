@@ -45,10 +45,8 @@ class Context {
   constructor() {
     if (getCookie('user')) {
       this.user = JSON.parse(getCookie('user'));
-      this.readOnly = true;
-    }else {
-      this.readOnly = false;
     }
+    getCookie('code') ? this.readOnly=true:this.readOnly=false;
     this.selectedIds = [];
     events.subscribe('/context/addXP', (obj) => { 
       let typeToastr = 'success';
