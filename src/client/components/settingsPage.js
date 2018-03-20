@@ -16,23 +16,24 @@ class SettingsPage extends React.Component {
             code:props.code,                            
             NewNameSubject: props.defaultSubject,                            
             language: props.props.language,
+            shareGroup:props.props.shareGroup,
             //traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 }),
             traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             gtaLangs: ''
         };    
-
+        debugger;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        //this.handleShareChange = this.handleShareChange.bind(this);
     
     }
 
+    
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        this.setState({
-            [name]: value
-          });
+               
         if (name === "weightXP"){
             //this.state.weightGP = 100 - value;
             this.state.weightGP = 100;
@@ -43,19 +44,20 @@ class SettingsPage extends React.Component {
     }
 
     SendChanges(name){
-        if (name === "weightXP" || name === "defaultTerm" || name === "language"){
+        //if (name === "weightXP" || name === "defaultTerm" || name === "language"){
             events.publish('dataservice/saveSettings',this.state);
             events.publish('settings/change',this.state);
             events.publish('settings/saveSettings',this.state);
             
-        } else { console.log("OK") }
+        //} else { console.log("OK") }
 
         
-        this.setState({
-            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
-        });
-
-        events.publish('language/change', this.state.traductions);  
+        if (name === "language") {
+            this.setState({
+                traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
+            });
+            events.publish('language/change', this.state.traductions);  
+        }
         
     }
    
@@ -78,6 +80,10 @@ class SettingsPage extends React.Component {
             <div>
             <h3>{T.translate("settingsTitle")}</h3>
             <form id="newSettings">
+            <div className="form-check">
+                <input className="form-check" type="checkbox" defaultChecked={this.state.shareGroup} name='shareGroup' onChange={this.handleInputChange} />               
+                <label className="form-check" htmlFor="shareGroup">Share Group: </label>
+            </div>
               <div className="form-group">
                 <label htmlFor="xp" id="idXPweight">{T.translate("settingsLblXP")} {this.state.weightXP}%</label><br/>
                 <input type="range" min="0" max="100" defaultValue={this.state.weightXP} onInput={this.handleInputChange} id="weightChanger" name='weightXP' /><br/>

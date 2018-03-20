@@ -5,7 +5,7 @@ let settings = {};
 
 events.subscribe('dataservice/getSettings',(obj) => {
   let settings_ = JSON.parse(obj);
-  settings = new Settings(settings_.weightXP,settings_.weightGP,settings_.defaultTerm,settings_.terms,settings_.language);
+  settings = new Settings(settings_.weightXP,settings_.weightGP,settings_.defaultTerm,settings_.terms,settings_.language,settings_.shareGroup);
   events.publish('settings/change',settings);
 });
 
@@ -28,12 +28,13 @@ events.subscribe('settings/change',(obj) => {
 
 
 class Settings {
-  constructor(weightXP,weightGP,defaultTerm,terms,language) {
+  constructor(weightXP,weightGP,defaultTerm,terms,language,shareGroup) {
     this.weightXP = weightXP;
     this.weightGP = weightGP;
     this.terms = terms;
     this.defaultTerm = this.getDefaultTerm(defaultTerm);
     this.language = language;
+    this.shareGroup = shareGroup;
   }
   getDefaultTerm(defaultTerm) {
     if (defaultTerm) {

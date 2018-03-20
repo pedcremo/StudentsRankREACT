@@ -129,11 +129,7 @@ router.post('/saveStudents',function(req, res) {
       console.log('The file has been saved!');
       // Data is automatically saved to localStorage
       let numStudents = req.body.length;
-      if (!dbase.get('shares').find({'defaultSubject': req.user.defaultSubject}).value()) {
-        dbase.get('shares')
-        .push({'defaultSubject':req.user.defaultSubject,'src':'src/server/data/' + req.user.id + '/' + req.user.defaultSubject + '/students.json','hits':numStudents})
-        .write();
-      }else{
+      if (dbase.get('shares').find({'defaultSubject': req.user.defaultSubject}).value()) {
         dbase.get('shares')
         .find({'defaultSubject':req.user.defaultSubject})
         .assign({'hits':numStudents})
@@ -172,6 +168,45 @@ router.post('/saveAttitudeTasks',function(req, res) {
 router.post('/saveSettings',function(req, res) {
   if (req.isAuthenticated()) {
     fs.writeFile('src/server/data/' + req.user.id + '/' + req.user.defaultSubject + '/settings.json', JSON.stringify(req.body), 'utf8', (err) => {
+      let settings = req.body;
+    
+      let item = dbase.get('shares')
+        .find({'defaultSubject':settings.defaultSubject})
+        .value();
+      
+      let hits = 0;
+      fs.readFile('src/server/data/' + req.user.id + '/' + req.user.defaultSubject + '/students.json',function(err, data) {
+          if(err) {
+            console.log(err);
+          }
+          hits = JSON.parse(data).length;
+        
+
+          if (settings.shareGroup) {        
+            if (!item) {
+              // Add a shared subject
+              dbase.get('shares')
+              .push({"defaultSubject": settings.defaultSubject,
+                    "src": "src/server/data/"+req.user.id+"/"+ req.user.defaultSubject+"/students.json",
+                    "hits": hits
+               })
+              .write();
+            }
+            console.log('Este grup hauriem de compartir-lo');
+          }else {
+            if (item) {
+              dbase.get('shares')
+              .remove({"defaultSubject": settings.defaultSubject                
+               })
+               .write()
+            }
+            console.log('Este grup NO hauriem de compartir-lo');
+          }    
+          
+      });
+
+      
+
       if (err) {
         throw err;
       }

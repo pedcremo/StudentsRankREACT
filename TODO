@@ -1,8 +1,8 @@
 
 BUGS
 
-1. Write a test to check if popper-utils package is installed on target server, otherwise pdf upload
-is not feasible
+1. Write a test to check if poppler-utils package is installed on target server, otherwise pdf upload
+is not feasible. Maybe when launch the server
 
 2. Redo filter students rankingListPage input field. Dissapears with blur and is empty
 

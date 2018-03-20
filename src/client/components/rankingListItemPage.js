@@ -53,24 +53,24 @@ class RankingListItemPage extends React.Component {
             <td className="col-8" colSpan="3">
                 <div  className="row">
                     <div className="col-sm-2 vertical-center"><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a></div>
-                    <div className="tdStudentLink col-sm-4 vertical-center">
+                    <div className="tdStudentLink col-sm-5 vertical-center">
                                 <label htmlFor="surnames" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.surname}</a>
                                 </label>
                                 <input id="surnamesInput" type="text" className="edit-input" idstudent={this.state.id} required/>
                     </div>
-                    <div className="tdStudentLink col-sm-3 vertical-center">
+                    <div className="tdStudentLink col-sm-5 vertical-center">
                             <label htmlFor="name" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.name}</a>
                                 </label>
                                 <input id="nameInput" type="text" className="edit-input" idstudent={this.state.id} required/>
                     </div>
-                    <div className="tdStudentLink col-sm-3 vertical-center ">
+                    {/*<div className="tdStudentLink col-sm-3 vertical-center ">
                             <label htmlFor="email" className="control-label d-none d-md-block">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.email}</a>
                                 </label>
                                 <input id="emailInput" type="text" className="edit-input" idstudent={this.state.id} required />
-                    </div> 
+                    </div> */}
                  </div>   
                 
                     <div className="tableGradedTasks border border-top border-secondary rounded p-2 mt-3"  style={{display:'none'}}>   
