@@ -244,8 +244,8 @@ class Person {
       }
       reactDOM.render(<RankingListPage displayName={displayName} defaultTerm={Settings.getDefaultTerm()} gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
 
-            // On link single click
-      $('.studentLink').click(function (event) {
+      // On link single click
+      /*$('.studentLink').click(function (event) {
         let href = $(this).attr('href');
         let link = $("#prueba");
         // Redirect only after 500 milliseconds
@@ -259,10 +259,10 @@ class Person {
            }, 500));
         }
         return false; // Prevent default action (redirecting)
-      });
+      });*/
     
       // On link double click
-      $('.studentLink').dblclick(function () {
+      /*$('.studentLink').dblclick(function () {
           clearTimeout($(this).data('timer'));
           $(this).data('timer', null);
           // Do something else on double click
@@ -276,18 +276,18 @@ class Person {
           dad.find('input[type="text"]').show().focus().val(labelValue);
       
           return false;
-      });
+      });*/
 
-      $('.edit-input').each(function(index) {
+      /*$('.edit-input').each(function(index) {
         $(this).keypress(function(e){
           if(e.which == 13){
               $(this).focusout();    
           }
         });
-      });
+      });*/
 
       // On input focus out
-      $('input[type=text]').focusout(function() {
+      /*$('input[type=text]').focusout(function() {
         if (!$(this).val()==""){
           let person = {};
           let idStudent = this.getAttribute('idstudent');   
@@ -321,7 +321,7 @@ class Person {
           var dad = $(this).parent();
           $(this).hide();
           dad.find('label').show();
-      });
+      });*/
     }
 
   static addStudent(studentInstance) {    

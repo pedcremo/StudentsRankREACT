@@ -29,6 +29,7 @@ class RankingListPage extends React.Component {
             selectedIds:props.selectedIds
         };                             
         this.handleClick=this.handleClick.bind(this);
+        this.handleFilterBlur=this.handleFilterBlur.bind(this);
         this.searchEvent=this.searchEvent.bind(this);
         this.handleCheckedAll=this.handleCheckedAll.bind(this);
         this.updateSelectedList=this.updateSelectedList.bind(this);
@@ -117,13 +118,11 @@ class RankingListPage extends React.Component {
                     //this.forceUpdate();
                 })
             });
-        }  
-        
+        }       
     }
 
-
     handleClick(event) {     
-        event.preventDefault();
+        //event.preventDefault();
         $('.tableGradedTasks').toggle();              
         if ($('.tableGradedTasks').is(':visible')) {       
           $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
@@ -134,44 +133,55 @@ class RankingListPage extends React.Component {
         }
     }
     
+    handleFilterBlur(event) {
+        event.preventDefault();
+
+        console.log('this.state.searchFilter = '+this.state.searchFilter);
+        $(event.target).show();
+    }
+
     searchEvent(event){
         event.preventDefault();
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        let studentName=[];
-        let newMapStudent=[];
-        
+        const filterString = target.type === 'checkbox' ? target.checked : target.value;
+     
         this.setState({
-            [name]: value
-        }); 
-        if(this.state.searchFilter.length>value.length){
-            this.state.students.map((student) =>
-                studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
-            );
-        }else{
-            this.state.searchmap.map((student) =>
-                studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
-            );
-        }
-        
-        studentName=this.filterItems(value,studentName);
-        studentName.map((student) =>
-            newMapStudent.push([student[0],student[2],student[3]])
-        );
-        console.log(studentName);
-        this.setState({
-            searchmap: newMapStudent
+            searchFilter: filterString,
+            searchmap: this.state.students.filter( (idStudentPair) => {
+                return idStudentPair[1].name.toLowerCase().indexOf(filterString.toLowerCase()) > -1 || idStudentPair[1].surname.toLowerCase().indexOf(filterString.toLowerCase()) > -1;
+            })
         });
+           
+            /*if(this.state.searchFilter.length>value.length){
+                this.state.students.map((student) =>
+                    studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
+                );
+            }else{
+                this.state.searchmap.map((student) =>
+                    studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
+                );
+            }
+            
+            studentName=this.filterItems(value,studentName);
+            studentName.map((student) =>
+                newMapStudent.push([student[0],student[2],student[3]])
+            );
+            console.log(studentName);
+            this.setState({
+                searchmap: newMapStudent,
+                searchFilter:value
+            });*/ 
+       
+        
     }
 
-    filterItems(query,array) {
+    /*filterItems(query,array) {
         return array.filter(function(el) {
             let nameStudent=el[1];
             console.log(nameStudent);
             return nameStudent.toLowerCase().indexOf(query.toLowerCase()) > -1;
         })
-    }
+    }*/
     getIfSelected(idStudent) {
        
         if (this.state.checkall) return true;
@@ -185,16 +195,18 @@ class RankingListPage extends React.Component {
     }
 
     render() {
+        console.log('RENDER RANKING_LIST_PAGE');
         const studentsItems = this.state.searchmap.map((student) => 
             <RankingListItemPage key={student[0]} index={student[2]} student={student} readOnly={this.state.readOnly}  updateSelectedListFromParent={this.updateSelectedList} selected={this.getIfSelected(student[0])} selectedAll={this.state.checkall} />            
         );  
         return (
+
             <table className="table table-striped ">
-                <thead className="thead-dark" style={{backgroundColor:'black'}}>
+                <thead className="thead-dark" style={{backgroundColor:'#222529'}}>
                 <tr className="d-flex text-white">
                     <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th className="col-sm-2 mt-sm-2  d-none d-md-block" ><span className="small">{this.state.displayName} </span></th>
-                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="" type="text"  name="searchFilter" value={this.state.searchFilter} onChange={this.searchEvent} /></th>
+                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="form-control form-control-sm" type="text"  name="searchFilter"  onChange={this.searchEvent} onBlur={this.handleFilterBlur}/></th>
                     <th className="col-sm-2 mt-sm-2"><span className="small">{this.state.defaultTerm}</span> </th>
                     <th className="col-sm-4 text-right mt-sm-2"><span className="small">FG {parseInt(this.state.xpWeight)+parseInt(this.state.gtWeight)}% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}% &nbsp;</span></th> 
                 </tr>

@@ -46,10 +46,8 @@ class Context {
     this.user = {};
     if (getCookie('user')) {
       this.user = JSON.parse(getCookie('user'));
-      this.readOnly = true;
-    }else {
-      this.readOnly = false;
     }
+    getCookie('code') ? this.readOnly=true:this.readOnly=false;
     this.selectedIds = [];
     events.subscribe('/context/addXP', (obj) => { 
       let typeToastr = 'success';
@@ -155,7 +153,7 @@ class Context {
   /** Draw Students ranking table in descendent order using total points as a criteria */
   getTemplateRanking(umount=false) {
     generateMenu();   
-    debugger;
+    //debugger;
     Person.getRankingTable(umount);    
   }
 
