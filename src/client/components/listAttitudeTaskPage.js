@@ -7,6 +7,7 @@ class ListAttitudeTaskPage extends React.Component {
         super(props);
         this.state = {                
                 student: props.student,
+                students: props.students,
                 attitudeTasks: props.attitudeTasks,
                 visible:true,
                 points:20, //Default number of points for a new Attitude Task

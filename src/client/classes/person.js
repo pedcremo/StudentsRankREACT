@@ -84,7 +84,17 @@ events.subscribe('/component/selectedAction',(obj) =>{
   switch (obj.option){
     case 'deleteall':
       Person.deleteAllById(obj.arraySelecteds);
-    break;
+      break;
+    case 'addXP':
+      console.log("Add XP multicast");
+      let selectedStudents = arraySelecteds.map((idStudent) =>{
+        return Person.getPersonById(idStudent);
+      })
+      reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
+      reactDOM.render(<ListAttitudeTaskPage students={selectedStudents} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
+
+      debugger;
+      break;
   }
 });
 

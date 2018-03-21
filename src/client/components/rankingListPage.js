@@ -220,6 +220,7 @@ class RankingListPage extends React.Component {
                             <th className="col-10">
                                 <select value={this.state.action} onChange={this.handleChange}>
                                     <option value="-- Select one action --"> -- Select one action --</option>
+                                    <option value="addXP"> Add XP</option>
                                     <option value="deleteall">Delete All Selected</option>
                                     <option value="inverseSelection">Inverse selection</option>
                                     <option value="sendmails">Send Email to All Selected</option>
