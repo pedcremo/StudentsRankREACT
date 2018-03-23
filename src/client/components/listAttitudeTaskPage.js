@@ -6,7 +6,7 @@ class ListAttitudeTaskPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {                
-                student: props.student,
+                //student: props.student,
                 students: props.students,
                 attitudeTasks: props.attitudeTasks,
                 visible:true,
@@ -24,14 +24,6 @@ class ListAttitudeTaskPage extends React.Component {
           });       
     }
 
-    handleXPclick(event) {    
-        let xpButton=event.target;    
-        let data={'studentId':this.state.student.id,'idAttitudeTask':xpButton.id};
-        console.log(JSON.stringify(data));        
-        events.publish('dataservice/SaveAttitudeTask',data); 
-        this.modalBackdropClicked();                    
-    }
-
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -41,11 +33,23 @@ class ListAttitudeTaskPage extends React.Component {
           [name]: value
         });
     }
+    
+    handleXPclick(event) {    
+        let xpButton=event.target;    
+        //let data={'studentId':this.state.student.id,'idAttitudeTask':xpButton.id};
+        //console.log(JSON.stringify(data));
+        let data= this.state.students.map((student) => {
+            return {'studentId':student.id,'idAttitudeTask':xpButton.id};
+        });        
+        events.publish('dataservice/SaveAttitudeTask',data); 
+        this.modalBackdropClicked();                    
+    }
 
     handleSubmit(event) {
-        event.preventDefault();             
-        let data={'studentId':this.state.student.id,'idAttitudeTask':'','points':this.state.points,'description':this.state.description}
-        
+        event.preventDefault();     
+        let data= this.state.students.map((student) => {
+            return {'studentId':student.id,'idAttitudeTask':'','points':this.state.points,'description':this.state.description};
+        });
         events.publish('dataservice/SaveAttitudeTask',data);        
         this.modalBackdropClicked();
     }   
@@ -55,12 +59,19 @@ class ListAttitudeTaskPage extends React.Component {
             <button onClick={this.handleXPclick} id={attitudeItem[1].id} key={attitudeItem[1].id} className={'xp btn btn-'+attitudeItem[1].type}  value={attitudeItem[1].points}>{attitudeItem[1].points} {attitudeItem[1].description}</button>                                   
         );       
         
+        let persons = this.state.students.map((student) => {
+            if (this.state.students.length === 1){
+                return student.surname +' ,'+student.name;
+            }else{
+                return student.name + ' ,';
+            }
+        });
         return (
             /* Modal */            
             <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">XP to {this.state.student.surname} ,{this.state.student.name}</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">XP to {persons}</h5>
                         <button type="button" className="close" data-dismiss="modal" onClick={this.modalBackdropClicked} aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

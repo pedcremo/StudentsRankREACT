@@ -34,7 +34,7 @@ function initRouter() {
     let a = hash.split('/');
     console.log('--HASHCHANGE--');
     console.log(a[0]);
-    if(a[0] === '#code'){
+    if(a[0] === '#code') {
       console.log('code');
       events.publish('context/loginCode',a[1]);
     }
@@ -106,7 +106,7 @@ function initRouter() {
             case /#addXP/.test(isLink.href):
               personInstance = Person.getPersonById(getIdFromURL(isLink.href));
               reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
-              reactDOM.render(<ListAttitudeTaskPage student={personInstance} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
+              reactDOM.render(<ListAttitudeTaskPage students={[personInstance]} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
               break;
             /** Add new student form */
             case /#addStudent/.test(isLink.href):              

@@ -10,6 +10,8 @@ import RankingListPage from '../components/rankingListPage.js';
 import Settings from './settings.js';
 import {getIdFromURL} from '../lib/utils.js';
 import PersonDetailPage from '../components/personDetailPage.js';
+import AttitudeTask from './attitudetask.js';
+import ListAttitudeTaskPage from '../components/listAttitudeTaskPage.js';
 
 /**
  * Person class. We store personal information and attitudePoints that reflect daily classroom job
@@ -87,13 +89,14 @@ events.subscribe('/component/selectedAction',(obj) =>{
       break;
     case 'addXP':
       console.log("Add XP multicast");
-      let selectedStudents = arraySelecteds.map((idStudent) =>{
+      debugger;
+      let selectedStudents = obj.arraySelecteds.map((idStudent) =>{
         return Person.getPersonById(idStudent);
       })
       reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
       reactDOM.render(<ListAttitudeTaskPage students={selectedStudents} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
 
-      debugger;
+      
       break;
   }
 });
