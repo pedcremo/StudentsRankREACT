@@ -2,7 +2,9 @@
   display:inline-block;
   transform: rotate(180deg);
 }
-
+.navbar-brand {
+  outline: 0;
+}
 
 .hr-text {
   line-height: 1em;
