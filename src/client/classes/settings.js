@@ -73,6 +73,22 @@ class Settings {
     return settings.language;
   }
   
+  static isDateInDefaultTermDateRange(dateTimeString) {
+    if (settings.defaultTerm === "ALL") {
+      return true;
+    }else {
+      let foundTerm = settings.terms.find(function(element) { return element.name == settings.defaultTerm });
+      let target = new Date(dateTimeString).getTime();
+      let begin = new Date(foundTerm.begin).getTime();
+      let end = new Date(foundTerm.end).getTime();
+      if (target>=begin && target <=end) {
+        return true;
+      }else {
+        return false;
+      }
+    }
+  }
+
   static getSettings() {
     return settings;
   }

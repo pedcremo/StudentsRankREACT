@@ -127,7 +127,11 @@ class Person {
         if (attitudeMAP.size > 0) {
           let instanceAT = attitudeMAP.get(parseInt(itemAT.id));
           try {
-            this[_totalXPpoints] += parseInt(instanceAT.points);
+            new Date(itemAT.timestamp).getTime();
+            //We count only XP points in current term
+            if (Settings.isDateInDefaultTermDateRange(itemAT.timestamp)) {
+              this[_totalXPpoints] += parseInt(instanceAT.points);
+            }
           } catch (error) {
             this[_totalXPpoints] += 0;
           }
