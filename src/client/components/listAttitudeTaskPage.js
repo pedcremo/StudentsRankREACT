@@ -36,8 +36,6 @@ class ListAttitudeTaskPage extends React.Component {
     
     handleXPclick(event) {    
         let xpButton=event.target;    
-        //let data={'studentId':this.state.student.id,'idAttitudeTask':xpButton.id};
-        //console.log(JSON.stringify(data));
         let data= this.state.students.map((student) => {
             return {'studentId':student.id,'idAttitudeTask':xpButton.id};
         });        

@@ -104,7 +104,20 @@ class SettingsPage extends React.Component {
                     )}  
                     <option value="ALL">ALL</option> 
                   </select>   
-            
+                  
+                 {this.state.terms.map((term, i) => {
+                   
+                    <div key={'formGroup'+i} className="form-group">
+                         <label htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
+                         <input id={"idInput"+term.name} type="text" value={term.name}/>
+                         BEGIN<input id={term.name+"beginTerm"} type="date" value={term.begin}/>
+                         END<input id={term.name+"endTerm"} type="date" value={term.end}/>      
+                        <input type="submit" class="btn btn-primary" value="Change"/>
+                           <input type="submit" className="btn btn-primary" value="Change"/>
+                    </div>
+                    
+                 })} 
+                 
               </div>
             </form> 
             {T.translate("settingsLblChangeSubject")}:
