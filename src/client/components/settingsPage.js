@@ -21,8 +21,8 @@ class SettingsPage extends React.Component {
             traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             gtaLangs: ''
         };    
-        debugger;
-        this.handleSubmit = this.handleSubmit.bind(this);
+        
+        this.handleSubmitNewTerm = this.handleSubmitNewTerm.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         //this.handleShareChange = this.handleShareChange.bind(this);
     
@@ -31,19 +31,31 @@ class SettingsPage extends React.Component {
     
     handleInputChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-               
+        let value = target.type === 'checkbox' ? target.checked : target.value;
+        let name = target.name;
+        const id = target.id;
+        let newTerms = [];
+
         if (name === "weightXP"){
             //this.state.weightGP = 100 - value;
             this.state.weightGP = 100;
-        } 
-
+        }else if (name === "termName" || name === "termBegin" || name === "termEnd") {
+            newTerms=this.state.terms.map((term) => {
+                if (term.name === id) {
+                    return {"name":(name === "termName")?value:term.name,"begin":(name === "termBegin")?value:term.begin,"end":(name === "termEnd")?value:term.end}
+                }else{
+                    return term;
+                }
+            });
+            name = "terms";
+            value = newTerms;    
+        }
+        
         console.log(value);
         this.setState({  [name]: value }, () => this.SendChanges(name));    
     }
 
-    SendChanges(name){
+    SendChanges(name=""){
         //if (name === "weightXP" || name === "defaultTerm" || name === "language"){
             events.publish('dataservice/saveSettings',this.state);
             events.publish('settings/change',this.state);
@@ -62,13 +74,26 @@ class SettingsPage extends React.Component {
     }
    
 
-    handleSubmit(event) {
+    handleSubmitNewTerm(event) {
         event.preventDefault();
-        console.log(this.state.points)
-        let data = [this.state.points, this.state.text, this.state.students ]
-        events.publish('attitudeTask/addNewAT', data);
-        $('#XPModal').modal('toggle');
-        $('.modal-backdrop').remove();
+        const target = event.target;
+        const term = event.target.newTerm.value;
+        const begin = event.target.newBeginTerm.value;
+        const end = event.target.newEndTerm.value;
+       
+        
+        debugger;
+        let newTerm ={'name':term,'begin':begin,'end':end};
+        let prova = this.state.terms;
+        prova.push(newTerm);
+        
+        if (term) {
+            this.setState({
+                'terms':prova
+            });
+        
+            this.SendChanges();
+        }
     }
 
     render() {
@@ -79,22 +104,23 @@ class SettingsPage extends React.Component {
         return (            
             <div>
             <h3>{T.translate("settingsTitle")}</h3>
-            <form id="newSettings">
+            
             <div className="form-check">
-                <input className="form-check" type="checkbox" defaultChecked={this.state.shareGroup} name='shareGroup' onChange={this.handleInputChange} />               
-                <label className="form-check" htmlFor="shareGroup">Share Group: </label>
+            
+                 <input id="ex1" className="form-check-input" type="checkbox" defaultChecked={this.state.shareGroup} name='shareGroup' onChange={this.handleInputChange} />               
+                 <label className="form-check-label" htmlFor="ex1">Share Group: </label>
             </div>
               <div className="form-group">
                 <label htmlFor="xp" id="idXPweight">{T.translate("settingsLblXP")} {this.state.weightXP}%</label><br/>
                 <input type="range" min="0" max="100" defaultValue={this.state.weightXP} onInput={this.handleInputChange} id="weightChanger" name='weightXP' /><br/>
                 {/*<label htmlFor="gt" id="idGPweight">{T.translate("settingsLblGT")} {this.state.weightGP}%</label>*/}
               </div>
-            </form> 
+            
             <div className="col-6">
                 <span>{T.translate("settingsLblCode")}:</span>
                 <h1>{this.state.code}</h1>
             </div>
-            <form id="existingTerms">
+           
             {T.translate("settingsLblDefaultTerm")}:
               <div className="form-group">
               
@@ -105,21 +131,28 @@ class SettingsPage extends React.Component {
                     <option value="ALL">ALL</option> 
                   </select>   
                   
-                 {this.state.terms.map((term, i) => {
+                 {this.state.terms.map((term, i) => 
                    
                     <div key={'formGroup'+i} className="form-group">
                          <label htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
-                         <input id={"idInput"+term.name} type="text" value={term.name}/>
-                         BEGIN<input id={term.name+"beginTerm"} type="date" value={term.begin}/>
-                         END<input id={term.name+"endTerm"} type="date" value={term.end}/>      
-                        <input type="submit" class="btn btn-primary" value="Change"/>
-                           <input type="submit" className="btn btn-primary" value="Change"/>
-                    </div>
-                    
-                 })} 
-                 
+                         <input name="termName" id={term.name} type="text" value={term.name} onChange={this.handleInputChange} />
+                         BEGIN: <input name="termBegin" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
+                         END: <input name="termEnd" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
+                        {/* <input type="submit" class="btn btn-primary" value="Change"/> */}                        
+                    </div>                    
+                 )} 
+                 <hr/>
+                 <form id="newTerm" onSubmit={this.handleSubmitNewTerm}>
+                     <div className="form-group">
+                        <label htmlFor="xp" id="termName">New Term</label><br/>
+                        <input name="newTerm" type="text"/>
+                        BEGIN:<input name="newBeginTerm" type="date"/>
+                        END:<input name="newEndTerm" type="date"/>      
+                        <input type="submit" className="btn btn-primary" value="New term" />
+                  </div>
+                </form> 
               </div>
-            </form> 
+            
             {T.translate("settingsLblChangeSubject")}:
             <div className="form-group">
                 <input type="text" defaultValue={this.state.defaultSubject} onInput={this.handleInputChange} id="NewNameSubject" name='NewNameSubject' /><br/><br/>

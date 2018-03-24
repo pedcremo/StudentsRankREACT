@@ -5,7 +5,9 @@
 .navbar-brand {
   outline: 0;
 }
-
+.form-check-input {
+   margin-left: 0rem; 
+}
 .hr-text {
   line-height: 1em;
   position: relative;
