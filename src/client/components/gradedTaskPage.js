@@ -12,16 +12,14 @@ class GradedTaskPage extends React.Component {
                 description: props.props.description,
                 weight:props.props.weight,
                 term:props.props.term,
+                terms:props.terms,
                 id:props.props.id,         
                 allowedWeight:props.allowedWeight
-        }        
-        
-        //let messages = Settings.getTraductedText();
-        //T.setTexts(messages, { MDFlavor: 0 });
+        }               
+      
         T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
-
         this.handleInputChange = this.handleInputChange.bind(this);   
-        this.handleSubmit = this.handleSubmit.bind(this);      
+        this.handleSubmit = this.handleSubmit.bind(this);   
 
     }
 
@@ -41,6 +39,10 @@ class GradedTaskPage extends React.Component {
     }
 
     render() {
+        let termsElements = this.state.terms.map((termEl) => 
+            <option key={termEl.name} value={termEl.name}>{termEl.name}</option>
+        );
+        
         return (
             <div>
             <h3>{T.translate("addGradedTaskTitle")}</h3>  
@@ -59,9 +61,7 @@ class GradedTaskPage extends React.Component {
                 <div className="form-group">   
                     <label htmlFor="term">{T.translate("addGradedTaskLblTerm")}:</label>
                     <select id="termTask" name="term" value={this.state.term || '1st Term'} onChange={this.handleInputChange}>
-                        <option value="1st Term">1st Term</option>
-                        <option value="2nd Term">2nd Term</option>
-                        <option value="3rd Term">3rd Term</option>
+                        {termsElements}
                   </select>
                 </div>
 

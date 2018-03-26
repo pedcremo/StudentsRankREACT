@@ -131,12 +131,12 @@ function initRouter() {
             /** Add new Graded Task form */
             case /#addGradedTask/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-              reactDOM.render(<GradedTaskPage props={{term:settings.defaultTerm}} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight())} />, document.getElementById('content'));             
+              reactDOM.render(<GradedTaskPage terms={settings.terms} props={{term:settings.defaultTerm}} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight())} />, document.getElementById('content'));             
               break;
             case /#detailGradedTask/.test(isLink.href):
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
               let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));               
-              reactDOM.render(<GradedTaskPage props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));             	             
+              reactDOM.render(<GradedTaskPage terms={settings.terms} props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));             	             
               break;        
             default:
               //debugger;
