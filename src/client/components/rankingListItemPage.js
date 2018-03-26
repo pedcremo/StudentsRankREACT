@@ -5,7 +5,7 @@ import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js'
 class RankingListItemPage extends React.Component {
     constructor(props){
 
-        console.log("SELECTED ALL ="+props.selectedAll);
+        //console.log("SELECTED ALL ="+props.selectedAll);
 
         super(props);
         this.state = {                
@@ -38,9 +38,8 @@ class RankingListItemPage extends React.Component {
 
     
     
-    render() {
-        //let index=0;
-        console.log("RENDE ListItemPage");
+    render() {        
+        //console.log("RENDE ListItemPage");
         const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
             <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent} readOnly={this.state.readOnly}/>            
             

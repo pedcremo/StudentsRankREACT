@@ -28,8 +28,8 @@ events.subscribe('settings/change',(obj) => {
 function initRouter() {
   reactDOM.render(<LogoPage />, document.getElementById('logo'));
   reactDOM.render(<FooterPage />, document.getElementsByTagName('footer')[0]);
-
-  window.addEventListener('hashchange', function(){
+  
+  /*window.addEventListener('hashchange', function(){
     let hash = location.hash;
     let a = hash.split('/');
     console.log('--HASHCHANGE--');
@@ -38,18 +38,19 @@ function initRouter() {
       console.log('code');
       events.publish('context/loginCode',a[1]);
     }
-  });
-  let hash = location.hash;
+  });*/
+  /*let hash = location.hash;
   console.log(location.hash)
   let a = hash.split('/');
   if(a[0] === '#code'){
     console.log('code');
     events.publish('context/loginCode',a[1]);
-  }
+  }*/
   
   var routerFunction = function(e) {
         //e = e || event;
         //var isLink = findParent('a',e.target || e.srcElement);
+        debugger;
         let isLink = {};
         isLink.href = window.location.href;
         if (isLink) {
@@ -144,7 +145,14 @@ function initRouter() {
           }
         }
     };
-    //window.onclick = routerFunction;
+    
+    //HACK / WORKAROUND to detect click on same href without url change
+    $(document).on('click','a',function(event) {      
+      //debugger;
+      var isLink = findParent('a',event.target || event.srcElement);
+      if (window.location.href === isLink.href) routerFunction();
+      else console.log("NO FAIG RES");
+    });
     $(window).bind('hashchange',routerFunction);
 }
 

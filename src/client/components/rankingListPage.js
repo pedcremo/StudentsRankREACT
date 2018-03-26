@@ -165,7 +165,7 @@ class RankingListPage extends React.Component {
     }
 
     render() {
-        console.log('RENDER RANKING_LIST_PAGE');
+        //console.log('RENDER RANKING_LIST_PAGE');
         
         const studentsItems = this.state.searchmap.map((student) => 
             <RankingListItemPage key={student[0]} index={student[2]} student={student} readOnly={this.state.readOnly}  updateSelectedListFromParent={this.updateSelectedList} selected={this.getIfSelected(student[0])} selectedAll={this.state.checkall} />            
