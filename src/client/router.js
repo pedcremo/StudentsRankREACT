@@ -50,7 +50,7 @@ function initRouter() {
   var routerFunction = function(e) {
         //e = e || event;
         //var isLink = findParent('a',e.target || e.srcElement);
-        debugger;
+        //debugger;
         let isLink = {};
         isLink.href = window.location.href;
         if (isLink) {
