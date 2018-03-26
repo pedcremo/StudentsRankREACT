@@ -11,9 +11,10 @@ class RankingListPage extends React.Component {
         let student=props.students;
         let index=[];
         let cont=1;
-        student.map((student) =>
-        index.push([student[0],student[1],cont++])
-        );
+        index = student.map((student) => {
+            return [student[0],student[1],cont++];
+            //index.push([student[0],student[1],cont++])
+        });
 
         this.state = {                
             students:index, 
@@ -98,25 +99,22 @@ class RankingListPage extends React.Component {
 
 
     handleCheckedAll (event) {
-        event.preventDefault();
+        //event.preventDefault();
+        
         if(this.state.checkall==false){
-            let arraySelecteds = []; 
-            this.setState({checkall:true},function(){
-                arraySelecteds = this.state.students.map((student) => { 
-                           
-                    return student[0];
-                }); 
-                this.setState({selectedIds:arraySelecteds},function(){
-                    context.selectedIds=arraySelecteds;                   
-                    //this.forceUpdate();
-                })
+            let arraySelecteds = this.state.students.map((student) => {                           
+                return student[0];
+            });  
+            context.selectedIds=arraySelecteds;            
+            this.setState({
+                "checkall":true,
+                "selectedIds":arraySelecteds            
             });
         }else{
-            this.setState({checkall:false},function(){
-                this.setState({selectedIds:[]},function(){
-                    context.selectedIds=[];                    
-                    //this.forceUpdate();
-                })
+            context.selectedIds=[];                  
+            this.setState({
+                "checkall":false,
+                "selectedIds":[]
             });
         }       
     }
@@ -150,40 +148,12 @@ class RankingListPage extends React.Component {
             searchmap: this.state.students.filter( (idStudentPair) => {
                 return idStudentPair[1].name.toLowerCase().indexOf(filterString.toLowerCase()) > -1 || idStudentPair[1].surname.toLowerCase().indexOf(filterString.toLowerCase()) > -1;
             })
-        });
-           
-            /*if(this.state.searchFilter.length>value.length){
-                this.state.students.map((student) =>
-                    studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
-                );
-            }else{
-                this.state.searchmap.map((student) =>
-                    studentName.push([student[0],student[1].surname+", "+student[1].name,student[1],student[2]])
-                );
-            }
-            
-            studentName=this.filterItems(value,studentName);
-            studentName.map((student) =>
-                newMapStudent.push([student[0],student[2],student[3]])
-            );
-            console.log(studentName);
-            this.setState({
-                searchmap: newMapStudent,
-                searchFilter:value
-            });*/ 
-       
+        });        
+     
         
     }
-
-    /*filterItems(query,array) {
-        return array.filter(function(el) {
-            let nameStudent=el[1];
-            console.log(nameStudent);
-            return nameStudent.toLowerCase().indexOf(query.toLowerCase()) > -1;
-        })
-    }*/
-    getIfSelected(idStudent) {
-       
+    
+    getIfSelected(idStudent) {       
         if (this.state.checkall) return true;
         else {
             if (this.state.selectedIds.indexOf(idStudent) >=0){
@@ -196,6 +166,7 @@ class RankingListPage extends React.Component {
 
     render() {
         console.log('RENDER RANKING_LIST_PAGE');
+        
         const studentsItems = this.state.searchmap.map((student) => 
             <RankingListItemPage key={student[0]} index={student[2]} student={student} readOnly={this.state.readOnly}  updateSelectedListFromParent={this.updateSelectedList} selected={this.getIfSelected(student[0])} selectedAll={this.state.checkall} />            
         );  
@@ -204,7 +175,7 @@ class RankingListPage extends React.Component {
             <table className="table table-striped ">
                 <thead className="thead-dark" style={{backgroundColor:'#222529'}}>
                 <tr className="d-flex text-white">
-                    <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
+                    <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" defaultChecked={this.state.checkall} onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th className="col-sm-2 mt-sm-2  d-none d-md-block" ><span className="small">{this.state.displayName} </span></th>
                     <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="form-control form-control-sm" type="text"  name="searchFilter"  onChange={this.searchEvent} onBlur={this.handleFilterBlur}/></th>
                     <th className="col-sm-2 mt-sm-2"><span className="small">{this.state.defaultTerm}</span> </th>

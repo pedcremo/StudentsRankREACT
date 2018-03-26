@@ -5,7 +5,7 @@ import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js'
 class RankingListItemPage extends React.Component {
     constructor(props){
 
-        console.log(props.selectedAll);
+        console.log("SELECTED ALL ="+props.selectedAll);
 
         super(props);
         this.state = {                
@@ -21,11 +21,12 @@ class RankingListItemPage extends React.Component {
     }    
 
     componentWillReceiveProps(props) {      
+       //debugger;
        this.setState({selected:props.selected});       
     }
 
     handleCheckedChild (event) {
-        event.preventDefault();
+        //event.preventDefault();
         if(this.state.selected==true){
             this.setState({selected:false});
             this.props.updateSelectedListFromParent({'option':'delete','id':this.state.id});
@@ -38,7 +39,8 @@ class RankingListItemPage extends React.Component {
     
     
     render() {
-        let index=0;
+        //let index=0;
+        console.log("RENDE ListItemPage");
         const studentsGT = this.state.student.getStudentMarks().map((studentgt) =>
             <RankingListItemGradedTasksPage key={studentgt.id+studentgt.idStudent} studentgt={studentgt} idstudent={studentgt.idStudent} readOnly={this.state.readOnly}/>            
             
