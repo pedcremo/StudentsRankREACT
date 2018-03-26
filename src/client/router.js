@@ -116,10 +116,13 @@ function initRouter() {
             case /#settings/.test(isLink.href):              
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component              
               let code = '';
-              loadTemplate('api/getCode',function(response) {
-                reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} code={response}/>, document.getElementById('content'));
-              },'GET','idSubject=' + context.user.defaultSubject,false);
-              
+              let defaultSubject =context.user.defaultSubject;
+              debugger;
+              if (defaultSubject && defaultSubject !=='default') {
+                loadTemplate('api/getCode',function(response) {
+                  reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} code={response}/>, document.getElementById('content'));
+                },'GET','idSubject=' + context.user.defaultSubject,false);
+              }   
               break;
             /** logout */
             case /#logout/.test(isLink.href):

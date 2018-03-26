@@ -12,6 +12,7 @@ import {getIdFromURL} from '../lib/utils.js';
 import PersonDetailPage from '../components/personDetailPage.js';
 import AttitudeTask from './attitudetask.js';
 import ListAttitudeTaskPage from '../components/listAttitudeTaskPage.js';
+import EmailModalPage from '../components/emailModalPage.js';
 
 /**
  * Person class. We store personal information and attitudePoints that reflect daily classroom job
@@ -83,19 +84,28 @@ events.subscribe('/context/newGradedTask',(gtask) => {
 });
 
 events.subscribe('/component/selectedAction',(obj) =>{
+  let selectedStudents = [];
   switch (obj.option){
     case 'deleteall':
       Person.deleteAllById(obj.arraySelecteds);
       break;
     case 'addXP':
       console.log("Add XP multicast");
-      debugger;
-      let selectedStudents = obj.arraySelecteds.map((idStudent) =>{
+    
+      selectedStudents = obj.arraySelecteds.map((idStudent) =>{
         return Person.getPersonById(idStudent);
       })
       reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
       reactDOM.render(<ListAttitudeTaskPage students={selectedStudents} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
-
+      break;
+    case 'sendmails':
+      console.log('sendmails');
+      selectedStudents = obj.arraySelecteds.map((idStudent) =>{
+        return Person.getPersonById(idStudent);
+      })
+      debugger;
+      reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
+      reactDOM.render(<EmailModalPage students={selectedStudents}  />, document.getElementById('modals'));
       
       break;
   }

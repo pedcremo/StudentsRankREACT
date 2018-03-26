@@ -31,6 +31,7 @@ class SettingsPage extends React.Component {
     
     handleInputChange(event) {
         const target = event.target;
+        debugger;
         let value = target.type === 'checkbox' ? target.checked : target.value;
         let name = target.name;
         const id = target.id;
@@ -104,23 +105,31 @@ class SettingsPage extends React.Component {
         return (            
             <div>
             <h3>{T.translate("settingsTitle")}</h3>
-            
-            <div className="form-check">
-            
-                 <input id="ex1" className="form-check-input" type="checkbox" defaultChecked={this.state.shareGroup} name='shareGroup' onChange={this.handleInputChange} />               
-                 <label className="form-check-label" htmlFor="ex1">Share Group: </label>
+
+            <div className="row">
+                <div className="form-group col-sm-4">
+                    Share group:
+                    <div className="onoffswitch">
+                    
+                        <input id="myonoffswitch"  className="onoffswitch-checkbox" type="checkbox" defaultChecked={this.state.shareGroup} name='shareGroup' onClick={this.handleInputChange} />               
+                        <label className="onoffswitch-label" htmlFor="myonoffswitch">
+                        
+                            <span className="onoffswitch-inner"></span>
+                            <span className="onoffswitch-switch"></span>                    
+                        </label>                
+                    </div>
+                </div>
+                <div className="form-group col-sm-4">
+                    <label htmlFor="xp" id="idXPweight">{T.translate("settingsLblXP")} {this.state.weightXP}%</label><br/>
+                    <input type="range" min="0" max="100" defaultValue={this.state.weightXP} onInput={this.handleInputChange} id="weightChanger" name='weightXP' /><br/>
+                    {/*<label htmlFor="gt" id="idGPweight">{T.translate("settingsLblGT")} {this.state.weightGP}%</label>*/}
+                </div>
+                
+                <div className="col-sm-4">
+                    <span>{T.translate("settingsLblCode")}:</span>
+                    <h1>{this.state.code}</h1>
+                </div>
             </div>
-              <div className="form-group">
-                <label htmlFor="xp" id="idXPweight">{T.translate("settingsLblXP")} {this.state.weightXP}%</label><br/>
-                <input type="range" min="0" max="100" defaultValue={this.state.weightXP} onInput={this.handleInputChange} id="weightChanger" name='weightXP' /><br/>
-                {/*<label htmlFor="gt" id="idGPweight">{T.translate("settingsLblGT")} {this.state.weightGP}%</label>*/}
-              </div>
-            
-            <div className="col-6">
-                <span>{T.translate("settingsLblCode")}:</span>
-                <h1>{this.state.code}</h1>
-            </div>
-           
             {T.translate("settingsLblDefaultTerm")}:
               <div className="form-group">
               
@@ -133,36 +142,36 @@ class SettingsPage extends React.Component {
                   
                  {this.state.terms.map((term, i) => 
                    
-                    <div key={'formGroup'+i} className="form-group">
-                         <label htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
-                         <input name="termName" id={term.name} type="text" value={term.name} onChange={this.handleInputChange} />
-                         BEGIN: <input name="termBegin" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
-                         END: <input name="termEnd" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
+                    <div key={'formGroup'+i} className="form-group row">
+                         <label className="col-sm-2 col-form-label" htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
+                         <input name="termName" className="form-control col-sm-2" id={term.name} type="text" value={term.name} onChange={this.handleInputChange} />
+                         <label className="col-sm-2 col-form-label">BEGIN</label> <input name="termBegin" className="form-control col-sm-2" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
+                         <label className="col-sm-2 col-form-label">END</label> <input name="termEnd" className="form-control col-sm-2" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
                         {/* <input type="submit" class="btn btn-primary" value="Change"/> */}                        
                     </div>                    
                  )} 
                  <hr/>
                  <form id="newTerm" onSubmit={this.handleSubmitNewTerm}>
-                     <div className="form-group">
-                        <label htmlFor="xp" id="termName">New Term</label><br/>
-                        <input name="newTerm" type="text"/>
-                        BEGIN:<input name="newBeginTerm" type="date"/>
-                        END:<input name="newEndTerm" type="date"/>      
-                        <input type="submit" className="btn btn-primary" value="New term" />
+                     <div className="form-group row">
+                        <label className="col-sm-2 col-form-label" htmlFor="xp" id="termName">New Term</label><br/>
+                        <input className="form-control col-sm-2" name="newTerm" type="text"/>
+                        <label className="col-sm-2 col-form-label">BEGIN</label><input className="form-control col-sm-2" name="newBeginTerm" type="date"/>
+                        <label className="col-sm-2 col-form-label">END</label><input className="form-control col-sm-2" name="newEndTerm" type="date"/>      
+                        <input type="submit" className="ml-2 mt-2 btnS btn btn-primary" value="New term" />
                   </div>
                 </form> 
               </div>
             
             {T.translate("settingsLblChangeSubject")}:
             <div className="form-group">
-                <input type="text" defaultValue={this.state.defaultSubject} onInput={this.handleInputChange} id="NewNameSubject" name='NewNameSubject' /><br/><br/>
+                <input className="form-control" type="text" defaultValue={this.state.defaultSubject} onInput={this.handleInputChange} id="NewNameSubject" name='NewNameSubject' /><br/>
                 <a href={'#editSubject/'+ this.state.NewNameSubject} ><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'></i> {this.state.NewNameSubject}</button></a>
                 <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
             </div>
 
             <div className="form-group">
                 <label htmlFor="pLanguage"> {T.translate("settingsLblPreferredLanguage")} </label>
-                <select name="language" defaultValue={this.state.language} onChange={this.handleInputChange}>
+                <select className="form-control" name="language" defaultValue={this.state.language} onChange={this.handleInputChange}>
                     <option key="0" value="English">English</option>
                     <option key="1" value="spanishNative">Spanish</option>
                     <option key="2" value="valencianNative">Valencia</option>
@@ -171,7 +180,7 @@ class SettingsPage extends React.Component {
 
             <div className="form-group">
                 <label>Preferred other languages:</label>
-                <select name="language" defaultValue={this.state.gtaLangs} onChange={this.handleInputChange}>
+                <select className="form-control" name="language" defaultValue={this.state.gtaLangs} onChange={this.handleInputChange}>
                     {gtaLangsItems}
                 </select>
             </div>

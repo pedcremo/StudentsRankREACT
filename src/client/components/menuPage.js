@@ -2,6 +2,7 @@ import React from 'react';
 import reactDOM from 'react-dom';
 import {events} from '../lib/eventsPubSubs.js';
 //import NewSubjectPage from './newSubjectPage.js';
+import {loadTemplate} from '../lib/utils.js';
 import SubjectModalPage from './subjectModalPage.js'; 
 import T from 'i18n-react';
 import Settings from '../classes/settings.js';
@@ -46,8 +47,16 @@ class MenuPage extends React.Component {
         const name = target.name;   
         
         if (value === 'NEW SUBJECT') {            
-            reactDOM.unmountComponentAtNode(document.getElementById('modals'));
-            reactDOM.render(<SubjectModalPage  key={new Date()} sharedGroups={this.state.sharedGroups}/>, document.getElementById('modals'));    
+            loadTemplate('api/getSharedGroups',function(response) {
+                let sharedGroups = JSON.parse(response);
+                this.setState({  
+                   "sharedGroups": sharedGroups 
+                },function() {
+                    reactDOM.unmountComponentAtNode(document.getElementById('modals'));
+                    reactDOM.render(<SubjectModalPage  key={new Date()} sharedGroups={this.state.sharedGroups}/>, document.getElementById('modals'));    
+                });
+              }.bind(this),'GET','',false); 
+            
         }else {
             this.setState({  
                 [name]: value 
