@@ -45,7 +45,7 @@ class SubjectModalPage extends React.Component {
         this.setState({
           [name]: value
         });
-    
+        debugger;
         if (name==="newSubject" && value===""){
             console.log("llore")
             $(".dragPdfReport").show();
@@ -77,7 +77,7 @@ class SubjectModalPage extends React.Component {
                     <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12" >        
-                            <form id="newSubject" className="form-inline" onSubmit={this.handleSubmit}> 
+                            <form id="newSubjectForm" className="form-inline" onSubmit={this.handleSubmit}> 
                                 <div className="form-group">
                                     <label htmlFor="text">Subject name:</label>
                                     <input type="text" name="newSubject" id="subjectName" onChange={this.handleInputChange} value={this.state.text} className="text ui-widget-content ui-corner-all" />

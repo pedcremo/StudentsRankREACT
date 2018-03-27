@@ -30,14 +30,18 @@ class UploadPage extends React.Component {
     }
     
     onDrop(files) {
-      this.setState({
-        files: files,
-        dropzoneActive: false,
+      debugger;
+      this.setState({     
         pdfUploaded:true,
         border : "5px dashed green"
       });
-      $('#newSubject').hide();
-       $('#hr-text').hide();
+      this.setState({
+        dropzoneActive: false,
+        files: files        
+      });
+      $('#newSubjectForm').hide();
+      //$('#dragPdfReport').show();
+      $('#hr-text').hide();
     }
      
     handleSubmit(event) {
