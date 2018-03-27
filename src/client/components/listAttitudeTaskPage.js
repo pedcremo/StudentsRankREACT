@@ -8,7 +8,9 @@ class ListAttitudeTaskPage extends React.Component {
         this.state = {                
                 //student: props.student,
                 students: props.students,
-                attitudeTasks: props.attitudeTasks,
+                attitudeTasks: props.attitudeTasks.sort(function(a,b) {
+                                    return (b[1].hits - a[1].hits);
+                                }),
                 visible:true,
                 points:20, //Default number of points for a new Attitude Task
                 description:''
