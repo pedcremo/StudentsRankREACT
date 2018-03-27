@@ -10,7 +10,8 @@ class SubjectModalPage extends React.Component {
             sharedGroups: props.sharedGroups,
             selectedSharedGroup:'',
             newSubject:'',
-            visible:true                         
+            visible:true,
+            couldBeClosed:props.couldBeClosed                        
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);   
@@ -19,16 +20,22 @@ class SubjectModalPage extends React.Component {
         
     }
     /* Hide modal when closed or click background */
-    modalBackdropClicked(event) {        
-        this.setState({
-            visible: !this.state.visible
-          });       
+    modalBackdropClicked(event) { 
+        if (this.state.couldBeClosed) {       
+            this.setState({
+                visible: !this.state.visible
+            });       
+        }
     }
     
     handleSubmit(event) {
         event.preventDefault();
-        events.publish('menu/addsubject',this.state);   
-        this.modalBackdropClicked(undefined);     
+        events.publish('menu/addsubject',this.state);
+        this.setState({
+            couldBeClosed: true
+        },function(){
+            this.modalBackdropClicked(undefined);     
+        });       
     }
 
     handleInputChange(event) {
@@ -59,11 +66,14 @@ class SubjectModalPage extends React.Component {
                 <div className="modal-content">
                 <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalLabel">Add new subject</h5>
-                    <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    {this.state.couldBeClosed ? 
+                        <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                       
                     <span aria-hidden="true">&times;</span>
                     </button>
+                     :null}
                 </div>
-                <div className="modal-body">
+                <div id="newSubject" className="modal-body">
                     <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12" >        

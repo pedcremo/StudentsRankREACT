@@ -16,8 +16,7 @@ events.subscribe('dataservice/getAttitudeTasks',(obj) => {
 });
 
 events.subscribe('dataservice/SaveAttitudeTask',(obj) => {
-  /* Assign ATTITUDE */
-  //let p=Person.getPersonById(obj.studentId);
+  /* Assign ATTITUDE */  
   let at;
   if (!obj[0].idAttitudeTask) { /* Create new task and assign it*/  
     at = new AttitudeTask(obj[0].description,obj[0].description,obj[0].points);       
@@ -28,7 +27,7 @@ events.subscribe('dataservice/SaveAttitudeTask',(obj) => {
     at = attitudeTasks.get(parseInt(obj[0].idAttitudeTask));            
   }
   at.hits++;
-  debugger;
+
   for (let i=0;i <obj.length;i++) {
     Person.getPersonById(obj[i].studentId).addAttitudeTask(at);
   }

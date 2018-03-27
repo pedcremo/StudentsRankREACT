@@ -53,7 +53,7 @@ class MenuPage extends React.Component {
                    "sharedGroups": sharedGroups 
                 },function() {
                     reactDOM.unmountComponentAtNode(document.getElementById('modals'));
-                    reactDOM.render(<SubjectModalPage  key={new Date()} sharedGroups={this.state.sharedGroups}/>, document.getElementById('modals'));    
+                    reactDOM.render(<SubjectModalPage couldBeClosed={true} key={new Date()} sharedGroups={this.state.sharedGroups}/>, document.getElementById('modals'));    
                 });
               }.bind(this),'GET','',false); 
             

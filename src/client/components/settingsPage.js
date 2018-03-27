@@ -16,28 +16,23 @@ class SettingsPage extends React.Component {
             code:props.code,                            
             NewNameSubject: props.defaultSubject,                            
             language: props.props.language,
-            shareGroup:props.props.shareGroup,
-            //traductions: T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 }),
+            shareGroup:props.props.shareGroup,            
             traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             gtaLangs: ''
         };    
         
         this.handleSubmitNewTerm = this.handleSubmitNewTerm.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        //this.handleShareChange = this.handleShareChange.bind(this);
-    
+        this.handleInputChange = this.handleInputChange.bind(this);    
     }
-
     
     handleInputChange(event) {
-        const target = event.target;
-        debugger;
+        const target = event.target;        
         let value = target.type === 'checkbox' ? target.checked : target.value;
         let name = target.name;
         const id = target.id;
         let newTerms = [];
 
-        if (name === "weightXP"){
+        if (name === "weightXP") {
             //this.state.weightGP = 100 - value;
             this.state.weightGP = 100;
         }else if (name === "termName" || name === "termBegin" || name === "termEnd") {
@@ -56,22 +51,17 @@ class SettingsPage extends React.Component {
         this.setState({  [name]: value }, () => this.SendChanges(name));    
     }
 
-    SendChanges(name=""){
-        //if (name === "weightXP" || name === "defaultTerm" || name === "language"){
-            events.publish('dataservice/saveSettings',this.state);
-            events.publish('settings/change',this.state);
-            events.publish('settings/saveSettings',this.state);
-            
-        //} else { console.log("OK") }
-
+    SendChanges(name='') {        
+        events.publish('dataservice/saveSettings',this.state);
+        events.publish('settings/change',this.state);
+        events.publish('settings/saveSettings',this.state);
         
         if (name === "language") {
             this.setState({
                 traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
             });
             events.publish('language/change', this.state.traductions);  
-        }
-        
+        }        
     }
    
 
@@ -80,10 +70,8 @@ class SettingsPage extends React.Component {
         const target = event.target;
         const term = event.target.newTerm.value;
         const begin = event.target.newBeginTerm.value;
-        const end = event.target.newEndTerm.value;
-       
-        
-        debugger;
+        const end = event.target.newEndTerm.value;      
+                
         let newTerm ={'name':term,'begin':begin,'end':end};
         let prova = this.state.terms;
         prova.push(newTerm);

@@ -81,7 +81,7 @@ function addSubject(funcCallback) {
   loadTemplate('api/getSharedGroups',function(response) {
     let sharedGroups = JSON.parse(response)
     reactDOM.unmountComponentAtNode(document.getElementById('modals'));
-    reactDOM.render(<SubjectModalPage  sharedGroups={sharedGroups}/>, document.getElementById('modals'));   
+    reactDOM.render(<SubjectModalPage  couldBeClosed={false} sharedGroups={sharedGroups}/>, document.getElementById('modals'));   
   },'GET','',false);
   
 }

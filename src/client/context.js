@@ -74,7 +74,10 @@ class Context {
         }
     }    
     let subjectsCopy = {'defaultSubject':this.user.defaultSubject,'subjects':this.user.subjects};
-    saveSubjects(subjectsCopy, generateMenu);
+    saveSubjects(subjectsCopy, function(){
+      generateMenu();
+      if (context.user.defaultSubject=='default')  addSubject(updateFromServer);
+    });
   }
 
   editSubject(newname) {

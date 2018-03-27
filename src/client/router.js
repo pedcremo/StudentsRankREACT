@@ -117,8 +117,7 @@ function initRouter() {
             case /#settings/.test(isLink.href):              
               reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component              
               let code = '';
-              let defaultSubject =context.user.defaultSubject;
-              debugger;
+              let defaultSubject =context.user.defaultSubject;              
               if (defaultSubject && defaultSubject !=='default') {
                 loadTemplate('api/getCode',function(response) {
                   reactDOM.render(<SettingsPage defaultSubject={context.user.defaultSubject} props={Settings.getSettings()} code={response}/>, document.getElementById('content'));

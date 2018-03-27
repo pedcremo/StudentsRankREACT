@@ -433,9 +433,19 @@ function getSettings(req, res, next) {
         if (err) console.error(err);
         else console.log('dir created');
       });
-      fs.createReadStream('src/server/data/settings_skeleton.json').pipe(fs.createWriteStream('src/server/data/' + req.user.id + '/' + req.user.defaultSubject + '/settings.json'));
-      let content = fs.readFileSync('src/server/data/settings_skeleton.json');
-      res.status(200).send(content);
+      let contentSettings = JSON.parse(fs.readFileSync('src/server/data/settings_skeleton.json'));
+      let year = (new Date()).getMonth() >= 7 ? parseInt((new Date()).getFullYear()):parseInt((new Date()).getFullYear())-1;
+      contentSettings.terms[0].begin = year+'-07-01'; //First term begin
+      contentSettings.terms[0].end = year+'-12-06';//First term end
+      contentSettings.terms[1].begin = year+'-12-07';//Second term begin
+      contentSettings.terms[1].end = (year+1)+'-03-06';//Second term end
+      contentSettings.terms[2].begin = (year+1)+'-03-07';//Third term begin
+      contentSettings.terms[2].end = (year+1)+'-06-06';//Third term end
+      let settingsStream = fs.createWriteStream('src/server/data/' + req.user.id + '/' + req.user.defaultSubject + '/settings.json');
+      settingsStream.write(JSON.stringify(contentSettings));
+      //fs.createReadStream('src/server/data/settings_skeleton.json').pipe(fs.createWriteStream('src/server/data/' + req.user.id + '/' + req.user.defaultSubject + '/settings.json'));
+      
+      res.status(200).send(JSON.stringify(contentSettings));
     }else {
       fs.readFile('src/server/data/'+ req.user.id + '/' + req.user.defaultSubject + '/settings.json',function(err, data) {
         if(err) {
