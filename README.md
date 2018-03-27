@@ -61,6 +61,7 @@ Load docker container -> docker load -i runking.tar
 READ: getting started with docker blogs.msdn.microsoft.com
 
 # Apache2 + node app living in same server serving https 
+READ http://www.codingtricks.biz/run-nodejs-application-apache/
 
 We want to use a VPS with a preexisting web app running on port 80 in apache2.
 Our server side is built using nodeJS and we want to serve the web app via https.
