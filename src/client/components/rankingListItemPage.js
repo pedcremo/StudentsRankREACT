@@ -78,28 +78,28 @@ class RankingListItemPage extends React.Component {
                 <div className="row align-items-center"> 
                     <div className="col-sm">        
                         {this.state.student.getFinalGrade()<=50?
-                            <button type="button" class="btn btn-danger">
-                                <span class="badge badge-light">{this.state.student.getFinalGrade()}</span> FG
+                            <button type="button" className="btn btn-danger">
+                                <span className="badge badge-light">{this.state.student.getFinalGrade()}</span> FG
                             </button>:
-                            <button type="button" class="btn btn-success">
-                                <span class="badge badge-light">{this.state.student.getFinalGrade()}</span> FG
+                            <button type="button" className="btn btn-success">
+                                <span className="badge badge-light">{this.state.student.getFinalGrade()}</span> FG
                             </button>
                         }
                     </div>
                     <div className="col-sm">
                         {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}>
-                            <button type="button" class="btn btn-warning">
-                                <span class="badge badge-light">{this.state.student.getXPtotalPoints()}</span> XP
+                            <button type="button" className="btn btn-warning btn-sm">
+                                <span className="badge badge-light">{this.state.student.getXPtotalPoints()}</span> XP
                             </button></a>:
-                            <button type="button" class="btn btn-warning">
-                            <span class="badge badge-light">{this.state.student.getXPtotalPoints()}</span> XP
+                            <button type="button" className="btn btn-warning btn-sm">
+                            <span className="badge badge-light">{this.state.student.getXPtotalPoints()}</span> XP
                         </button>}
                         
                     </div>
                     <div className="col-sm">
 
-                        <button type="button" class="btn btn-info">
-                            <span class="badge badge-light">{this.state.student.getGTtotalPoints()}</span> GT
+                        <button type="button" className="btn btn-info btn-sm">
+                            <span className="badge badge-light">{this.state.student.getGTtotalPoints()}</span> GT
                         </button>
                         
                     </div>
