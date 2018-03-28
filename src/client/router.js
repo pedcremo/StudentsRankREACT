@@ -138,7 +138,7 @@ function initRouter() {
               let gtInstance = GradedTask.getGradedTaskById(getIdFromURL(isLink.href));               
               reactDOM.render(<GradedTaskPage terms={settings.terms} props={gtInstance} allowedWeight={(100 - GradedTask.getGradedTasksTotalWeight() + parseInt(gtInstance.weight))} />, document.getElementById('content'));             	             
               break;        
-            default:
+            case /#home/.test(isLink.href):
               //debugger;
               context.isLogged();
           }
@@ -149,6 +149,7 @@ function initRouter() {
     $(document).on('click','a',function(event) {      
       //debugger;
       var isLink = findParent('a',event.target || event.srcElement);
+      //Another click on same element than current location
       if (window.location.href === isLink.href) routerFunction();
       else console.log("NO FAIG RES");
     });

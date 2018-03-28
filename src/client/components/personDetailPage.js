@@ -44,27 +44,68 @@ class PersonDetailPage extends React.Component {
                         </div>
                         <div class="card-body">
                             <h5 class="card-title"></h5>
-                            <p class="card-text">
+                            
                             <ul className="list-group list-group-flush">                
                                 {attitudeTasksItems}                
                             </ul>
-                            </p>
-                            {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                           
+                    
+                    <div id="accordion">
+
+                        <div className="card">
+                            <div className="card-header">
+                            <a className="card-link" data-toggle="collapse" href="#collapseOne">
+                                Term #1
+                            </a>
+                            </div>
+                            <div id="collapseOne" className="collapse show" data-parent="#accordion">
+                            <div className="card-body">
+                                Content
+                            </div>
+                            </div>
+                        </div>
+
+                        <div className="card">
+                            <div className="card-header">
+                            <a className="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                                Term #2
+                            </a>
+                            </div>
+                            <div id="collapseTwo" className="collapse" data-parent="#accordion">
+                            <div className="card-body">
+                                Lorem ipsum..
+                            </div>
+                            </div>
+                        </div>
+
+                        <div className="card">
+                            <div className="card-header">
+                            <a className="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                               Term #3
+                            </a>
+                            </div>
+                            <div id="collapseThree" className="collapse" data-parent="#accordion">
+                            <div className="card-body">
+                                Lorem ipsum..
+                            </div>
+                            </div>
+                        </div>
+
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div className="col-sm">
-                    <div class="card">
-                        <div class="card-header">
+                    <div className="card">
+                        <div className="card-header">
                             Graded tasks
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">
+                        <div className="card-body">
+                            <h5 className="card-title"></h5>
                             <ul className="list-group list-group-flush">                
                                 {gradedTasksItems}
                             </ul>
-                            </p>
+                            
                             {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
                         </div>
                     </div>                
