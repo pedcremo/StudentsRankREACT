@@ -26,21 +26,49 @@ class PersonDetailPage extends React.Component {
        
         return (
             
-            <div>
-                <img src={'src/server/data/fotos/'+this.state.student.id+'.jpg'} />
-                <h1>{this.state.student.name} {this.state.student.surname} {this.state.student.getFinalGrade()}</h1>
-                <h2>{this.state.student.email}</h2>
-                {!this.state.readOnly ? <a href={'#editStudent/'+this.state.student.id}><button className='btnS btn btn-success'>&nbsp;<i className='fa fa-pencil fa-1x'></i></button></a> : null}
-                
-                <h3>Attitude tasks</h3>                
-                <ul className="list-group">                
-                    {attitudeTasksItems}                
-                </ul>
-                
-                <h3>Graded tasks</h3>
-                <ul className="list-group">
-                    {gradedTasksItems}
-                </ul>
+            <div className="row">
+                <div className="col-sm">
+                    <div className="card">
+                        <img className="card-img-top" src={'src/server/data/fotos/'+this.state.student.id+'.jpg'}  alt={this.state.student.name + ' ,'+ this.state.student.surname} />
+                        <div className="card-body">
+                            <h5 className="card-title">{this.state.student.name} {this.state.student.surname}</h5>
+                            <p className="card-text">{this.state.student.email} Final Grade = {this.state.student.getFinalGrade()}</p>
+                            {!this.state.readOnly ? <a href={'#editStudent/'+this.state.student.id}><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'> Edit </i></button></a> : null}
+                        </div>
+                    </div>
+                 </div>
+                 <div className="col-sm"> 
+                    <div class="card">
+                        <div class="card-header">
+                            Attitude tasks
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">
+                            <ul className="list-group list-group-flush">                
+                                {attitudeTasksItems}                
+                            </ul>
+                            </p>
+                            {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                        </div>
+                    </div>
+                </div>
+                <div className="col-sm">
+                    <div class="card">
+                        <div class="card-header">
+                            Graded tasks
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">
+                            <ul className="list-group list-group-flush">                
+                                {gradedTasksItems}
+                            </ul>
+                            </p>
+                            {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                        </div>
+                    </div>                
+                </div>
             </div>
         );
     }
