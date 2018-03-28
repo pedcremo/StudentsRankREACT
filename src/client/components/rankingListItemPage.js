@@ -77,14 +77,11 @@ class RankingListItemPage extends React.Component {
             <td className="col-4">
                 <div className="row align-items-center"> 
                     <div className="col-sm">        
-                        {this.state.student.getFinalGrade()<=50?
-                            <button type="button" className="btn btn-danger">
-                                <span className="badge badge-light">{this.state.student.getFinalGrade()}</span> FG
-                            </button>:
-                            <button type="button" className="btn btn-success">
+                        
+                            <button type="button" className={'btn '+ (this.state.student.getFinalGrade()<=50? 'btn-danger':'btn-success')}>
                                 <span className="badge badge-light">{this.state.student.getFinalGrade()}</span> FG
                             </button>
-                        }
+                        
                     </div>
                     <div className="col-sm">
                         {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}>
