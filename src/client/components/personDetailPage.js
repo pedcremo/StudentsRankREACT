@@ -37,10 +37,20 @@ class PersonDetailPage extends React.Component {
         /*const attitudeTasksItems = this.state.student.attitudeTasks.reverse().map((attitudeItem) =>
             <AttitudeListItemPage key={attitudeItem.id+attitudeItem.timestamp} readOnly={this.state.readOnly} studentId={this.state.student.id} datetime={attitudeItem.timestamp} attitudeInstance={this.state.student.getAttitudeById(attitudeItem.id)} />                                
         );*/
-        
-        const gradedTasksItems =  this.state.student.getGradedTasks().map((gtItem) =>
+        const gradedTasksItems=this.state.terms.map((term) => {
+            let gtByTerm=[];
+            this.state.student.getGradedTasks().map((gtItem) => {
+                
+                
+                if (gtItem[1].term == term.name) {
+                    gtByTerm.push(gtItem[1]);
+                }
+            });
+            return <GradedTaskListItemPage key={term.name+'gt'} show={term.name==this.state.currentTerm?true:false} studentId={this.state.student.id} term={term.name} gradedTaskInstances={gtByTerm} />
+        });
+        /*const gradedTasksItems =  this.state.student.getGradedTasks().map((gtItem) =>
             <GradedTaskListItemPage key={gtItem[0]} studentId={this.state.student.id} gradedTaskInstance={gtItem[1]} />                                
-        );
+        );*/
        
         return (
             
@@ -59,8 +69,11 @@ class PersonDetailPage extends React.Component {
                  <div id="accordion" className="col-sm-5">                     
                     {attitudeTasksItems}                 
                 </div>
+                <div id="accordion2" className="col-sm-4">                     
+                    {gradedTasksItems}                 
+                </div>
 
-                <div className="col-sm-4">
+                {/*<div className="col-sm-4">
                     <div className="card">
                         <div className="card-header">
                             Graded tasks
@@ -71,10 +84,10 @@ class PersonDetailPage extends React.Component {
                                 {gradedTasksItems}
                             </ul>
                             
-                            {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                            
                         </div>
-                    </div>                
-                </div>
+                    </div>               
+                </div> */}   
             </div>
         );
     }

@@ -6,17 +6,36 @@ class GradedTaskListItemPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {   
-            
+            term:props.term,
             studentId:props.studentId,            
-            gtItem:props.gradedTaskInstance               
+            gtItems:props.gradedTaskInstances,
+            show:props.show               
         };          
     }
     
     render() {
 
-        return (                 
-            <li className="list-group-item">{this.state.gtItem.getStudentMark(this.state.studentId)+ '% doing '+ this.state.gtItem.name + ' on ' + formatDate(new Date(this.state.gtItem.datetime))}</li>           
-        );
+        const gtByTerm = this.state.gtItems.map((gtItem) => 
+            <li className="list-group-item" key={gtItem.id}>{gtItem.getStudentMark(this.state.studentId)+ '% doing '+ gtItem.name + ' on ' + formatDate(new Date(gtItem.datetime))}</li>           
+         );
+    
+        return ( 
+        <div className="card">
+                <div className="card-header">
+                    <a className="card-link" data-toggle="collapse" href={'#collapseTWO'+this.state.term.split(' ').join('_')}>
+                        Graded tasks {this.state.term}
+                    </a>
+                </div>
+                <div id={'collapseTWO'+this.state.term.split(' ').join('_')} className={'collapse'+ (this.state.show?' show':'')} data-parent="#accordion2">
+                    <div className="card-body">
+                        <ul className="list-group list-group-flush">
+                            {gtByTerm}
+                        </ul>                
+                    </div>
+                </div>
+            </div>       
+                
+    )
     }
 }
 
