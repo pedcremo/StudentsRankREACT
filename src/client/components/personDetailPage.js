@@ -9,16 +9,34 @@ class PersonDetailPage extends React.Component {
         super(props);
         this.state = {                
             student:props.student.personInstance,
+            currentTerm: props.defaultTerm, 
+            terms:props.terms,
             readOnly:props.readOnly ? true : false         
-        };        
-       
+        };      
     }
     
     render() {      
-       
-        const attitudeTasksItems = this.state.student.attitudeTasks.reverse().map((attitudeItem) =>
+        
+        const attitudeTasksItems = this.state.terms.map((term) => {
+            
+            let attByTerm=[];
+            this.state.student.attitudeTasks.sort(function(a,b){ b.timestamp > a.timestamp }).map((att) => {
+                let target = new Date(att.timestamp).getTime();
+                let begin = new Date(term.begin).getTime();
+                let end = new Date(term.end).getTime();
+                
+                if (target>=begin && target <=end) {
+                    attByTerm.push([this.state.student.getAttitudeById(att.id),att.timestamp]);
+                }
+            });
+   
+            return <AttitudeListItemPage key={term.name} readOnly={this.state.readOnly} show={term.name==this.state.currentTerm?true:false} term={term.name} studentId={this.state.student.id} attitudeInstances={attByTerm} />                                
+           
+        });
+
+        /*const attitudeTasksItems = this.state.student.attitudeTasks.reverse().map((attitudeItem) =>
             <AttitudeListItemPage key={attitudeItem.id+attitudeItem.timestamp} readOnly={this.state.readOnly} studentId={this.state.student.id} datetime={attitudeItem.timestamp} attitudeInstance={this.state.student.getAttitudeById(attitudeItem.id)} />                                
-        );
+        );*/
         
         const gradedTasksItems =  this.state.student.getGradedTasks().map((gtItem) =>
             <GradedTaskListItemPage key={gtItem[0]} studentId={this.state.student.id} gradedTaskInstance={gtItem[1]} />                                
@@ -37,64 +55,11 @@ class PersonDetailPage extends React.Component {
                         </div>
                     </div>
                  </div>
-                 <div className="col-sm-5"> 
-                    <div class="card">
-                        <div class="card-header">
-                            Attitude tasks
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            
-                            <ul className="list-group list-group-flush">                
-                                {attitudeTasksItems}                
-                            </ul>
-                           
-                    
-                    <div id="accordion">
 
-                        <div className="card">
-                            <div className="card-header">
-                            <a className="card-link" data-toggle="collapse" href="#collapseOne">
-                                Term #1
-                            </a>
-                            </div>
-                            <div id="collapseOne" className="collapse show" data-parent="#accordion">
-                            <div className="card-body">
-                                Content
-                            </div>
-                            </div>
-                        </div>
-
-                        <div className="card">
-                            <div className="card-header">
-                            <a className="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                                Term #2
-                            </a>
-                            </div>
-                            <div id="collapseTwo" className="collapse" data-parent="#accordion">
-                            <div className="card-body">
-                                Lorem ipsum..
-                            </div>
-                            </div>
-                        </div>
-
-                        <div className="card">
-                            <div className="card-header">
-                            <a className="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                               Term #3
-                            </a>
-                            </div>
-                            <div id="collapseThree" className="collapse" data-parent="#accordion">
-                            <div className="card-body">
-                                Lorem ipsum..
-                            </div>
-                            </div>
-                        </div>
-
-                        </div>
-                        </div>
-                    </div>
+                 <div id="accordion" className="col-sm-5">                     
+                    {attitudeTasksItems}                 
                 </div>
+
                 <div className="col-sm-4">
                     <div className="card">
                         <div className="card-header">
