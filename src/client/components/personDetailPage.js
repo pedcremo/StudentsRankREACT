@@ -27,8 +27,8 @@ class PersonDetailPage extends React.Component {
         return (
             
             <div className="row">
-                <div className="col-sm">
-                    <div className="card">
+                <div className="col-sm-3">
+                    <div className="card bg-light">
                         <img className="card-img-top" src={'src/server/data/fotos/'+this.state.student.id+'.jpg'}  alt={this.state.student.name + ' ,'+ this.state.student.surname} />
                         <div className="card-body">
                             <h5 className="card-title">{this.state.student.name} {this.state.student.surname}</h5>
@@ -37,7 +37,7 @@ class PersonDetailPage extends React.Component {
                         </div>
                     </div>
                  </div>
-                 <div className="col-sm"> 
+                 <div className="col-sm-5"> 
                     <div class="card">
                         <div class="card-header">
                             Attitude tasks
@@ -95,7 +95,7 @@ class PersonDetailPage extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="col-sm">
+                <div className="col-sm-4">
                     <div className="card">
                         <div className="card-header">
                             Graded tasks

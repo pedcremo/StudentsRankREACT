@@ -2,11 +2,9 @@ import webpack from 'webpack';
 import path from 'path';
 
 export default {
-  debug: true,
+  mode: 'development',
   devtool: 'cheap-module-eval-source-map',
-  noInfo: false,
   entry: [
-    //'eventsource-polyfill', // necessary for hot reloading with IE
     'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
     './src/client/main'
   ],
@@ -25,20 +23,21 @@ export default {
       $: 'jquery',
       Popper: ['popper.js', 'default']
     }),
+    //new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
+    //new webpack.NoErrorsPlugin()
   ],
   module: {
-    loaders: [
-      {test: /\.json$/, loader: 'json-loader'},
-      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
-      {test: /(\.css)$/, loaders: ['style', 'css']},
-      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-      {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000"},
-      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"},
+    rules: [
+      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel-loader']},
+      {test: /(\.css)$/, loaders: ['style-loader', 'css-loader']},
+      //{test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
+      //{test: /\.(woff|woff2)$/, loader: "url-loader?prefix=font/&limit=5000"},
+      //{test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream"},
+      //{test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml"},
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+      { test: /\.(eot|ttf|otf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: "file-loader" }
     ]
   }
 };

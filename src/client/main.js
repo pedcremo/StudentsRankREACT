@@ -1,5 +1,5 @@
 'use strict';
-
+import 'bootstrap';
 import $ from "jquery";
 import {context} from './context.js'; //Singleton mantains coordinated all classes involved in the app
 import {initRouter} from './router.js'; //Knows what to do for every single URL 

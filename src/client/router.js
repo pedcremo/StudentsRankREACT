@@ -153,7 +153,7 @@ function initRouter() {
       if (window.location.href === isLink.href) routerFunction();
       else console.log("NO FAIG RES");
     });
-    $(window).bind('hashchange',routerFunction);
+    $(window).on('hashchange',routerFunction);
 }
 
 
