@@ -25,12 +25,20 @@ class EmailModalPage extends React.Component {
         /*const sharedGroups = this.state.sharedGroups.map((sub, i) =>                                
             <option key={i} name="selectedShared" value={sub.defaultSubject}  >{sub.defaultSubject} {sub.hits}  students</option>
         )*/
+        const filteredStudents= this.state.students.filter((itemStudent) => {                       
+            return itemStudent.email;
+        }).map((item) => {
+            return item.name + ', ' 
+        });
+        
         return (
             /* Modal */            
             <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
                 <div className="modal-content">
                 <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalLabel">Send email to</h5>
+                    {filteredStudents}                        
+                    {filteredStudents.length<this.state.students.length?'OJO que hi han '+(this.state.students.length-filteredStudents.length)+ ' estudiants sense email':null}
                     <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>

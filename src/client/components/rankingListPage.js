@@ -8,23 +8,21 @@ class RankingListPage extends React.Component {
     constructor(props){
         super(props);        
 
-        let student=props.students;
-        let index=[];
-        let cont=1;
-        index = student.map((student) => {
-            return [student[0],student[1],cont++];
-            //index.push([student[0],student[1],cont++])
+        let studentsIndexed = props.students.map((student,index) => {
+            return [student[0],student[1],++index];            
         });
 
         this.state = {                
-            students:index, 
+            students:studentsIndexed, 
             displayName:props.displayName,
             defaultTerm:props.defaultTerm,
+            settings:props.settings,
+            terms:props.terms,
             gtWeight:props.gtWeight,
             xpWeight:props.xpWeight,
             readOnly:props.readOnly ? true : false,
             searchFilter:"",
-            searchmap:index,
+            searchmap:studentsIndexed,
             checkall:false,
             action:'-- Select one action --',
             selectedIds:props.selectedIds
@@ -35,9 +33,26 @@ class RankingListPage extends React.Component {
         this.handleCheckedAll=this.handleCheckedAll.bind(this);
         this.updateSelectedList=this.updateSelectedList.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSettingsChange = this.handleSettingsChange.bind(this);
      
     }
 
+    handleSettingsChange(event) {
+        
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        debugger;
+        let newSettings = this.state.settings;
+        newSettings[name] = value;
+       
+        this.setState({
+            settings:newSettings
+        },function() {
+            events.publish('dataservice/saveSettings',this.state.settings);
+            events.publish('settings/change',this.state.settings);            
+        });
+    }
 
     handleChange(event) {
         event.preventDefault();
@@ -178,7 +193,16 @@ class RankingListPage extends React.Component {
                     <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" defaultChecked={this.state.checkall} onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th className="col-sm-2 mt-sm-2  d-none d-md-block" ><span className="small">{this.state.displayName} </span></th>
                     <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="form-control form-control-sm" type="text"  name="searchFilter"  onChange={this.searchEvent} onBlur={this.handleFilterBlur}/></th>
-                    <th className="col-sm-2 mt-sm-2"><span className="small">{this.state.defaultTerm}</span> </th>
+                    <th className="col-sm-2 mt-sm-1">
+                        
+                        {!this.state.readOnly ? <select className="form-control form-control-sm"  name="defaultTerm" value={this.state.settings.defaultTerm} id="termsItems" onChange={this.handleSettingsChange} >
+                                            {this.state.terms.map((term, i) =>
+                                            <option key={i} value={term.name}>{term.name}</option>
+                                            )}                                            
+                                            <option key='all' value="ALL">ALL</option>
+                                        </select> : <span className="small">{this.state.settings.defaultTerm}</span> } 
+                    
+                    </th>
                     <th className="col-sm-4 text-right mt-sm-2"><span className="small">FG {parseInt(this.state.xpWeight)+parseInt(this.state.gtWeight)}% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}% &nbsp;</span></th> 
                 </tr>
                 </thead>

@@ -269,7 +269,7 @@ class Person {
       }catch(err){
         displayName = '';
       }
-      reactDOM.render(<RankingListPage displayName={displayName} defaultTerm={Settings.getDefaultTerm()} gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
+      reactDOM.render(<RankingListPage displayName={displayName} settings={Settings.getSettings()} terms={Settings.getTerms()} defaultTerm={Settings.getDefaultTerm()} gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students= {Person.getStudentsFromMap()} selectedIds={context.selectedIds}  />, document.getElementById('content'));       
 
       
     }

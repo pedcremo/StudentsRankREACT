@@ -54,7 +54,7 @@ class SettingsPage extends React.Component {
     SendChanges(name='') {        
         events.publish('dataservice/saveSettings',this.state);
         events.publish('settings/change',this.state);
-        events.publish('settings/saveSettings',this.state);
+        //events.publish('settings/saveSettings',this.state);
         
         if (name === "language") {
             this.setState({
