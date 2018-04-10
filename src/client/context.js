@@ -36,7 +36,7 @@ events.subscribe('context/loginCode',(obj)=>{
     setCookie('code',userData.code,12);
     let menudata = {'displayName' : ''};
     reactDOM.render(<MenuPage key={context.user} props={menudata} readOnly={true}/>, document.getElementById('menuButtons'));    
-    reactDOM.render(<RankingListPage displayName={''} settings={Settings.getSettings()} terms={Settings.getTerms()} defaultTerm={Settings.getDefaultTerm()} gtWeight={Settings.getGtWeight()} xpWeight={Settings.getXpWeight()} students={Person.getStudentsFromMap()} readOnly={true} selectedIds={context.selectedIds}/>, document.getElementById('content'));
+    reactDOM.render(<RankingListPage displayName={''} settings={Settings.getSettings()} students={Person.getStudentsFromMap()} readOnly={true} selectedIds={context.selectedIds}/>, document.getElementById('content'));
   },'GET','',false);  
 });
 

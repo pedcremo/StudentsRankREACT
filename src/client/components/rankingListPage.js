@@ -15,11 +15,11 @@ class RankingListPage extends React.Component {
         this.state = {                
             students:studentsIndexed, 
             displayName:props.displayName,
-            defaultTerm:props.defaultTerm,
+            //defaultTerm:props.defaultTerm,
             settings:props.settings,
-            terms:props.terms,
-            gtWeight:props.gtWeight,
-            xpWeight:props.xpWeight,
+            //terms:props.terms,
+            //gtWeight:props.gtWeight,
+            //xpWeight:props.xpWeight,
             readOnly:props.readOnly ? true : false,
             searchFilter:"",
             searchmap:studentsIndexed,
@@ -192,18 +192,18 @@ class RankingListPage extends React.Component {
                 <tr className="d-flex text-white">
                     <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" defaultChecked={this.state.checkall} onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th className="col-sm-2 mt-sm-2  d-none d-md-block" ><span className="small">{this.state.displayName} </span></th>
-                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="form-control form-control-sm" type="text"  name="searchFilter"  onChange={this.searchEvent} onBlur={this.handleFilterBlur}/></th>
+                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="form-control form-control-sm" type="text"  name="searchFilter"  placeholder="Filter by name" onChange={this.searchEvent} onBlur={this.handleFilterBlur}/></th>
                     <th className="col-sm-2 mt-sm-1">
                         
                         {!this.state.readOnly ? <select className="form-control form-control-sm"  name="defaultTerm" value={this.state.settings.defaultTerm} id="termsItems" onChange={this.handleSettingsChange} >
-                                            {this.state.terms.map((term, i) =>
+                                            {this.state.settings.terms.map((term, i) =>
                                             <option key={i} value={term.name}>{term.name}</option>
                                             )}                                            
                                             <option key='all' value="ALL">ALL</option>
                                         </select> : <span className="small">{this.state.settings.defaultTerm}</span> } 
                     
                     </th>
-                    <th className="col-sm-4 text-right mt-sm-2"><span className="small">FG {parseInt(this.state.xpWeight)+parseInt(this.state.gtWeight)}% = XP {this.state.xpWeight}% + GT {this.state.gtWeight}% &nbsp;</span></th> 
+                    <th className="col-sm-4 text-right mt-sm-2"><span className="small">FG {parseInt(this.state.settings.weightXP)+parseInt(this.state.settings.weightGP)}% = XP {this.state.settings.weightXP}% + GT {this.state.settings.weightGP}% &nbsp;</span></th> 
                 </tr>
                 </thead>
                 <tbody id="idTableRankingBody">
