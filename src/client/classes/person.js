@@ -222,6 +222,8 @@ class Person {
       console.log(err);
     }
     
+    if (settings.defaultTerm === 'ALL') {points = points/settings.terms.length;}
+
     if (isNaN(points)) {
       points=0;
     }

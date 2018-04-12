@@ -30,16 +30,30 @@ function updateFromServer() {
     loadTemplate('api/getAttitudeTasks',function(response) {
                           events.publish('dataservice/getAttitudeTasks',response);                          
                         },'GET','',false);
-
-    loadTemplate('api/getStudents',function(response) {
-                          events.publish('dataservice/getStudents',response);                          
-                          context.getTemplateRanking(true);                          
-                        },'GET','',false);
+                        
+    /* loadTemplate('api/getStudents',function(response) {                          
+                        events.publish('dataservice/getStudents',response); 
+                          loadTemplate('api/getSettings',function(response) {
+                            events.publish('dataservice/getSettings',response);                        
+                              loadTemplate('api/getAttitudeTasks',function(response) {
+                                events.publish('dataservice/getAttitudeTasks',response);
+                                loadTemplate('api/getGradedTasks',function(response) {
+                                  events.publish('dataservice/getGradedTasks',response); 
+                                  context.getTemplateRanking(true);                      
+                                },'GET','',false)                          
+                              },'GET','',false);
+                            },'GET','',false);
+                                                    
+                        },'GET','',false); */
 
     loadTemplate('api/getGradedTasks',function(response) {
                           events.publish('dataservice/getGradedTasks',response);                       
                         },'GET','',false);
-    
+    loadTemplate('api/getStudents',function(response) {                          
+                        events.publish('dataservice/getStudents',response); 
+                        context.getTemplateRanking(true);
+                      },'GET','',false);
+      
   }
 }
 /** Save students in server side */

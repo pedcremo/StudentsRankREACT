@@ -18,11 +18,24 @@ class RankingListItemPage extends React.Component {
             
         }; 
         this.handleCheckedChild=this.handleCheckedChild.bind(this);
+        this.handleGradedTaskExpandedView = this.handleGradedTaskExpandedView.bind(this);
     }    
 
     componentWillReceiveProps(props) {      
        //debugger;
        this.setState({selected:props.selected});       
+    }
+
+    handleGradedTaskExpandedView(event) {     
+        //event.preventDefault();
+        $('.tableGradedTasks').toggle();              
+        if ($('.tableGradedTasks').is(':visible')) {       
+          $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
+          setCookie('expandedView','true',12);
+        }else {     
+          $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');    
+          setCookie('expandedView','false',12);    
+        }
     }
 
     handleCheckedChild (event) {
@@ -95,7 +108,7 @@ class RankingListItemPage extends React.Component {
                     </div>
                     <div className="col-sm">
 
-                        <button type="button" className="btn btn-info btn-sm">
+                        <button type="button" className="btn btn-info btn-sm" onClick={this.handleGradedTaskExpandedView} >
                             <span className="badge badge-light">{this.state.student.getGTtotalPoints()}</span> GT
                         </button>
                         
