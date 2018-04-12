@@ -31,7 +31,7 @@ class SettingsPage extends React.Component {
         let name = target.name;
         const id = target.id;
         let newTerms = [];
-
+        debugger;
         if (name === "weightXP") {
             //this.state.weightGP = 100 - value;
             this.state.weightGP = 100;
@@ -42,6 +42,12 @@ class SettingsPage extends React.Component {
                 }else{
                     return term;
                 }
+            });
+            name = "terms";
+            value = newTerms;    
+        }else if (name === "deleteTerm") {
+            newTerms= this.state.terms.filter((term) => {
+                return term.name !== id;
             });
             name = "terms";
             value = newTerms;    
@@ -133,21 +139,42 @@ class SettingsPage extends React.Component {
                  {this.state.terms.map((term, i) => 
                    
                     <div key={'formGroup'+i} className="form-group row">
-                         <label className="col-sm-1 col-form-label" htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
-                         <input name="termName" className="form-control form-control-sm col-sm-2" id={term.name} type="text" value={term.name} onChange={this.handleInputChange} />
-                         <label className="col-sm-1 col-form-label">BEGIN</label> <input name="termBegin" className="form-control form-control-sm col-sm-2" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
-                         <label className="col-sm-1 col-form-label">END</label> <input name="termEnd" className="form-control form-control-sm col-sm-2" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
+                     <div className="col-sm-3">
+                         <label className="" htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
+                     
+                         <input name="termName" className="form-control form-control-sm " id={term.name} type="text" value={term.name} onChange={this.handleInputChange} />
+                     </div>
+                     <div className="col-sm-3">
+                         <label className="">BEGIN</label> <input name="termBegin" className="form-control form-control-sm" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
+                    </div>
+                     <div className="col-sm-3">
+                         <label className="">END</label> <input name="termEnd" className="form-control form-control-sm" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
+                         
+                     </div>
+                     <div className="col-sm-3">
+                     <br/>
+                         <button className='btnS btn btn-danger' name="deleteTerm" id={term.name} onClick={this.handleInputChange}><i className='fa fa-trash-o fa-1x'></i></button>
+                     </div>
                         {/* <input type="submit" class="btn btn-primary" value="Change"/> */}                        
                     </div>                    
                  )} 
                  <hr/>
                  <form id="newTerm" onSubmit={this.handleSubmitNewTerm}>
                      <div className="form-group row">
-                        <label className="col-sm-1 col-form-label" htmlFor="xp" id="termName">New Term</label><br/>
-                        <input className="form-control form-control-sm col-sm-2" name="newTerm" type="text"/>
-                        <label className="col-sm-1 col-form-label">BEGIN</label><input className="form-control form-control-sm col-sm-2" name="newBeginTerm" type="date"/>
-                        <label className="col-sm-1 col-form-label">END</label><input className="form-control  form-control-sm col-sm-2" name="newEndTerm" type="date"/>      
-                        <input type="submit" className="ml-2 mt-2 btnS btn btn-primary" value="New term" />
+                     <div className="col-sm-3">
+                        <label className="" htmlFor="xp" id="termName">New Term</label><br/>
+                        <input className="form-control form-control-sm " name="newTerm" type="text"/>
+                     </div>
+                     <div className="col-sm-3">
+
+                        <label className="">BEGIN</label><input className="form-control form-control-sm" name="newBeginTerm" type="date"/>
+                     </div>
+                     <div className="col-sm-3">
+                     
+                        <label className="">END</label><input className="form-control  form-control-sm" name="newEndTerm" type="date"/>      
+                        
+                    </div>
+                    <input type="submit" className="ml-2 mt-2 btnS btn btn-primary" value="New term" />
                   </div>
                 </form> 
               </div>
