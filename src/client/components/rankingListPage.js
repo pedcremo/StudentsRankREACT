@@ -14,19 +14,16 @@ class RankingListPage extends React.Component {
 
         this.state = {                
             students:studentsIndexed, 
-            displayName:props.displayName,
-            //defaultTerm:props.defaultTerm,
+            displayName:props.displayName,           
             settings:props.settings,
-            //terms:props.terms,
-            //gtWeight:props.gtWeight,
-            //xpWeight:props.xpWeight,
+            expandedView:(getCookie('expandedView')==='true'),
             readOnly:props.readOnly ? true : false,
             searchFilter:"",
             searchmap:studentsIndexed,
             checkall:false,
             action:'-- Select one action --',
             selectedIds:props.selectedIds
-        };                             
+        };   
         this.handleClick=this.handleClick.bind(this);
         this.handleFilterBlur=this.handleFilterBlur.bind(this);
         this.searchEvent=this.searchEvent.bind(this);
@@ -95,6 +92,10 @@ class RankingListPage extends React.Component {
 
 
     componentDidMount() {
+        debugger;
+        if (this.state.expandedView) $('.tableGradedTasks').show();                          
+        else $('.tableGradedTasks').hide()
+
         this.subscription = events.subscribe('students/change',(obj) => {  
             let index=[];
             let cont=1;
@@ -136,14 +137,27 @@ class RankingListPage extends React.Component {
 
     handleClick(event) {     
         //event.preventDefault();
-        $('.tableGradedTasks').toggle();              
+        if (this.state.expandedView) {
+            $('.tableGradedTasks').hide();  
+            setCookie('expandedView','false',12);            
+            $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');
+        }else{
+            setCookie('expandedView','true',12);
+            $('.tableGradedTasks').show();  
+            $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
+        }
+        this.setState({
+            "expandedView":!this.state.expandedView
+        });
+        
+        /*$('.tableGradedTasks').toggle();              
         if ($('.tableGradedTasks').is(':visible')) {       
           $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
           setCookie('expandedView','true',12);
         }else {     
           $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');    
           setCookie('expandedView','false',12);    
-        }
+        }*/
     }
     
     handleFilterBlur(event) {
@@ -181,7 +195,8 @@ class RankingListPage extends React.Component {
 
     render() {
         //console.log('RENDER RANKING_LIST_PAGE');
-        
+        ;
+
         const studentsItems = this.state.searchmap.map((student) => 
             <RankingListItemPage key={student[0]} index={student[2]} student={student} settings={this.state.settings} readOnly={this.state.readOnly}  updateSelectedListFromParent={this.updateSelectedList} selected={this.getIfSelected(student[0])} selectedAll={this.state.checkall} />            
         );  

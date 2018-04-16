@@ -34,13 +34,13 @@ class RankingListItemGradedTasksPage extends React.Component {
         return (                
          
                     <li className="list-group-item"> 
-                     <div class="row">  
-                        {!this.state.readOnly ? <div className="col-9"><a className="text-info text-left" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a></div>
+                     <div className="row">  
+                        {!this.state.readOnly ? <div className="col-9"><a className="text-info text-left" href={'#detailGradedTask/'+this.state.id}> {this.state.name}({this.state.weight}%)</a></div>                        
+                        : <span className={"badge "+(this.state.points>=50?'badge-success':'badge-danger')}>{this.state.points}</span>}
                         
-                        : <span className="text-info">{this.state.name}({this.state.weight}%)</span>} {!this.state.readOnly ? 
-                         
+                        {!this.state.readOnly ?                          
                             <div className="col-3"><input type='number' name='points' className='gradedTaskInput form-control form-control-sm' idstud={this.state.id_student} idgtask={this.state.id}  min='0' max='100' value={this.state.points} onChange={this.handleInputChange}/></div> 
-                        : <span className="text-info">{this.state.points}</span>} 
+                        : <span className="text-info">&nbsp; {this.state.name}({this.state.weight}%) </span>} 
                     </div>
                     </li>
                 
