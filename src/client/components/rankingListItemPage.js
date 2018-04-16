@@ -9,7 +9,8 @@ class RankingListItemPage extends React.Component {
 
         super(props);
         this.state = {                
-            id:props.student[0],         
+            id:props.student[0],       
+            settings:props.settings,  
             student:props.student[1],  
             readOnly:props.readOnly,
             studentIndex:props.student,        
@@ -82,8 +83,11 @@ class RankingListItemPage extends React.Component {
                    
                  </div>   
                 
-                    <div className="tableGradedTasks border border-top border-secondary rounded p-2 mt-3"  style={{display:'none'}}>   
-                        {studentsGT}  
+                    <div className="tableGradedTasks card rounded mt-2"  >   
+                        <div class="card-header">Graded tasks {this.state.settings.defaultTerm} term</div>
+                        
+                            {studentsGT}  
+                       
                     </div>                      
                   
             </td>
@@ -91,7 +95,7 @@ class RankingListItemPage extends React.Component {
                 <div className="row align-items-center"> 
                     <div className="col-sm">        
                         
-                            <button type="button" className={'btn '+ (this.state.student.getFinalGrade()<=50? 'btn-danger':'btn-success')}>
+                            <button type="button" className={'btn '+ (this.state.student.getFinalGrade()<50? 'btn-danger':'btn-success')}>
                                 <span className="badge badge-light">{this.state.student.getFinalGrade()}</span> FG
                             </button>
                         

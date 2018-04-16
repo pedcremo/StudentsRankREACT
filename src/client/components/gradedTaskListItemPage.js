@@ -16,7 +16,7 @@ class GradedTaskListItemPage extends React.Component {
     render() {
 
         const gtByTerm = this.state.gtItems.map((gtItem) => 
-            <li className="list-group-item" key={gtItem.id}>{gtItem.getStudentMark(this.state.studentId)+ '% doing '+ gtItem.name + ' on ' + formatDate(new Date(gtItem.datetime))}</li>           
+            <li className="list-group-item" key={gtItem.id}><span className={"badge "+ (gtItem.getStudentMark(this.state.studentId)>=50?'badge-success':'badge-danger')}>{gtItem.getStudentMark(this.state.studentId)} </span>{' doing '+ gtItem.name + '('+gtItem.weight+'%) on ' + formatDate(new Date(gtItem.datetime))}</li>           
          );
     
         return ( 
