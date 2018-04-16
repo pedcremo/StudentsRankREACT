@@ -2,6 +2,8 @@ import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Modal from 'react-bootstrap4-modal';
 import UploadPage from './uploadPDFPage.js';
+import T from 'i18n-react';
+import Settings from '../classes/settings.js';
 
 class SubjectModalPage extends React.Component {
     constructor(props){
@@ -13,7 +15,7 @@ class SubjectModalPage extends React.Component {
             visible:true,
             couldBeClosed:props.couldBeClosed                        
         };
-
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));   
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);                              
         this.modalBackdropClicked = this.modalBackdropClicked.bind(this);
@@ -52,20 +54,19 @@ class SubjectModalPage extends React.Component {
             
        }else{
             $(".dragPdfReport").hide();
-            console.log("llore10")
-       }
+       }           
     }
 
     render() {        
         const sharedGroups = this.state.sharedGroups.map((sub, i) =>                                
-            <option key={i} name="selectedShared" value={sub.defaultSubject}  >{sub.defaultSubject} {sub.hits}  students</option>
+            <option key={i} name="selectedShared" value={sub.defaultSubject}  >{sub.defaultSubject} {sub.hits}  {T.translate("subjectModalStudents")}</option>
         )
         return (
             /* Modal */            
             <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
                 <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Add new subject</h5>
+                    <h5 className="modal-title" id="exampleModalLabel">{T.translate("subjectModalAddNew")}</h5>
                     {this.state.couldBeClosed ? 
                         <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
                        

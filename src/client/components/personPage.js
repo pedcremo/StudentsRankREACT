@@ -7,17 +7,18 @@ class PersonPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {                
-                name: props.student.personInstance?props.student.personInstance.name:'',
-                surname: props.student.personInstance?props.student.personInstance.surname:'',
-                email: props.student.personInstance?props.student.personInstance.email:'',
-                id: props.student.personInstance?props.student.personInstance.id:'huevon'
+            name: props.student.personInstance?props.student.personInstance.name:'',
+            surname: props.student.personInstance?props.student.personInstance.surname:'',
+            email: props.student.personInstance?props.student.personInstance.email:'',
+            //traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
+            id: props.student.personInstance?props.student.personInstance.id:'huevon'
                
         };        
         
         //let messages = getTraductionOfMessages(Settings.getLanguage());
         //let messages = Settings.getTraductedText();
         //T.setTexts(messages, { MDFlavor: 0 });
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
         
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);    

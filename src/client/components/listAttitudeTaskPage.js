@@ -1,6 +1,8 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Modal from 'react-bootstrap4-modal';
+import Settings from '../classes/settings.js';
+import T from 'i18n-react';
 
 class ListAttitudeTaskPage extends React.Component {
     constructor(props){
@@ -13,6 +15,7 @@ class ListAttitudeTaskPage extends React.Component {
                                 }),
                 visible:true,
                 points:20, //Default number of points for a new Attitude Task
+                traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
                 description:''
         };                              
         this.handleXPclick = this.handleXPclick.bind(this);  
@@ -71,7 +74,7 @@ class ListAttitudeTaskPage extends React.Component {
             <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">XP to {persons}</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">XP  {T.translate("to")} {persons}</h5>
                         <button type="button" className="close" data-dismiss="modal" onClick={this.modalBackdropClicked} aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -92,16 +95,16 @@ class ListAttitudeTaskPage extends React.Component {
                 <div className="modal-footer">                    
                     <form id="newAttitudeTask" onSubmit={this.handleSubmit} className="form-inline">
                         <div className="form-group">
-                            <label  htmlFor="points">Points: </label>
+                            <label  htmlFor="points"> {T.translate("points")}: </label>
                             <input type="text" name="points" id="points" size="3" value={this.state.points} className="text ui-widget-content ui-corner-all" onChange={this.handleInputChange} />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="text">Text:</label>
+                            <label htmlFor="text"> {T.translate("text")}:</label>
                             <input type="text" name="description" id="description" value={this.state.description} className="text ui-widget-content ui-corner-all" onChange={this.handleInputChange}/>
                         </div>
-                        <input type="submit" value="New XP task" />                  
+                        <input type="submit" value={T.translate("NewXPTask")} />                  
                     </form>                        
-                    <button type="button" className="btn btn-secondary" onClick={this.modalBackdropClicked} id="closeModal" data-dismiss="modal">Close</button>          
+                    <button type="button" className="btn btn-secondary" onClick={this.modalBackdropClicked} id="closeModal" data-dismiss="modal"> {T.translate("close")}</button>          
                 </div>                
             </Modal>
         );

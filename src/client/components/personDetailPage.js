@@ -2,7 +2,8 @@ import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import AttitudeListItemPage from './attitudeListItemPage.js';
 import GradedTaskListItemPage from './gradedTaskListItemPage.js';
-
+import Settings from '../classes/settings.js';
+import T from 'i18n-react';
 
 class PersonDetailPage extends React.Component {
     constructor(props){
@@ -11,6 +12,7 @@ class PersonDetailPage extends React.Component {
             student:props.student.personInstance,
             currentTerm: props.defaultTerm, 
             terms:props.terms,
+            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             readOnly:props.readOnly ? true : false         
         };      
     }
@@ -60,8 +62,8 @@ class PersonDetailPage extends React.Component {
                         <img className="card-img-top" src={'src/server/data/fotos/'+this.state.student.id+'.jpg'}  alt={this.state.student.name + ' ,'+ this.state.student.surname} />
                         <div className="card-body">
                             <h5 className="card-title">{this.state.student.name} {this.state.student.surname}</h5>
-                            <p className="card-text">{this.state.student.email} Final Grade = {this.state.student.getFinalGrade()}</p>
-                            {!this.state.readOnly ? <a href={'#editStudent/'+this.state.student.id}><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'> Edit </i></button></a> : null}
+                            <p className="card-text">{this.state.student.email} {T.translate("FinalGrade")} = {this.state.student.getFinalGrade()}</p>
+                            {!this.state.readOnly ? <a href={'#editStudent/'+this.state.student.id}><button className='btnS btn btn-success'><i className='fa fa-pencil fa-1x'> {T.translate("edit")} </i></button></a> : null}
                         </div>
                     </div>
                  </div>

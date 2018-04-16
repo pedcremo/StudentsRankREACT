@@ -17,10 +17,10 @@ class SettingsPage extends React.Component {
             NewNameSubject: props.defaultSubject,                            
             language: props.props.language,
             shareGroup:props.props.shareGroup,            
-            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
-            gtaLangs: ''
+            //traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
+            //gtaLangs: ''
         };    
-        
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
         this.handleSubmitNewTerm = this.handleSubmitNewTerm.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);    
     }
@@ -102,7 +102,7 @@ class SettingsPage extends React.Component {
             
                 <div className="row">                
                     <div className="form-group col-sm">
-                        Share group:
+                        {T.translate("settingsShareGroup")}:
                         <div className="onoffswitch">
                         
                             <input id="myonoffswitch"  className="onoffswitch-checkbox" type="checkbox" defaultChecked={this.state.shareGroup} name='shareGroup' onClick={this.handleInputChange} />               
@@ -133,22 +133,22 @@ class SettingsPage extends React.Component {
                   {this.state.terms.map((term, i) =>
                         <option key={i} value={term.name}>{term.name}</option>
                     )}  
-                    <option value="ALL">ALL</option> 
+                    <option value="ALL">{T.translate("settingsAll")}</option> 
                   </select>   
                   <hr/>
                  {this.state.terms.map((term, i) => 
                    
                     <div key={'formGroup'+i} className="form-group row">
                      <div className="col-sm-3">
-                         <label className="" htmlFor="xp" id={"id"+term.name}>Term Name:</label><br/>
+                         <label className="" htmlFor="xp" id={"id"+term.name}>{T.translate("settingsTermName")}:</label><br/>
                      
                          <input name="termName" className="form-control form-control-sm " id={term.name} type="text" value={term.name} onChange={this.handleInputChange} />
                      </div>
                      <div className="col-sm-3">
-                         <label className="">BEGIN</label> <input name="termBegin" className="form-control form-control-sm" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
+                         <label className="">{T.translate("settingsBegin")}</label> <input name="termBegin" className="form-control form-control-sm" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
                     </div>
                      <div className="col-sm-3">
-                         <label className="">END</label> <input name="termEnd" className="form-control form-control-sm" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
+                         <label className="">{T.translate("settingsEnd")}</label> <input name="termEnd" className="form-control form-control-sm" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
                          
                      </div>
                      <div className="col-sm-3">
@@ -167,11 +167,11 @@ class SettingsPage extends React.Component {
                      </div>
                      <div className="col-sm-3">
 
-                        <label className="">BEGIN</label><input className="form-control form-control-sm" name="newBeginTerm" type="date"/>
+                        <label className="">{T.translate("settingsBegin")}</label><input className="form-control form-control-sm" name="newBeginTerm" type="date"/>
                      </div>
                      <div className="col-sm-3">
                      
-                        <label className="">END</label><input className="form-control  form-control-sm" name="newEndTerm" type="date"/>      
+                        <label className="">{T.translate("settingsEnd")}</label><input className="form-control  form-control-sm" name="newEndTerm" type="date"/>      
                         
                     </div>
                     <input type="submit" className="ml-2 mt-2 btnS btn btn-primary" value="New term" />
@@ -196,7 +196,7 @@ class SettingsPage extends React.Component {
             </div>
 
             <div className="form-group">
-                <label>Preferred other languages:</label>
+                <label>{T.translate("settingsOtherPreferredLanguage")}:</label>
                 <select className="form-control" name="language" defaultValue={this.state.gtaLangs} onChange={this.handleInputChange}>
                     {gtaLangsItems}
                 </select>

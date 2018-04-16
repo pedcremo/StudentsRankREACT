@@ -1,6 +1,9 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import {formatDate} from '../lib/utils.js';
+import Settings from '../classes/settings.js';
+import T from 'i18n-react';
+
 
 class AttitudeListItemPage extends React.Component {
     constructor(props){
@@ -12,6 +15,7 @@ class AttitudeListItemPage extends React.Component {
             studentId:props.studentId,            
             attitudeInstances:props.attitudeInstances,
             show:props.show,
+            //traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             readOnly:props.readOnly             
         }; 
     }
@@ -25,7 +29,7 @@ class AttitudeListItemPage extends React.Component {
             <div className="card">
                     <div className="card-header">
                         <a className="card-link" data-toggle="collapse" href={'#collapseOne'+this.state.term.split(' ').join('_')}>
-                            Attitude tasks {this.state.term}
+                            {T.translate("AttitudeTasks")} {this.state.term}  {T.translate("term")}
                         </a>
                     </div>
                     <div id={'collapseOne'+this.state.term.split(' ').join('_')} className={'collapse'+ (this.state.show?' show':'')} data-parent="#accordion">
