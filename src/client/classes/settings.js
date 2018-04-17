@@ -70,10 +70,10 @@ class Settings {
   static getLanguage() {  
     if (settings.language == undefined) {
       //settings.language = "English";
-      settings.language = getCookie("language") || "English";
-      setCookie("language",settings.language,350);
+      settings.language = getCookie("language") || "English";      
     } 
-  
+    
+    setCookie("language",settings.language,350);
     return settings.language;
   }
   
