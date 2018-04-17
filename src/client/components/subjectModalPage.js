@@ -47,7 +47,7 @@ class SubjectModalPage extends React.Component {
         this.setState({
           [name]: value
         });
-        debugger;
+        
         if (name==="newSubject" && value===""){
             console.log("llore")
             $(".dragPdfReport").show();
@@ -80,17 +80,17 @@ class SubjectModalPage extends React.Component {
                         <div className="col-md-12" >        
                             <form id="newSubjectForm" className="form-inline" onSubmit={this.handleSubmit}> 
                                 <div className="form-group">
-                                    <label htmlFor="text">Subject name:</label>
-                                    <input type="text" name="newSubject" id="subjectName" onChange={this.handleInputChange} value={this.state.text} className="text ui-widget-content ui-corner-all" />
-                                </div>
-                                <input type="submit" value="New Subject" id="newSubjectInput" />
-                                
-                                
-                                <span className="small">At the moment of subject creation you are able to reuse students groups created by other people make your choice:</span>
+                                    <label htmlFor="text">{T.translate("subjectModalName")}:</label>
+                                    <input type="text" className="form-control" name="newSubject" id="subjectName" onChange={this.handleInputChange} value={this.state.text} className="text ui-widget-content ui-corner-all" />
+                                    
+                                </div>                                
+                                <p><span className="small">{T.translate("subjectModalAdvice")}:</span></p>
                                 <select name="selectedSharedGroup" id="sharedGroups" onChange={this.handleInputChange}>
                                     <option value="" ></option>
                                    {sharedGroups}
                                 </select>
+                                <input type="submit" className="btn mt-2 mb-2 btn-primary" value={T.translate("uploadPDFCreateSubject")} id="newSubjectInput" />                                                                
+                                
                             </form>     
                         </div>                        
                     </div>

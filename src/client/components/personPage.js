@@ -75,7 +75,7 @@ class PersonPage extends React.Component {
                     </div>
 
                     <div className="form-group">
-                        <label>{T.translate("addStudentLblProfileImage")}</label>
+                        <label>{T.translate("addStudentLblProfileImage")} </label>&nbsp;
                         <input type="file" id="myProfile" name="myImage" accept="image/jpeg" onChange={this.handleProfileChange} />
                         <img id="output" src={'src/server/data/fotos/'+this.state.id+'.jpg'} />
                     </div>

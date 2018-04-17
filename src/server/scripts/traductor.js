@@ -15,7 +15,7 @@ const translate = require('google-translate-api');
 const fs = require('fs');
 //const gtaLangs = require('./src/client/lib/');
 
-const englishLang = require('../../client/lib/i18n/englishNative.json');
+const englishLang = require('../../client/lib/i18n/englishOriginal.json');
 
 Object.keys(gtaLangs).forEach((keyGTA) => {
   let fileJSON = {};  

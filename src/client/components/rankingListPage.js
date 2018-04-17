@@ -3,6 +3,9 @@ import {context} from '../context.js'; //Singleton
 import {events} from '../lib/eventsPubSubs.js';
 import RankingListItemPage from './rankingListItemPage.js';
 import {setCookie,getCookie} from '../lib/utils.js';
+import Settings from '../classes/settings.js';
+import T from 'i18n-react';
+
 
 class RankingListPage extends React.Component {
     constructor(props){
@@ -24,6 +27,7 @@ class RankingListPage extends React.Component {
             action:'-- Select one action --',
             selectedIds:props.selectedIds
         };   
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
         this.handleClick=this.handleClick.bind(this);
         this.handleFilterBlur=this.handleFilterBlur.bind(this);
         this.searchEvent=this.searchEvent.bind(this);
@@ -39,7 +43,7 @@ class RankingListPage extends React.Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        debugger;
+        
         let newSettings = this.state.settings;
         newSettings[name] = value;
        
@@ -92,7 +96,7 @@ class RankingListPage extends React.Component {
 
 
     componentDidMount() {
-        debugger;
+        
         if (this.state.expandedView) $('.tableGradedTasks').show();                          
         else $('.tableGradedTasks').hide()
 
@@ -149,15 +153,7 @@ class RankingListPage extends React.Component {
         this.setState({
             "expandedView":!this.state.expandedView
         });
-        
-        /*$('.tableGradedTasks').toggle();              
-        if ($('.tableGradedTasks').is(':visible')) {       
-          $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
-          setCookie('expandedView','true',12);
-        }else {     
-          $('.fa-hand-o-down').addClass('fa-hand-o-right').removeClass('fa-hand-o-down');    
-          setCookie('expandedView','false',12);    
-        }*/
+      
     }
     
     handleFilterBlur(event) {
@@ -207,7 +203,7 @@ class RankingListPage extends React.Component {
                 <tr className="d-flex text-white">
                     <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" defaultChecked={this.state.checkall} onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
                     <th className="col-sm-2 mt-sm-2  d-none d-md-block" ><span className="small font-weight-bold">{this.state.displayName} </span></th>
-                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="form-control form-control-sm" type="text"  name="searchFilter"  placeholder="Filter by name" onChange={this.searchEvent} onBlur={this.handleFilterBlur}/></th>
+                    <th className="col-sm-3 mt-sm-1  d-none d-md-block"><input  className="form-control form-control-sm" type="text"  name="searchFilter"  placeholder={T.translate("rankingListFilter")} onChange={this.searchEvent} onBlur={this.handleFilterBlur}/></th>
                     <th className="col-sm-2 mt-sm-1">
                         
                         {!this.state.readOnly ? <select className="form-control form-control-sm"  name="defaultTerm" value={this.state.settings.defaultTerm} id="termsItems" onChange={this.handleSettingsChange} >
@@ -229,11 +225,11 @@ class RankingListPage extends React.Component {
                         <tr className="d-flex">
                             <th className="col-10">
                                 <select value={this.state.action} onChange={this.handleChange}>
-                                    <option value="-- Select one action --"> -- Select one action --</option>
-                                    <option value="addXP"> Add XP</option>
-                                    <option value="deleteall">Delete All Selected</option>
-                                    <option value="inverseSelection">Inverse selection</option>
-                                    <option value="sendmails">Send Email to All Selected</option>
+                                    <option value="-- Select one action --"> {T.translate("rankingListSelectAction")}</option>
+                                    <option value="addXP"> {T.translate("rankingListAddXP")}</option>
+                                    <option value="deleteall">{T.translate("rankingListDeleteSelected")}</option>
+                                    <option value="inverseSelection">{T.translate("rankingListInverseSelected")}</option>
+                                    <option value="sendmails">{T.translate("rankingListEmailSelected")}</option>
                                 </select>
                             </th>
                             <th colSpan="4"></th>                            

@@ -46,7 +46,7 @@ class GradedTaskPage extends React.Component {
         return (
             <div>
             <h3>{T.translate("addGradedTaskTitle")}</h3>  
-            {T.translate("addGradedTaskSubtitle")}
+            <p>{T.translate("addGradedTaskSubtitle")}</p>
             <form id="newGradedTask" onSubmit={this.handleSubmit}>
                 <div className="form-group">   
                     <label htmlFor="name">{T.translate("addGradedTaskLblName")}:</label>

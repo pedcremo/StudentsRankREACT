@@ -12,9 +12,9 @@ class PersonDetailPage extends React.Component {
             student:props.student.personInstance,
             currentTerm: props.defaultTerm, 
             terms:props.terms,
-            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
             readOnly:props.readOnly ? true : false         
         };      
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
     }
     
     render() {      

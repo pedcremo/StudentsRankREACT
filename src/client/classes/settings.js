@@ -1,5 +1,6 @@
 import {events} from '../lib/eventsPubSubs.js';
 import Person from './person.js';
+import {setCookie,getCookie} from '../lib/utils.js';
 
 let settings = {};
 
@@ -34,6 +35,7 @@ class Settings {
     this.terms = terms;
     this.defaultTerm = this.getDefaultTerm(defaultTerm);
     this.language = language;
+
     this.shareGroup = shareGroup;
   }
   getDefaultTerm(defaultTerm) {
@@ -67,7 +69,9 @@ class Settings {
 
   static getLanguage() {  
     if (settings.language == undefined) {
-      settings.language = "English";
+      //settings.language = "English";
+      settings.language = getCookie("language") || "English";
+      setCookie("language",settings.language,350);
     } 
   
     return settings.language;

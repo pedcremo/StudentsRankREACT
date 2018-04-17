@@ -1,11 +1,10 @@
 import React from 'react';
-//import {events} from '../lib/eventsPubSubs.js';
 import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js';
+import Settings from '../classes/settings.js';
+import T from 'i18n-react'
 
 class RankingListItemPage extends React.Component {
-    constructor(props){
-
-        //console.log("SELECTED ALL ="+props.selectedAll);
+    constructor(props) {       
 
         super(props);
         this.state = {                
@@ -18,17 +17,16 @@ class RankingListItemPage extends React.Component {
             selected:props.selected
             
         }; 
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
         this.handleCheckedChild=this.handleCheckedChild.bind(this);
         this.handleGradedTaskExpandedView = this.handleGradedTaskExpandedView.bind(this);
     }    
 
-    componentWillReceiveProps(props) {      
-       //debugger;
+    componentWillReceiveProps(props) {             
        this.setState({selected:props.selected});       
     }
 
-    handleGradedTaskExpandedView(event) {     
-        //event.preventDefault();
+    handleGradedTaskExpandedView(event) {             
         $('.tableGradedTasks').toggle();              
         if ($('.tableGradedTasks').is(':visible')) {       
           $('.fa-hand-o-right').addClass('fa-hand-o-down').removeClass('fa-hand-o-right');
@@ -39,8 +37,7 @@ class RankingListItemPage extends React.Component {
         }
     }
 
-    handleCheckedChild (event) {
-        //event.preventDefault();
+    handleCheckedChild (event) {        
         if(this.state.selected==true){
             this.setState({selected:false});
             this.props.updateSelectedListFromParent({'option':'delete','id':this.state.id});
@@ -84,7 +81,7 @@ class RankingListItemPage extends React.Component {
                  </div>   
                 
                     <div className="tableGradedTasks card rounded mt-2" style={{display:'none'}}>   
-                        <div className="card-header">Graded tasks {this.state.settings.defaultTerm} term</div>
+                        <div className="card-header">{T.translate("GradedTasks")} {this.state.settings.defaultTerm} {T.translate("term")}</div>
                         
                             {studentsGT}  
                        

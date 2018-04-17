@@ -24,7 +24,11 @@ Take a look at package.json scripts
 <pre>npm run-script test</pre> Launching unit tests
 <pre>npm run-script e2e-test</pre> Launching e2e tests with protractor
 
+#To do automatic google traductions
+<pre>npm run-script make:traductions</pre>
+Grab src/client/lib/i18n/englishOriginal and traslate it to several languages: Arabic,Basque,Catalan, Chinese...
 
+This kind of thask is executed from time to time because afterwards every single traduction should be fixed manually due to accuracy errors
 
 # For production deployment
 Start node server with forever <pre>npm start</pre>

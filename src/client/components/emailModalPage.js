@@ -11,9 +11,24 @@ class EmailModalPage extends React.Component {
             students:props.students   
         };
         this.modalBackdropClicked = this.modalBackdropClicked.bind(this);
+        this.deleteEmail = this.deleteEmail.bind(this);
        // this.handleSubmit = this.handleSubmit.bind(this);                              
         
     }
+
+   deleteEmail(event) {
+        const target = event.target;
+        const id = target.id;
+       
+        let newStudents = this.state.students.filter((itemStudent) => {                       
+            return itemStudent.id != id;
+        });
+       
+        this.setState({
+          'students': newStudents
+        });
+   }
+
    /* Hide modal when closed or click background */
    modalBackdropClicked(event) {        
     this.setState({
@@ -28,7 +43,7 @@ class EmailModalPage extends React.Component {
         const filteredStudents= this.state.students.filter((itemStudent) => {                       
             return itemStudent.email;
         }).map((item) => {
-            return item.name + ', ' 
+            return <div className="badge badge-secondary mr-1" title={item.surname+', '+item.name} >{item.email} <i className="fa fa-close ml-1" id={item.id} onClick={this.deleteEmail}></i></div> 
         });
         
         return (
@@ -36,15 +51,18 @@ class EmailModalPage extends React.Component {
             <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
                 <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Send email to</h5>
-                    {filteredStudents}                        
-                    {filteredStudents.length<this.state.students.length?'OJO que hi han '+(this.state.students.length-filteredStudents.length)+ ' estudiants sense email':null}
+                    <div><h5 className="modal-title" id="exampleModalLabel">Send email to </h5></div>
+                    <div className="pt-1">&nbsp;{filteredStudents}</div>
                     <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div className="modal-body">
                     <div className="container-fluid">
+                    <div className="row">
+                        
+                        <p className="text-danger">{filteredStudents.length<this.state.students.length?'OJO que hi han '+(this.state.students.length-filteredStudents.length)+ ' estudiants sense email':null}</p>
+                    </div>
                     <div className="row">
                         <div className="col-md-12" >        
                             <form id="newSubject" className="form-inline" onSubmit={this.handleSubmit}> 

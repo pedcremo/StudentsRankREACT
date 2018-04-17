@@ -23,15 +23,15 @@ events.subscribe('dataservice/saveStudents',(studentsJSON) => {
 /** Get students and grades from server and maintains a local copy in localstorage */
 function updateFromServer() {
   if (context.user.id) {    
-    loadTemplate('api/getSettings',function(response) {
+    /*loadTemplate('api/getSettings',function(response) {
                           events.publish('dataservice/getSettings',response);                        
                         },'GET','',false);
 
     loadTemplate('api/getAttitudeTasks',function(response) {
                           events.publish('dataservice/getAttitudeTasks',response);                          
-                        },'GET','',false);
+                        },'GET','',false);*/
                         
-    /* loadTemplate('api/getStudents',function(response) {                          
+    loadTemplate('api/getStudents',function(response) {                          
                         events.publish('dataservice/getStudents',response); 
                           loadTemplate('api/getSettings',function(response) {
                             events.publish('dataservice/getSettings',response);                        
@@ -44,15 +44,15 @@ function updateFromServer() {
                               },'GET','',false);
                             },'GET','',false);
                                                     
-                        },'GET','',false); */
+                        },'GET','',false); 
 
-    loadTemplate('api/getGradedTasks',function(response) {
+    /* loadTemplate('api/getGradedTasks',function(response) {
                           events.publish('dataservice/getGradedTasks',response);                       
                         },'GET','',false);
     loadTemplate('api/getStudents',function(response) {                          
                         events.publish('dataservice/getStudents',response); 
                         context.getTemplateRanking(true);
-                      },'GET','',false);
+                      },'GET','',false); */
       
   }
 }

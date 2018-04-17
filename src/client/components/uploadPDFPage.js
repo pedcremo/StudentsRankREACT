@@ -1,6 +1,8 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Dropzone from 'react-dropzone';
+import T from 'i18n-react';
+import Settings from '../classes/settings.js';
 
 class UploadPage extends React.Component {
 
@@ -14,6 +16,7 @@ class UploadPage extends React.Component {
             pdfUploaded:false,
             border :"5px dashed red"
         };
+        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));   
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -30,7 +33,7 @@ class UploadPage extends React.Component {
     }
     
     onDrop(files) {
-      debugger;
+      
       this.setState({     
         pdfUploaded:true,
         border : "5px dashed green"
@@ -53,8 +56,7 @@ class UploadPage extends React.Component {
       }
       for (var [key, value] of formData.entries()) { 
         console.log(key, value);
-      }
-      debugger;
+      }      
       //formData.append('subjectName',event.target.subjectName.value);
       events.publish('menu/sendFile',{'formData':formData,'subjectName':event.target.subjectName.value});
     }
@@ -83,8 +85,8 @@ class UploadPage extends React.Component {
         const { accept, files, dropzoneActive } = this.state;
         return (
         <div className="dragPdfReport">
-          <hr className="hr-text" data-content="OR" id="hr-text"/>
-            <p className="desc small">Drag and Drop your ITACA Students class PDF report</p>
+          <hr className="hr-text" data-content={T.translate("uploadPDFOr")} id="hr-text"/>
+            <p className="desc small">{T.translate("uploadPDFAdvice")}</p>
             <div> 
             {/* Asi es la part del drop zone */}
               <form id="newFile" encType="multipart/form-data" className="formDetail small" onSubmit={this.handleSubmit}>
@@ -95,8 +97,9 @@ class UploadPage extends React.Component {
                     onDragEnter={this.onDragEnter.bind(this)}
                     onDragLeave={this.onDragLeave.bind(this)}
                     name="myFile">
-                    <p>Drop a PDF file exported from <a href="http://docent.edu.gva.es">http:/docent.edu.gva.es</a>, or click to select files to upload.</p>
-                    Dropped files
+                    <p>{T.translate("uploadPDFExplanation")}</p>
+                    {T.translate("uploadPDFDroppedFiles")}
+                    
                   <ul>
                     {
                       files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
@@ -107,11 +110,11 @@ class UploadPage extends React.Component {
                 <img src="ajax-loader.gif" id="loading" style={{display:"none"}} />
                   
                 {this.state.pdfUploaded ?  
-                <div className="formInput"><label>Subject Name: </label>
+                <div className="formInput"><label>{T.translate("uploadPDFSubjectName")}: </label>
                   <input type="text" name="subjectName" required/>
                 </div> : null}
                <br/>
-              <input type="submit" className="btn btn-primary" value="Click here to create subject"/>
+              <input type="submit" className="btn btn-primary" value={T.translate("uploadPDFCreateSubject")}/>
               </form>
             </div>
             <img id="output"/>

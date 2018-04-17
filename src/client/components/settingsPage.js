@@ -3,6 +3,7 @@ import {events} from '../lib/eventsPubSubs.js';
 import T from 'i18n-react';
 import Settings from '../classes/settings.js';
 import { gtaLangs } from '../lib/languages.js';
+import {setCookie} from '../lib/utils.js';
 
 class SettingsPage extends React.Component {
     constructor(props){
@@ -31,7 +32,7 @@ class SettingsPage extends React.Component {
         let name = target.name;
         const id = target.id;
         let newTerms = [];
-        debugger;
+        
         if (name === "weightXP") {
             //this.state.weightGP = 100 - value;
             this.state.weightGP = 100;
@@ -63,6 +64,7 @@ class SettingsPage extends React.Component {
         //events.publish('settings/saveSettings',this.state);
         
         if (name === "language") {
+            setCookie("language",Settings.getLanguage(),350);
             this.setState({
                 traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
             });
@@ -162,7 +164,7 @@ class SettingsPage extends React.Component {
                  <form id="newTerm" onSubmit={this.handleSubmitNewTerm}>
                      <div className="form-group row">
                      <div className="col-sm-3">
-                        <label className="" htmlFor="xp" id="termName">New Term</label><br/>
+                        <label className="" htmlFor="xp" id="termName">{T.translate("settingsNewTerm")}</label><br/>
                         <input className="form-control form-control-sm " name="newTerm" type="text"/>
                      </div>
                      <div className="col-sm-3">
@@ -174,7 +176,7 @@ class SettingsPage extends React.Component {
                         <label className="">{T.translate("settingsEnd")}</label><input className="form-control  form-control-sm" name="newEndTerm" type="date"/>      
                         
                     </div>
-                    <input type="submit" className="ml-2 mt-2 btnS btn btn-primary" value="New term" />
+                    <input type="submit" className="ml-2 mt-2 btnS btn btn-primary" value={T.translate("settingsNewTerm")} />
                   </div>
                 </form> 
               </div>
@@ -186,18 +188,18 @@ class SettingsPage extends React.Component {
                 <a href={'#deleteSubject/'+ this.state.defaultSubject} ><button className='btnS btn btn-danger'><i className='fa fa-trash-o fa-1x'></i> {this.state.defaultSubject}</button></a>
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label htmlFor="pLanguage"> {T.translate("settingsLblPreferredLanguage")} </label>
                 <select className="form-control" name="language" defaultValue={this.state.language} onChange={this.handleInputChange}>
                     <option key="0" value="English">English</option>
                     <option key="1" value="spanishNative">Spanish</option>
                     <option key="2" value="valencianNative">Valencia</option>
                 </select>
-            </div>
+                </div> */}
 
             <div className="form-group">
-                <label>{T.translate("settingsOtherPreferredLanguage")}:</label>
-                <select className="form-control" name="language" defaultValue={this.state.gtaLangs} onChange={this.handleInputChange}>
+                <label>{T.translate("settingsLblPreferredLanguage")}:</label>
+                <select className="form-control" name="language" defaultValue={Settings.getLanguage()} onChange={this.handleInputChange}>
                     {gtaLangsItems}
                 </select>
             </div>
