@@ -1,8 +1,8 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
-import AttitudeListItemPage from './attitudeListItemPage.js';
-import GradedTaskListItemPage from './gradedTaskListItemPage.js';
-import Settings from '../classes/settings.js';
+import {events} from '../../lib/eventsPubSubs.js';
+import AttitudeListItemPage from '../attitudeViews/attitudeListItemPage.js';
+import GradedTaskListItemPage from '../gradedViews/gradedTaskListItemPage.js';
+import Settings from '../../classes/settings.js';
 import T from 'i18n-react';
 
 class PersonDetailPage extends React.Component {
@@ -14,7 +14,7 @@ class PersonDetailPage extends React.Component {
             terms:props.terms,
             readOnly:props.readOnly ? true : false         
         };      
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
+        T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'));
     }
     
     render() {      

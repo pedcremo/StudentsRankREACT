@@ -1,6 +1,6 @@
 import React from 'react';
 import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js';
-import Settings from '../classes/settings.js';
+import Settings from '../../classes/settings.js';
 import T from 'i18n-react'
 
 class RankingListItemPage extends React.Component {
@@ -17,7 +17,7 @@ class RankingListItemPage extends React.Component {
             selected:props.selected
             
         }; 
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
+        T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'));
         this.handleCheckedChild=this.handleCheckedChild.bind(this);
         this.handleGradedTaskExpandedView = this.handleGradedTaskExpandedView.bind(this);
     }    

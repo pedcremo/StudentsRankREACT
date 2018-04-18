@@ -6,13 +6,13 @@ import {events} from '../lib/eventsPubSubs.js';
 import $ from "jquery";
 import React from 'react';
 import reactDOM from 'react-dom';
-import RankingListPage from '../components/rankingListPage.js';
+import RankingListPage from '../reactUI/rankingTable/rankingListPage.js';
 import Settings from './settings.js';
 import {getIdFromURL} from '../lib/utils.js';
-import PersonDetailPage from '../components/personDetailPage.js';
+import PersonDetailPage from '../reactUI/personViews/personDetailPage.js';
 import AttitudeTask from './attitudetask.js';
-import ListAttitudeTaskPage from '../components/listAttitudeTaskPage.js';
-import EmailModalPage from '../components/emailModalPage.js';
+import ListAttitudeTaskPage from '../reactUI/attitudeViews/listAttitudeTaskPage.js';
+import EmailModalPage from '../reactUI/emailModalPage.js';
 
 /**
  * Person class. We store personal information and attitudePoints that reflect daily classroom job
@@ -103,7 +103,7 @@ events.subscribe('/component/selectedAction',(obj) =>{
       selectedStudents = obj.arraySelecteds.map((idStudent) =>{
         return Person.getPersonById(idStudent);
       })
-      debugger;
+      
       reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
       reactDOM.render(<EmailModalPage students={selectedStudents}  />, document.getElementById('modals'));
       

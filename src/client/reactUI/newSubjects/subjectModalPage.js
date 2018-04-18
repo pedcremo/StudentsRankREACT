@@ -1,9 +1,9 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
+import {events} from '../../lib/eventsPubSubs.js';
 import Modal from 'react-bootstrap4-modal';
 import UploadPage from './uploadPDFPage.js';
 import T from 'i18n-react';
-import Settings from '../classes/settings.js';
+import Settings from '../../classes/settings.js';
 
 class SubjectModalPage extends React.Component {
     constructor(props){
@@ -15,7 +15,7 @@ class SubjectModalPage extends React.Component {
             visible:true,
             couldBeClosed:props.couldBeClosed                        
         };
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));   
+        T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'));   
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);                              
         this.modalBackdropClicked = this.modalBackdropClicked.bind(this);

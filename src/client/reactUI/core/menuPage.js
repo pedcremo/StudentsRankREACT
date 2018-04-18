@@ -1,11 +1,11 @@
 import React from 'react';
 import reactDOM from 'react-dom';
-import {events} from '../lib/eventsPubSubs.js';
+import {events} from '../../lib/eventsPubSubs.js';
 //import NewSubjectPage from './newSubjectPage.js';
-import {loadTemplate} from '../lib/utils.js';
-import SubjectModalPage from './subjectModalPage.js'; 
+import {loadTemplate} from '../../lib/utils.js';
+import SubjectModalPage from '../newSubjects/subjectModalPage.js'; 
 import T from 'i18n-react';
-import Settings from '../classes/settings.js';
+import Settings from '../../classes/settings.js';
 
 class MenuPage extends React.Component {
     constructor(props){
@@ -17,7 +17,7 @@ class MenuPage extends React.Component {
             defaultSubject: props.props.defaultSubject,
             defaultTerm: props.props.defaultTerm,
             sharedGroups: props.props.sharedGroups,
-            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
+            traductions: T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json')),
             readOnly:props.readOnly ? true : false
         };
         console.log('menuuu');  
@@ -29,11 +29,11 @@ class MenuPage extends React.Component {
 
     componentDidMount() {
         this.setState({
-            traductions:T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
+            traductions:T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'))
         });
         this.subscription = events.subscribe('settings/change',(obj) => {  
             this.setState({
-                traductions:T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
+                traductions:T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'))
             });               
         });      
     }

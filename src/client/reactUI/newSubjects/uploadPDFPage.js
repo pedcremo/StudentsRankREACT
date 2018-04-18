@@ -1,8 +1,8 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
+import {events} from '../../lib/eventsPubSubs.js';
 import Dropzone from 'react-dropzone';
 import T from 'i18n-react';
-import Settings from '../classes/settings.js';
+import Settings from '../../classes/settings.js';
 
 class UploadPage extends React.Component {
 
@@ -16,7 +16,7 @@ class UploadPage extends React.Component {
             pdfUploaded:false,
             border :"5px dashed red"
         };
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));   
+        T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'));   
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 

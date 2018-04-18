@@ -1,5 +1,5 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
+import {events} from '../../lib/eventsPubSubs.js';
 
 class RankingListItemGradedTasksPage extends React.Component {
     constructor(props){

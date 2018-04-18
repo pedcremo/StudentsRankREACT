@@ -1,9 +1,9 @@
 import React from 'react';
-import {context} from '../context.js'; //Singleton
-import {events} from '../lib/eventsPubSubs.js';
+import {context} from '../../context.js'; //Singleton
+import {events} from '../../lib/eventsPubSubs.js';
 import RankingListItemPage from './rankingListItemPage.js';
-import {setCookie,getCookie} from '../lib/utils.js';
-import Settings from '../classes/settings.js';
+import {setCookie,getCookie} from '../../lib/utils.js';
+import Settings from '../../classes/settings.js';
 import T from 'i18n-react';
 
 
@@ -27,7 +27,7 @@ class RankingListPage extends React.Component {
             action:'-- Select one action --',
             selectedIds:props.selectedIds
         };   
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
+        T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'));
         this.handleClick=this.handleClick.bind(this);
         this.handleFilterBlur=this.handleFilterBlur.bind(this);
         this.searchEvent=this.searchEvent.bind(this);

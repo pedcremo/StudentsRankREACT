@@ -16,11 +16,11 @@ import {events} from './lib/eventsPubSubs.js';
 import $ from "jquery";
 import toastr from "toastr";
 import Settings from './classes/settings.js';
-import RankingListPage from './components/rankingListPage.js';
-import LoginPage from './components/loginPage.js';
+import RankingListPage from './reactUI/rankingTable/rankingListPage.js';
+import LoginPage from './reactUI/loginPage.js';
 import React from 'react';
 import reactDOM from 'react-dom';
-import MenuPage from './components/menuPage.js';
+import MenuPage from './reactUI/core/menuPage.js';
 
 
 events.subscribe('context/loginCode',(obj)=>{

@@ -7,8 +7,8 @@ import $ from "jquery";
 import React from 'react';
 import reactDOM from 'react-dom';
 import Settings from './classes/settings.js';
-import MenuPage from './components/menuPage.js';
-import SubjectModalPage from './components/subjectModalPage.js';
+import MenuPage from './reactUI/core/menuPage.js';
+import SubjectModalPage from './reactUI/newSubjects/subjectModalPage.js';
 
 events.subscribe('menu/addsubject',(obj) => {
   loadTemplate('api/addSubject',function(response) {    

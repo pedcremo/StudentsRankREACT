@@ -1,13 +1,13 @@
 import React from 'react';
 import T from 'i18n-react';
-import Settings from '../classes/settings.js';
-import {events} from '../lib/eventsPubSubs.js';
+import Settings from '../../classes/settings.js';
+import {events} from '../../lib/eventsPubSubs.js';
 
 class LogoPage extends React.Component {
     constructor(props){
         super(props);
         //T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 });        
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
+        T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'))
         this.state = {                
           motto:T.translate("motto")    
         };       
@@ -15,7 +15,7 @@ class LogoPage extends React.Component {
     componentDidMount() {
         this.subscription = events.subscribe('settings/change',(obj) => {  
             //T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
-            T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
+            T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'))
             this.setState({
                 motto:T.translate("motto")     
             });               

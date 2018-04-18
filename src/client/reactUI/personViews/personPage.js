@@ -1,7 +1,7 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
+import {events} from '../../lib/eventsPubSubs.js';
 import T from 'i18n-react';
-import Settings from '../classes/settings.js';
+import Settings from '../../classes/settings.js';
 
 class PersonPage extends React.Component {
     constructor(props){
@@ -9,17 +9,12 @@ class PersonPage extends React.Component {
         this.state = {                
             name: props.student.personInstance?props.student.personInstance.name:'',
             surname: props.student.personInstance?props.student.personInstance.surname:'',
-            email: props.student.personInstance?props.student.personInstance.email:'',
-            //traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
+            email: props.student.personInstance?props.student.personInstance.email:'',           
             id: props.student.personInstance?props.student.personInstance.id:'huevon'
                
         };        
         
-        //let messages = getTraductionOfMessages(Settings.getLanguage());
-        //let messages = Settings.getTraductedText();
-        //T.setTexts(messages, { MDFlavor: 0 });
-        T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'));
-        
+        T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'));        
         this.handleInputChange = this.handleInputChange.bind(this);   
         this.handleSubmit = this.handleSubmit.bind(this);    
         this.handleProfileChange = this.handleProfileChange.bind(this);
@@ -47,8 +42,7 @@ class PersonPage extends React.Component {
         let input = event.target;
         let reader = new FileReader();
         reader.onload = function() {
-          let dataURL = reader.result;
-          //output = document.getElementById('output');
+          let dataURL = reader.result;          
           outputImg.attr('src',dataURL);
         };
         reader.readAsDataURL(input.files[0]);

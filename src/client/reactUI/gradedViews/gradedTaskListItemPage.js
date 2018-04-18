@@ -1,7 +1,7 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
-import {formatDate} from '../lib/utils.js';
-import Settings from '../classes/settings.js';
+import {events} from '../../lib/eventsPubSubs.js';
+import {formatDate} from '../../lib/utils.js';
+import Settings from '../../classes/settings.js';
 import T from 'i18n-react';
 
 
@@ -12,7 +12,7 @@ class GradedTaskListItemPage extends React.Component {
             term:props.term,
             studentId:props.studentId,            
             gtItems:props.gradedTaskInstances,
-            traductions: T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json')),
+            traductions: T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json')),
             show:props.show               
         };          
     }

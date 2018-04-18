@@ -1,7 +1,7 @@
 import React from 'react';
-import {events} from '../lib/eventsPubSubs.js';
-import {formatDate} from '../lib/utils.js';
-import Settings from '../classes/settings.js';
+import {events} from '../../lib/eventsPubSubs.js';
+import {formatDate} from '../../lib/utils.js';
+import Settings from '../../classes/settings.js';
 import T from 'i18n-react';
 
 

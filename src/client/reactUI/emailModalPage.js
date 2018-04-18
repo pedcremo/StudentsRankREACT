@@ -1,7 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Modal from 'react-bootstrap4-modal';
-import UploadPage from './uploadPDFPage.js';
+//import UploadPage from './uploadPDFPage.js';
 
 class EmailModalPage extends React.Component {
     constructor(props){
