@@ -41,6 +41,27 @@ low(cod)
 //db.defaults({'shares': [] })
 //  .write();
 
+//=== GMAIL CONFIG ====
+var gmailNode = require('gmail-node');
+var clientSecret = {
+    installed: {
+        client_id: "332430709061-csflgjm49jkde79o808enffrubj9unp4.apps.googleusercontent.com",        
+        project_id: "runking-bocairent-net",
+        auth_uri: "https://accounts.google.com/o/oauth2/auth",
+        token_uri: "https://accounts.google.com/o/oauth2/token",
+        auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+        client_secret: "1i96htAxAa3Ta8Tw0Z5QJWQu",
+        redirect_uris: [
+            "urn:ietf:wg:oauth:2.0:oob",
+            "http://localhost"
+        ]
+    }
+};
+gmailNode.init(clientSecret, './client-secret-gmail-node.json', function(err,data){ 
+  console.log("Gmail API auth failed: "+err+' data:'+data);
+});
+//======================
+
 //===== NEW PERE ===========================================================
 router.get('/getStudents', getStudents);
 router.get('/getGradedTasks', getGradedTasks);
@@ -51,6 +72,8 @@ router.get('/addSubject',addSubject);
 router.get('/getSharedGroups',getSharedGroups);
 router.get('/getCode', getCode);
 router.get('/renameSubject', renameSubject);
+router.get('/sendEmail', sendEmail);
+
 
 router.get('/read/:code',function(req, res, next){
   var response = {};
@@ -467,6 +490,20 @@ function getSharedGroups(req, res, next) {
     res.status(200).send(shares);
   }else {
     res.status(401).send("Not authorized");
+  }
+}
+
+function sendEmail(req, res, next) {
+  if (req.isAuthenticated()) {
+    var emailMessage = {
+      to: 'pedcremo@gmail.com',
+      subject: 'Test Subject',
+      message: 'Test Email from gmail-node'
+    };
+    gmailNode.send(emailMessage, function (err, data) { 
+      console.log("Wmail meandro "+err+ 'Data:'+data);
+    });
+    res.status(200).send('OK email enviat');
   }
 }
 

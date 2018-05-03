@@ -120,22 +120,47 @@ class Person {
     this[_totalXPpoints] = 0;
     this.name = name;
     this.surname = surname;
+    this.alerts=[];
     this.email = email;
-    this.alerts = [];
-
-    if(!this.email) this.addAlert("Falta email");
-
     if (!id) {
       this.id = hashcode(this.name + this.surname);
     }else {
       this.id = id;
     }
     this.attitudeTasks = attitudeTasks;
+
+
+    if(!this.email){
+   this.addalert("No te Email");
+
+    }
+
+    if(!this.surname){
+      this.addalert("No te apellido");
+   
+       }
+    
   }
+
+
   
-  addAlert(newAlert) {
-    this.alerts.push(newAlert);
-  }
+
+ addalert(newAlert){
+
+  this.alerts.push(newAlert);
+ }
+
+
+
+
+
+
+
+
+
+
+
+
 
   /** Read person _totalXPpoints. A private property only modicable inside person instance */
   getXPtotalPoints() {

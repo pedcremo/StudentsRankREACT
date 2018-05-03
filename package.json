@@ -36,6 +36,7 @@
     "formidable": "^1.1.1",
     "fs": "0.0.1-security",
     "github-webhook-handler": "^0.7.0",
+    "gmail-node": "^1.2.0",
     "google-translate-api": "^2.3.0",
     "i18n-react": "^0.6.3",
     "install": "^0.10.2",

@@ -64,7 +64,7 @@ class RankingListItemPage extends React.Component {
             
             <td className="col-6" colSpan="2">
                 <div  className="row">
-                    <div className="col-sm-2 vertical-center"><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a>{this.state.student.alerts.length>0?'ALERTA':null}</div>
+        <div className="col-sm-2 vertical-center"><a href={'#student/'+this.state.id}><img className="profile" src={'src/server/data/fotos/' + this.state.id + '.jpg#' + new Date().getTime()} height="60" width="48"/></a>{this.state.student.alerts.length>0? <div  title={this.state.student.alerts} className="mb-5 badge badge-danger">{this.state.student.alerts.length}</div>:null}</div>
                     <div className="tdStudentLink col-sm-5 vertical-center mt-3">
                                 <label htmlFor="surnames" className="control-label">
                                     <a className="studentLink text-info" href={'#student/'+this.state.id}>{this.state.student.surname}</a>

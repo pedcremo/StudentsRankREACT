@@ -52,6 +52,28 @@ In order to enable this webhook it is mandatory to proceed with some configurati
 RECOMMENDED READING:
 http://blog.karmadust.com/automatic-node-js-deployments-on-a-linux-server-via-github/
 
+#Enable gmail API 
+In our app one of the main features is the ability to send an email to selected students.
+To enable that feature we should access to our google API console and enable gmail API. 
+Afterwards we should follow next steps:
+
+*Open link https://console.developers.google.com/flows/enableapi?apiid=gmail
+*Use this wizard to create or select a project in the Google Developers Console and automatically turn on the API.
+*Click Continue, then Go to credentials.
+*At the top of the page, select the OAuth consent screen tab. Select an Email address, enter a Product name if not already set, and click the Save button.
+*Select the Credentials tab, click the Create credentials button and select OAuth client ID.
+*Select the application type Other, enter the any name "gmail-node-app", and click the Create button.
+*Click OK to dismiss the resulting dialog.
+*Click the file_download (Download JSON) button to the right of the client ID.
+*Move this file to your working directory and use it with any name like client_secret.json.
+
+With this json file information go to src/server/routes.js and modify clientSecret var accordingly.
+
+Launch the app in development mode "npm run-script dev" and the gmail-node module will ask you about a code you should paste on console and could be copied following the URL provided. If you follow the steps rightly in the root folder client-secret-gmail-node.json file should be created. 
+At that very moment you and other teachers will be granted to send emails to the pupils
+
+
+
 #docker. We want to create a container for our app
 
 1. Install docker

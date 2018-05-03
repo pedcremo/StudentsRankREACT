@@ -43,50 +43,59 @@ class EmailModalPage extends React.Component {
         const filteredStudents= this.state.students.filter((itemStudent) => {                       
             return itemStudent.email;
         }).map((item) => {
-            return <div className="badge badge-secondary mr-1" title={item.surname+', '+item.name} >{item.email} <i className="fa fa-close ml-1" id={item.id} onClick={this.deleteEmail}></i></div> 
+            return <div className="badge badge-secondary mr-1" title={item.surname+','+item.name} >{item.email} <i className="fa fa-close ml-1" id={item.id} onClick={this.deleteEmail}></i></div> 
         });
+
+        let prova='';
+        const filteredStudentsnoemail= this.state.students.filter((itemStudent) => {                       
+            return !itemStudent.email;
+        }).map((item) => {
+            prova+=item.name+',';
+            return <div>{item.name} No te email</div> 
+        });
+
+       
         
         return (
             /* Modal */            
             <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
-                <div className="modal-content">
-                <div className="modal-header">
-                    <div><h5 className="modal-title" id="exampleModalLabel">Send email to </h5></div>
-                    <div className="pt-1">&nbsp;{filteredStudents}</div>
-                    <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div className="modal-body">
-                    <div className="container-fluid">
-                    <div className="row">
-                        
-                        <p className="text-danger">{filteredStudents.length<this.state.students.length?'OJO que hi han '+(this.state.students.length-filteredStudents.length)+ ' estudiants sense email':null}</p>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12" >        
-                            <form id="newSubject" className="form-inline" onSubmit={this.handleSubmit}> 
-                                <div className="form-group">
-                                    <label htmlFor="text">Subject name:</label>
-                                    <input type="text" name="newSubject" id="subjectName" onChange={this.handleInputChange} value={this.state.text} className="text ui-widget-content ui-corner-all" />
-                                </div>
-                                <input type="submit" value="New Subject" id="newSubjectInput" />
-                                
-                                
-                                <span className="small">At the moment of subject creation you are able to reuse students groups created by other people make your choice:</span>
-                                
-                            </form>     
-                        </div>                        
-                    </div>
-                    </div>   
-           
-                </div>
-               
-               
-                </div>
-            </Modal>
-        );
-    }
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"/>
+
+
+            <div className="modal-content">
+            <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel" aling="center">Send email</h5>
+                <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          
+                          
+                                <form id="newSubject"  onSubmit={this.handleSubmit} align="center"> 
+                                {filteredStudents}
+                                <p className="text-danger">{filteredStudents.length<this.state.students.length?'Cuidao '+(this.state.students.length-filteredStudents.length)+ ' estudiants no tenen email: '+prova:null} </p>
+                                <br/>
+                                 <label htmlFor="assunto">Assunto:</label>
+                                 <br/>
+                                <input type="text" name="assunto" id="assunto"/>
+
+                                <br/><br/>
+
+
+                                <label htmlFor="menssage">Menssage:</label>
+                                <br/>
+                                <textarea type="text" name="menssage" id="menssage" rows="5" cols="30"></textarea>
+
+                                <br/><br/>
+
+                                 <button type="Submit" name="SubmitProductos" value="Send email to" id="Submit">Send email</button>
+                        </form> 
+           </div>
+          
+        </Modal>
+    );
+}
 }
 
 export default EmailModalPage;

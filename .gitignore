@@ -12,6 +12,7 @@ npm-debug*
 package-lock.json
 # Project generated folders #
 #############################
+client-secret-gmail-node.json
 output/
 doc/
 dist/
