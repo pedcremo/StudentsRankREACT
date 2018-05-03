@@ -121,12 +121,20 @@ class Person {
     this.name = name;
     this.surname = surname;
     this.email = email;
+    this.alerts = [];
+
+    if(!this.email) this.addAlert("Falta email");
+
     if (!id) {
       this.id = hashcode(this.name + this.surname);
     }else {
       this.id = id;
     }
     this.attitudeTasks = attitudeTasks;
+  }
+  
+  addAlert(newAlert) {
+    this.alerts.push(newAlert);
   }
 
   /** Read person _totalXPpoints. A private property only modicable inside person instance */

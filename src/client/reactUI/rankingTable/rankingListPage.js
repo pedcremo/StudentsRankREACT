@@ -196,6 +196,7 @@ class RankingListPage extends React.Component {
         const studentsItems = this.state.searchmap.map((student) => 
             <RankingListItemPage key={student[0]} index={student[2]} student={student} settings={this.state.settings} readOnly={this.state.readOnly}  updateSelectedListFromParent={this.updateSelectedList} selected={this.getIfSelected(student[0])} selectedAll={this.state.checkall} />            
         );  
+        
         return (
 
             <table className="table table-striped ">
