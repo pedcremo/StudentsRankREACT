@@ -1,6 +1,7 @@
 import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Modal from 'react-bootstrap4-modal';
+import{loadTemplate} from '../lib/utils.js';
 //import UploadPage from './uploadPDFPage.js';
 
 class EmailModalPage extends React.Component {
@@ -8,12 +9,48 @@ class EmailModalPage extends React.Component {
         super(props);
         this.state = {  
             visible: true,
-            students:props.students   
+            students:props.students,
+            message:'',
+            subject:''   
         };
         this.modalBackdropClicked = this.modalBackdropClicked.bind(this);
         this.deleteEmail = this.deleteEmail.bind(this);
-       // this.handleSubmit = this.handleSubmit.bind(this);                              
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleinput = this.handleinput.bind(this);                              
         
+    }
+
+
+
+    handleinput(event){
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+     }
+
+
+    handleSubmit(event){
+            event.preventDefault();
+        debugger;
+            //let formData = new FormData(event.target);
+            let filteredStudents= this.state.students.filter((itemStudent) => {                       
+                return itemStudent.email;
+            }).map((itemPerson) => {
+               return itemPerson.email;     
+            });
+
+        
+            
+            let data={emailTo:filteredStudents.toString(),subject:this.state.subject,message:this.state.message};
+            //formData.emailto = filteredStudents; 
+            data=JSON.stringify(data);
+            loadTemplate('/api/sendEmail',function(response){
+                console.log(response);
+            },'POST',data,'false');
     }
 
    deleteEmail(event) {
@@ -65,31 +102,31 @@ class EmailModalPage extends React.Component {
 
             <div className="modal-content">
             <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel" aling="center">Send email</h5>
+                <h5 className="modal-title" id="exampleModalLabel" align="center">Send email</h5>
                 <button onClick={this.modalBackdropClicked} type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
           
                           
-                                <form id="newSubject"  onSubmit={this.handleSubmit} align="center"> 
-                                {filteredStudents}
+                                <form id="newSubject"  onSubmit={this.handleSubmit} align="center"   method="post"> 
+                            {filteredStudents}
                                 <p className="text-danger">{filteredStudents.length<this.state.students.length?'Cuidao '+(this.state.students.length-filteredStudents.length)+ ' estudiants no tenen email: '+prova:null} </p>
-                                <br/>
+                                
                                  <label htmlFor="assunto">Assunto:</label>
                                  <br/>
-                                <input type="text" name="assunto" id="assunto"/>
+                                <input type="text" name="subject" id="assunto" value={this.state.subject} onChange={this.handleinput} size="40"/>
 
                                 <br/><br/>
 
 
-                                <label htmlFor="menssage">Menssage:</label>
+                                <label htmlFor="message">Message:</label>
                                 <br/>
-                                <textarea type="text" name="menssage" id="menssage" rows="5" cols="30"></textarea>
+                                <textarea type="text" name="message" id="message" rows="5" cols="40" value={this.state.message} onChange={this.handleinput} ></textarea>
 
                                 <br/><br/>
 
-                                 <button type="Submit" name="SubmitProductos" value="Send email to" id="Submit">Send email</button>
+                                 <button type="Submit" name="SubmitProductos" value="Submit" id="Submit"  >Send email</button>
                         </form> 
            </div>
           

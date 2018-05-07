@@ -1,7 +1,11 @@
+// import emailModalPage from 'src/client/emailModalPage.js';
+
+
 var router = require('express').Router();
 var four0four = require('./utils/404')();
 var id = require('./utils/makeid')();
 var data = require('./data');
+
 
 var fuploadPDF = require('./uploadPDF')();
 var exec = require('child_process').exec;
@@ -15,6 +19,8 @@ const FileAsync = require('lowdb/adapters/FileAsync');
 const low = require('lowdb');
 const adapter = new FileAsync('src/server/data/shares.json');
 const cod = new FileAsync('src/server/data/codes.json');
+
+
 
 let dbase;
 let dbcode;
@@ -73,6 +79,7 @@ router.get('/getSharedGroups',getSharedGroups);
 router.get('/getCode', getCode);
 router.get('/renameSubject', renameSubject);
 router.get('/sendEmail', sendEmail);
+
 
 
 router.get('/read/:code',function(req, res, next){
@@ -142,6 +149,7 @@ function changeSubject(req, res, next) {
 
 router.post('/uploadImage', uploadImage);
 router.post('/uploadPDF', uploadPDF);
+router.post('/sendEmail', sendEmail);
 
 router.post('/saveStudents',function(req, res) {
   if (req.isAuthenticated()) {
@@ -313,7 +321,7 @@ router.get('/logout', function(req, res) {
 //========= END NEW ====================================================
  
 router.get('/*', four0four.notFoundMiddleware);
- 
+
 module.exports = router;
  
 //////////////
@@ -495,15 +503,27 @@ function getSharedGroups(req, res, next) {
 
 function sendEmail(req, res, next) {
   if (req.isAuthenticated()) {
+    console.log(req.body);
+    let data = '';
+    try{
+    data=JSON.parse(Object.keys(req.body[0]));
+    }catch(err){data=req.body}
+    let dataProva={emailTo:'popopo',subject:'hola',message:'fafaf'};
     var emailMessage = {
-      to: 'pedcremo@gmail.com',
-      subject: 'Test Subject',
-      message: 'Test Email from gmail-node'
+      to:data.emailTo,
+      subject:data.subject,
+      message:data.message,
+      // subject: req.query.assunto,
+      // message: req.query.menssage,
     };
     gmailNode.send(emailMessage, function (err, data) { 
       console.log("Wmail meandro "+err+ 'Data:'+data);
+      console.log(req.data);
+      
+    
     });
     res.status(200).send('OK email enviat');
+    
   }
 }
 
