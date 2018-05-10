@@ -36,6 +36,7 @@ app.use(passport.session());    // Add passport initialization
 //END NEW
 
 app.use('/api', require('./routes'));
+//app.use('/api2', require('./routes2'));
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
