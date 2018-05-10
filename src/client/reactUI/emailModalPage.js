@@ -2,6 +2,7 @@ import React from 'react';
 import {events} from '../lib/eventsPubSubs.js';
 import Modal from 'react-bootstrap4-modal';
 import{loadTemplate} from '../lib/utils.js';
+import {context} from '../context.js'; //Singleton
 //import UploadPage from './uploadPDFPage.js';
 
 class EmailModalPage extends React.Component {
@@ -43,12 +44,17 @@ class EmailModalPage extends React.Component {
                return itemPerson.email;     
             });
 
-        
-            
+                        
             let data={emailTo:filteredStudents.toString(),subject:this.state.subject,message:this.state.message};
             //formData.emailto = filteredStudents; 
             data=JSON.stringify(data);
+            let close=this.modalBackdropClicked;
             loadTemplate('/api/sendEmail',function(response){
+                if (response=='OK'){
+                    close(undefined);
+                    context.notify("Email send","Email notification");
+                    
+                }
                 console.log(response);
             },'POST',data,'false');
     }

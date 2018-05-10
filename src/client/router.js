@@ -29,7 +29,7 @@ function initRouter() {
   reactDOM.render(<LogoPage />, document.getElementById('logo'));
   reactDOM.render(<FooterPage />, document.getElementsByTagName('footer')[0]);
   
-  /*window.addEventListener('hashchange', function(){
+  window.addEventListener('hashchange', function(){
     let hash = location.hash;
     let a = hash.split('/');
     console.log('--HASHCHANGE--');
@@ -38,14 +38,14 @@ function initRouter() {
       console.log('code');
       events.publish('context/loginCode',a[1]);
     }
-  });*/
-  /*let hash = location.hash;
+  });
+  let hash = location.hash;
   console.log(location.hash)
   let a = hash.split('/');
   if(a[0] === '#code'){
     console.log('code');
     events.publish('context/loginCode',a[1]);
-  }*/
+  }
   
   var routerFunction = function(e) {
         //e = e || event;

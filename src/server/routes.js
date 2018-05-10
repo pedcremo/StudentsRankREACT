@@ -504,25 +504,23 @@ function getSharedGroups(req, res, next) {
 function sendEmail(req, res, next) {
   if (req.isAuthenticated()) {
     console.log(req.body);
-    let data = '';
-    try{
-    data=JSON.parse(Object.keys(req.body[0]));
-    }catch(err){data=req.body}
-    let dataProva={emailTo:'popopo',subject:'hola',message:'fafaf'};
+    let data = req.body;
+    
+    var code = dbcode.get('codes')
+    .find({ idSubject: req.user.defaultSubject })
+    .value();
+
     var emailMessage = {
       to:data.emailTo,
-      subject:data.subject,
-      message:data.message,
-      // subject: req.query.assunto,
-      // message: req.query.menssage,
+      subject:'RUNKINGAPP:'+data.subject,
+      message:data.message+'<br/><br/> Visit <a href="http://runking.iestacio.com/#code/'+code.id+'">http://runking.iestacio.com/#code/'+code.id+'</a> to check changes',
     };
-    gmailNode.send(emailMessage, function (err, data) { 
+    gmailNode.sendHTML(emailMessage, function (err, data) { 
       console.log("Wmail meandro "+err+ 'Data:'+data);
-      console.log(req.data);
-      
-    
+      console.log(req.data);         
     });
-    res.status(200).send('OK email enviat');
+
+    res.status(200).send('OK');
     
   }
 }
