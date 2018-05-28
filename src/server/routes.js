@@ -79,6 +79,7 @@ router.get('/getSharedGroups',getSharedGroups);
 router.get('/getCode', getCode);
 router.get('/renameSubject', renameSubject);
 router.get('/sendEmail', sendEmail);
+router.get('/readtemplate',readtemplate);
 
 
 
@@ -150,6 +151,7 @@ function changeSubject(req, res, next) {
 router.post('/uploadImage', uploadImage);
 router.post('/uploadPDF', uploadPDF);
 router.post('/sendEmail', sendEmail);
+
 
 router.post('/saveStudents',function(req, res) {
   if (req.isAuthenticated()) {
@@ -501,11 +503,26 @@ function getSharedGroups(req, res, next) {
   }
 }
 
+
+function readtemplate(req,res,next){
+
+
+  fs.readFile('src/server/data/template.json',function(err,data){
+
+    res.status(200).send(data);
+  });
+  }
+
+
+
 function sendEmail(req, res, next) {
-  if (req.isAuthenticated()) {
-    console.log(req.body);
-    let data = req.body;
+  if (req.isAuthenticated() && req.body.emailTo)  {
+    console.log(req.body)
     
+  
+
+    let data = req.body;
+  
     var code = dbcode.get('codes')
     .find({ idSubject: req.user.defaultSubject })
     .value();
@@ -517,13 +534,20 @@ function sendEmail(req, res, next) {
     };
     gmailNode.sendHTML(emailMessage, function (err, data) { 
       console.log("Wmail meandro "+err+ 'Data:'+data);
-      console.log(req.data);         
+      console.log(data);     
+          
     });
 
     res.status(200).send('OK');
     
-  }
+  }else{
+    res.status(200).send('NO');
+    
+   
+  } 
 }
+
+
 
 function addSubject(req, res, next) {
   if (req.isAuthenticated()) {

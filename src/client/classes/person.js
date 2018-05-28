@@ -103,9 +103,17 @@ events.subscribe('/component/selectedAction',(obj) =>{
       selectedStudents = obj.arraySelecteds.map((idStudent) =>{
         return Person.getPersonById(idStudent);
       })
+
+debugger
+
+      loadTemplate('api/readtemplate',function(response) {
+        reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
+        reactDOM.render(<EmailModalPage students={selectedStudents} templates={JSON.parse(response)} />, document.getElementById('modals'));
+        console.log(response);
+      },'GET',obj.formData,'false');   
       
-      reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
-      reactDOM.render(<EmailModalPage students={selectedStudents}  />, document.getElementById('modals'));
+      // reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
+      // reactDOM.render(<EmailModalPage students={selectedStudents} templates={prova} />, document.getElementById('modals'));
       
       break;
   }
