@@ -120,7 +120,7 @@ class EmailModalPage extends React.Component {
         const filteredStudents= this.state.students.filter((itemStudent) => {                       
             return itemStudent.email;
         }).map((item) => {
-            return <div className="badge badge-secondary mr-1 mt-2" title={item.surname+','+item.name}>{item.email}<i className="fa fa-close ml-1" id={item.id} onClick={this.deleteEmail}></i></div> 
+            return <div key={item.id} className="badge badge-secondary mr-1 mt-2" title={item.surname+','+item.name}>{item.email}<i className="fa fa-close ml-1" id={item.id} onClick={this.deleteEmail}></i></div> 
         });
 
 
@@ -135,7 +135,7 @@ class EmailModalPage extends React.Component {
             return !itemStudent.email;
         }).map((item) => {
             prova+=item.name+',';
-            return <div>{item.name} No te email</div> 
+            return <div key={item.id}>{item.name} No te email</div> 
         });
 
        
@@ -187,7 +187,7 @@ class EmailModalPage extends React.Component {
                                 <br/> 
 
                                 {/* <select onChange={this.handleinput}> */}
-                                <select class="selectpicker" value={this.state.message} name={this.state.subject} onChange={this.templatecombochange}>
+                                <select className="form-control form-control-sm mt-sm-2 mr-sm-2" value={this.state.message} name={this.state.subject} onChange={this.templatecombochange}>
                                 {filteredtemplate}
                                 </select>
 

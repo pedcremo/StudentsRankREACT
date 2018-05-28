@@ -220,9 +220,10 @@ class RankingListPage extends React.Component {
                     <th className="col-sm-4 text-right mt-sm-2"><span className="small font-weight-bold">FG {parseInt(this.state.settings.weightXP)+parseInt(this.state.settings.weightGP)}% = XP {this.state.settings.weightXP}% + GT {this.state.settings.weightGP}% &nbsp;</span></th> 
                 </tr>
                 </thead>   
+                <tbody id="idTableRankingBody">
                         <tr className="d-flex">
                             <th className="col-10">
-                                <select value={this.state.action} onChange={this.handleChange}>
+                                <select className="form-control form-control-sm mt-sm-2 mr-sm-2" value={this.state.action} onChange={this.handleChange}>
                                     <option value="-- Select one action --"> {T.translate("rankingListSelectAction")}</option>
                                     <option value="addXP"> {T.translate("rankingListAddXP")}</option>
                                     <option value="deleteall">{T.translate("rankingListDeleteSelected")}</option>
@@ -233,14 +234,14 @@ class RankingListPage extends React.Component {
                             <th colSpan="4"></th>                            
                         </tr>
                     
-                <tbody id="idTableRankingBody">
+                
                      {studentsItems}             
                 </tbody>
                 {!this.state.readOnly ?
                     <tfoot>                    
                         <tr className="d-flex">
                             <th className="col-10">
-                                <select value={this.state.action} onChange={this.handleChange}>
+                                <select className="form-control form-control-sm mt-sm-2 mr-sm-2" value={this.state.action} onChange={this.handleChange}>
                                     <option value="-- Select one action --"> {T.translate("rankingListSelectAction")}</option>
                                     <option value="addXP"> {T.translate("rankingListAddXP")}</option>
                                     <option value="deleteall">{T.translate("rankingListDeleteSelected")}</option>
