@@ -1,12 +1,12 @@
-
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'development';
+var webpack = require('webpack');
 
 module.exports = function(config) {
     config.set({
       basePath: '',
       frameworks: ['jasmine-jquery','jasmine-ajax','jasmine'],
       reporters: ['spec'],
-      browsers: ['ChromeHeadlessRANK'],
+      browsers: ['Chrome'],
 
       customLaunchers: {
         ChromeHeadlessRANK: {
@@ -39,16 +39,33 @@ module.exports = function(config) {
         'tests/**/*.js': ['webpack']
       },
       webpack: {
+        mode: 'development',        
+        target: 'web',
+        plugins: [
+          new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            Popper: ['popper.js', 'default']
+          }),
+          //new webpack.optimize.OccurenceOrderPlugin(),
+          new webpack.HotModuleReplacementPlugin(),
+          new webpack.NoEmitOnErrorsPlugin()
+          //new webpack.NoErrorsPlugin()
+        ],
+
         module: {
-            loaders: [
-                { test: /\.js/, exclude: /node_modules/, loader: 'babel-loader' },
-                {test: /(\.css)$/, loaders: ['style', 'css']},
-                {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-                {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000"},
-                {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
-                {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"},
-                { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-                { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+            rules: [        
+              {test: /\.js$/, exclude: /node_modules/, 
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['react-hmre','react']
+                  }                
+                }
+              },                    
+              {test: /(\.css)$/, loaders: ['style-loader', 'css-loader']},
+              { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+              { test: /\.(eot|ttf|otf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: "file-loader" }
             ]
         },
         watch: true
