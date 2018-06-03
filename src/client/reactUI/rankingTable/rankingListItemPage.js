@@ -81,7 +81,7 @@ class RankingListItemPage extends React.Component {
                  </div>   
                 
                     <div className="tableGradedTasks card rounded mt-2" style={{display:'none'}}>   
-                        <div className="card-header">{T.translate("GradedTasks")} {this.state.settings.defaultTerm} {T.translate("term")}</div>
+                        <div className="card-header">{T.translate("GradedTasks")} {this.state.settings.defaultTermName} {T.translate("term")}</div>
                         
                             {studentsGT}  
                        

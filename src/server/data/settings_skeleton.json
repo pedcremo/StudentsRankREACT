@@ -2,6 +2,6 @@
     "weightXP" : 25,
     "weightGP" :75,    
     "defaultTerm":"",
-    "terms":[{"name":"1st Term","begin":"","end":""},{"name":"2nd Term","begin":"","end":""},{"name":"3rd Term","begin":"","end":""}],
+    "terms":[{"id":1,"name":"1st Term","begin":"","end":""},{"id":2,"name":"2nd Term","begin":"","end":""},{"id":3,"name":"3rd Term","begin":"","end":""}],
     "language": "English"
 }

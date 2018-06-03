@@ -27,6 +27,7 @@ class RankingListPage extends React.Component {
             action:'-- Select one action --',
             selectedIds:props.selectedIds
         };   
+
         T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'));
         this.handleClick=this.handleClick.bind(this);
         this.handleFilterBlur=this.handleFilterBlur.bind(this);
@@ -208,7 +209,7 @@ class RankingListPage extends React.Component {
                         
                         {!this.state.readOnly ? <select className="form-control form-control-sm"  name="defaultTerm" value={this.state.settings.defaultTerm} id="termsItems" onChange={this.handleSettingsChange} >
                                             {this.state.settings?this.state.settings.terms.map((term, i) =>
-                                            <option key={i} value={term.name}>{term.name}</option>
+                                            <option key={i} value={term.id}>{term.name}</option>
                                             ):null}                                            
                                             <option key='all' value="ALL">ALL</option>
                                         </select> : <span className="small">{this.state.settings.defaultTerm}</span> } 

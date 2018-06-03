@@ -11,8 +11,16 @@ events.subscribe('dataservice/getSettings',(obj) => {
 });
 
 events.subscribe('settings/change',(obj) => {
-  settings = obj;  
-  events.publish('students/change',Person.getStudentsFromMap());
+  settings = obj;
+  try{
+    settings.defaultTermName = settings.defaultTerm=='ALL'?'ALL':settings.terms.filter((element) => {
+      return element.id == settings.defaultTerm 
+   })[0].name;
+  }catch(error){
+    settings.defaultTerm=1;
+    settings.defaultTermName='1st';
+  }
+   events.publish('students/change',Person.getStudentsFromMap());
 });
 
 /**
@@ -34,6 +42,15 @@ class Settings {
     this.weightGP = weightGP;
     this.terms = terms;
     this.defaultTerm = this.getDefaultTerm(defaultTerm);
+    
+    try {
+      this.defaultTermName = this.defaultTerm=='ALL'?'ALL':this.terms.filter((element) => {
+      return element.id == this.defaultTerm 
+      })[0].name;
+    }catch(error) {
+      this.defaultTerm=1;
+      this.defaultTermName='1st';
+    }
     this.language = language;
 
     this.shareGroup = shareGroup;
@@ -56,11 +73,11 @@ class Settings {
           let to   = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
           let currentDate = new Date();
           if (currentDate > from && currentDate < to) {
-            out = element.name;
+            out = element.id;
           }
         });
       }catch (err) {
-        out = '1st Term';
+        out = 1;
       }
       this.defaultTerm = out;
       return out;
@@ -69,7 +86,6 @@ class Settings {
 
   static getLanguage() {  
     if (settings.language == undefined) {
-      //settings.language = "English";
       settings.language = getCookie("language") || "English";      
     } 
     
@@ -77,7 +93,19 @@ class Settings {
     return settings.language;
   }
   
-  static isDateInDefaultTermDateRange(dateTimeString) {
+  /*static getTermIdFromDateRange(begin,end) {
+    let foundTerm = settings.terms.find(function(element) { return element.name == settings.defaultTerm });
+      let targetBegin = new Date(begin).getTime();
+      let targetBegin = new Date(begin).getTime();
+      let begin = new Date(foundTerm.begin).getTime();
+      let end = new Date(foundTerm.end).getTime();
+      if (target>=begin && target <=end) {
+        return true;
+      }else {
+        return false;
+      }
+  }*/
+  /*static isDateInDefaultTermDateRange(dateTimeString) {
     if (settings.defaultTerm === "ALL") {
       return true;
     }else {
@@ -91,17 +119,17 @@ class Settings {
         return false;
       }
     }
-  }
+  }*/
 
   static getSettings() {
     return settings;
   }
-  static getTerms() {
-    return settings.terms;
-  }
+  
+  //Return id of defaultTerm
   static getDefaultTerm() {
     return settings.defaultTerm;
   }
+  
   static getXpWeight(){
     return settings.weightXP;
   }

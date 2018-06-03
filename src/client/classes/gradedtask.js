@@ -63,7 +63,7 @@ class GradedTask extends Task {
     this.weight = weight;
     this.studentsMark = studentsMark;
     if (!term) {      
-      term = Settings.getSettings().defaultTerm || '1st Term';
+      term = Settings.getSettings().defaultTerm() || 1;
     }
     this.term = term;
     this.studentsMarkMAP = new Map(studentsMark);

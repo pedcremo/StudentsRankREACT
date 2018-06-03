@@ -22,37 +22,36 @@ class PersonDetailPage extends React.Component {
         const attitudeTasksItems = this.state.terms.map((term) => {
             
             let attByTerm=[];
+            let debugArray = this.state.student;
+           
             this.state.student.attitudeTasks.sort(function(a,b){ b.timestamp > a.timestamp }).map((att) => {
                 let target = new Date(att.timestamp).getTime();
                 let begin = new Date(term.begin).getTime();
                 let end = new Date(term.end).getTime();
                 
-                if (target>=begin && target <=end) {
-                    attByTerm.push([this.state.student.getAttitudeById(att.id),att.timestamp]);
+                if (term.id==att.term ) {
+                    if (target>=begin && target <=end) {
+                        attByTerm.push([this.state.student.getAttitudeById(att.id),att.timestamp]);
+                    }else {
+                        attByTerm.push([this.state.student.getAttitudeById(att.id),att.timestamp,"Possible cifuentazo: XP assignada fora de dates de l'avaluació"]);
+                    }
                 }
-            });
-   
-            return <AttitudeListItemPage key={term.name} readOnly={this.state.readOnly} show={term.name==this.state.currentTerm?true:false} term={term.name} studentId={this.state.student.id} attitudeInstances={attByTerm} />                                
+            });            
+            return <AttitudeListItemPage key={term.name} readOnly={this.state.readOnly} show={term.id==this.state.currentTerm?true:false} term={term.name} studentId={this.state.student.id} attitudeInstances={attByTerm} />                                
            
         });
 
-        /*const attitudeTasksItems = this.state.student.attitudeTasks.reverse().map((attitudeItem) =>
-            <AttitudeListItemPage key={attitudeItem.id+attitudeItem.timestamp} readOnly={this.state.readOnly} studentId={this.state.student.id} datetime={attitudeItem.timestamp} attitudeInstance={this.state.student.getAttitudeById(attitudeItem.id)} />                                
-        );*/
         const gradedTasksItems=this.state.terms.map((term) => {
             let gtByTerm=[];
             this.state.student.getGradedTasks().map((gtItem) => {
                 
                 
-                if (gtItem[1].term == term.name) {
+                if (gtItem[1].term == term.id) {
                     gtByTerm.push(gtItem[1]);
                 }
             });
-            return <GradedTaskListItemPage key={term.name+'gt'} show={term.name==this.state.currentTerm?true:false} studentId={this.state.student.id} term={term.name} gradedTaskInstances={gtByTerm} />
+            return <GradedTaskListItemPage key={term.name+'gt'} show={term.id==this.state.currentTerm?true:false} studentId={this.state.student.id} term={term.name} gradedTaskInstances={gtByTerm} />
         });
-        /*const gradedTasksItems =  this.state.student.getGradedTasks().map((gtItem) =>
-            <GradedTaskListItemPage key={gtItem[0]} studentId={this.state.student.id} gradedTaskInstance={gtItem[1]} />                                
-        );*/
        
         return (
             

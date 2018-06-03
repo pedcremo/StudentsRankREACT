@@ -126,7 +126,14 @@ class Person {
     }else {
       this.id = id;
     }
-    this.attitudeTasks = attitudeTasks;
+
+    //Retrocompatibility issue: Map for security reasons old data attitude structure doesn't include term property 
+    this.attitudeTasks = attitudeTasks.map((atTaskItem) => {
+      if (!atTaskItem.term) {
+        atTaskItem.term = 1; //Term 1
+      } 
+      return atTaskItem;
+    });
   }
 
   /** Read person _totalXPpoints. A private property only modicable inside person instance */
@@ -139,7 +146,9 @@ class Person {
           try {
             new Date(itemAT.timestamp).getTime();
             //We count only XP points in current term
-            if (Settings.isDateInDefaultTermDateRange(itemAT.timestamp)) {
+            //if (Settings.isDateInDefaultTermDateRange(itemAT.timestamp)) {
+
+            if (itemAT.term == Settings.getDefaultTerm() || Settings.getDefaultTerm()=='ALL') {
               this[_totalXPpoints] += parseInt(instanceAT.points);
             }
           } catch (error) {
@@ -173,7 +182,7 @@ class Person {
   /** Add a Attitude task linked to person with its own mark. */
   addAttitudeTask(taskInstance) {
     let dateTimeStamp = new Date();//Current time   
-    this.attitudeTasks.push({'id':taskInstance.id,'timestamp':dateTimeStamp});
+    this.attitudeTasks.push({'term':Settings.getDefaultTerm(),'id':taskInstance.id,'timestamp':dateTimeStamp});
     events.publish('/context/addXP',{'attitudeTask':taskInstance,'person':this});   
     events.publish('dataservice/saveStudents',JSON.stringify([...students]));
   }
@@ -198,7 +207,7 @@ class Person {
     let settings = Settings.getSettings();
     try {     
       gradedtaskMAP.forEach((valueGT) => {
-        if (valueGT.term === settings.defaultTerm || settings.defaultTerm ==='ALL') {
+        if (valueGT.term == Settings.getDefaultTerm() || settings.defaultTerm ==='ALL') {
           gtArray.push({'id':valueGT.id,'idStudent':this.id,'points':valueGT.studentsMarkMAP.get(this.id),'name':valueGT.name,'weight':valueGT.weight});
         }
       });
@@ -214,7 +223,7 @@ class Person {
     let settings = Settings.getSettings();
     try {
       gradedtaskMAP.forEach((itemTask) => {
-        if (itemTask.term === settings.defaultTerm || settings.defaultTerm === 'ALL') {
+        if (itemTask.term === Settings.getDefaultTerm() || settings.defaultTerm === 'ALL') {
           points += itemTask.studentsMarkMAP.get(this.id) * (itemTask.weight / 100);
         }
       });

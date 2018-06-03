@@ -12,7 +12,7 @@ class GradedTaskPage extends React.Component {
                 description: props.props.description,
                 weight:props.props.weight,
                 term:props.props.term,
-                terms:props.terms,
+                //terms:props.terms,
                 id:props.props.id,         
                 allowedWeight:props.allowedWeight
         }               
@@ -27,7 +27,7 @@ class GradedTaskPage extends React.Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-    
+       
         this.setState({
           [name]: value
         });
@@ -39,8 +39,8 @@ class GradedTaskPage extends React.Component {
     }
 
     render() {
-        let termsElements = this.state.terms.map((termEl) => 
-            <option key={termEl.name} value={termEl.name}>{termEl.name}</option>
+        let termsElements = this.props.terms.map((termEl) => 
+            <option key={termEl.name} value={termEl.id}>{termEl.name}</option>
         );
         
         return (

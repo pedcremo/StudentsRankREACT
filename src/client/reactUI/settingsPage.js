@@ -37,9 +37,10 @@ class SettingsPage extends React.Component {
             //this.state.weightGP = 100 - value;
             this.state.weightGP = 100;
         }else if (name === "termName" || name === "termBegin" || name === "termEnd") {
+            
             newTerms=this.state.terms.map((term) => {
-                if (term.name === id) {
-                    return {"name":(name === "termName")?value:term.name,"begin":(name === "termBegin")?value:term.begin,"end":(name === "termEnd")?value:term.end}
+                if (term.id == id) {
+                    return {"id":term.id,"name":(name === "termName")?value:term.name,"begin":(name === "termBegin")?value:term.begin,"end":(name === "termEnd")?value:term.end}
                 }else{
                     return term;
                 }
@@ -80,7 +81,7 @@ class SettingsPage extends React.Component {
         const begin = event.target.newBeginTerm.value;
         const end = event.target.newEndTerm.value;      
                 
-        let newTerm ={'name':term,'begin':begin,'end':end};
+        let newTerm ={'id':parseInt(this.state.terms[this.state.terms.length-1].id)+1,'name':term,'begin':begin,'end':end};
         let prova = this.state.terms;
         prova.push(newTerm);
         
@@ -133,7 +134,7 @@ class SettingsPage extends React.Component {
               
                   <select name="defaultTerm" id="termsItems" onChange={this.handleInputChange} defaultValue={this.state.defaultTerm}>
                   {this.state.terms.map((term, i) =>
-                        <option key={i} value={term.name}>{term.name}</option>
+                        <option key={i} value={term.id}>{term.name}</option>
                     )}  
                     <option value="ALL">{T.translate("settingsAll")}</option> 
                   </select>   
@@ -144,18 +145,18 @@ class SettingsPage extends React.Component {
                      <div className="col-sm-3">
                          <label className="" htmlFor="xp" id={"id"+term.name}>{T.translate("settingsTermName")}:</label><br/>
                      
-                         <input name="termName" className="form-control form-control-sm " id={term.name} type="text" value={term.name} onChange={this.handleInputChange} />
+                         <input name="termName" className="form-control form-control-sm " id={term.id} type="text" value={term.name} onChange={this.handleInputChange} />
                      </div>
                      <div className="col-sm-3">
-                         <label className="">{T.translate("settingsBegin")}</label> <input name="termBegin" className="form-control form-control-sm" id={term.name} type="date" value={term.begin} onChange={this.handleInputChange} />
+                         <label className="">{T.translate("settingsBegin")}</label> <input name="termBegin" className="form-control form-control-sm" id={term.id} type="date" value={term.begin} onChange={this.handleInputChange} />
                     </div>
                      <div className="col-sm-3">
-                         <label className="">{T.translate("settingsEnd")}</label> <input name="termEnd" className="form-control form-control-sm" id={term.name} type="date" value={term.end}  onChange={this.handleInputChange} />      
+                         <label className="">{T.translate("settingsEnd")}</label> <input name="termEnd" className="form-control form-control-sm" id={term.id} type="date" value={term.end}  onChange={this.handleInputChange} />      
                          
                      </div>
                      <div className="col-sm-3">
                      <br/>
-                         <button className='btnS btn btn-danger' name="deleteTerm" id={term.name} onClick={this.handleInputChange}><i className='fa fa-trash-o fa-1x'></i></button>
+                         <button className='btnS btn btn-danger' name="deleteTerm" id={term.id} onClick={this.handleInputChange}><i className='fa fa-trash-o fa-1x'></i></button>
                      </div>
                         {/* <input type="submit" class="btn btn-primary" value="Change"/> */}                        
                     </div>                    
