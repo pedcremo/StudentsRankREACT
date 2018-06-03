@@ -64,7 +64,11 @@ var clientSecret = {
     }
 };
 gmailNode.init(clientSecret, './client-secret-gmail-node.json', function(err,data){ 
-  console.log("Gmail API auth failed: "+err+' data:'+data);
+  if (!err) {
+    console.log("Gmail "+data); 
+  }else {
+    console.log("Gmail API auth failed: "+err+' data:'+data);
+  }
 });
 //======================
 
@@ -517,12 +521,9 @@ function readtemplate(req,res,next){
 
 function sendEmail(req, res, next) {
   if (req.isAuthenticated() && req.body.emailTo)  {
-    console.log(req.body)
-    
-  
-
+    console.log(req.body);    
     let data = req.body;
-  
+      
     var code = dbcode.get('codes')
     .find({ idSubject: req.user.defaultSubject })
     .value();

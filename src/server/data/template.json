@@ -10,15 +10,15 @@
 
     {
         "id":"Notes",
-        "subject":"Notes del examen",
-        "message": "He afegit les notes del ultim examen"       
+        "subject":"Notes de l'examen",
+        "message": "He afegit les notes de l'últim examen"       
     },
 
 
     {
         "id":"Punts",
         "subject":"Nous Punts",
-        "message": "Hus he afegit punts"       
+        "message": "Us he afegit nous punts"       
     }
 
 ]

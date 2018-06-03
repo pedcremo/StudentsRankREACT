@@ -135,7 +135,6 @@ class Person {
     }else {
       this.id = id;
     }
-<<<<<<< HEAD
 
     //Retrocompatibility issue: Map for security reasons old data attitude structure doesn't include term property 
     this.attitudeTasks = attitudeTasks.map((atTaskItem) => {
@@ -144,42 +143,19 @@ class Person {
       } 
       return atTaskItem;
     });
-=======
-    this.attitudeTasks = attitudeTasks;
 
-
-    if(!this.email){
-   this.addalert("No te Email");
-
+    if(!this.email) {
+      this.addalert("No té Email");   
     }
-
-    if(!this.surname){
-      this.addalert("No te apellido");
    
-       }
-    
->>>>>>> c454516e0bc9aa8f7f8c9291b6cd7037ca979aa1
+    if(!this.surname){
+         this.addalert("No té cognoms");      
+    }
   }
-
-
-  
-
- addalert(newAlert){
-
-  this.alerts.push(newAlert);
- }
-
-
-
-
-
-
-
-
-
-
-
-
+  /** Add an alert associated to person that should be notified on screennpm run-script  */
+  addalert(newAlert){
+   this.alerts.push(newAlert);
+  }
 
   /** Read person _totalXPpoints. A private property only modicable inside person instance */
   getXPtotalPoints() {
