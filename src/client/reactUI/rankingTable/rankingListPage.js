@@ -197,9 +197,12 @@ class RankingListPage extends React.Component {
         const studentsItems = this.state.searchmap.map((student) => 
             <RankingListItemPage key={student[0]} index={student[2]} student={student} settings={this.state.settings} readOnly={this.state.readOnly}  updateSelectedListFromParent={this.updateSelectedList} selected={this.getIfSelected(student[0])} selectedAll={this.state.checkall} />            
         );  
+        
         return (
 
             <table className="table table-striped ">
+
+            
                 <thead className="thead-dark" style={{backgroundColor:'#222529'}}>
                 <tr className="d-flex text-white">
                     <th className="col-sm-1 mt-sm-2" >{!this.state.readOnly ?<input id="checkall" type="checkbox" defaultChecked={this.state.checkall} onChange={this.handleCheckedAll}/>:null}&nbsp;&nbsp;<button id="more_gt" onClick={this.handleClick}><i className="fa fa-hand-o-right fa-1x"></i></button></th>
@@ -217,15 +220,29 @@ class RankingListPage extends React.Component {
                     </th>
                     <th className="col-sm-4 text-right mt-sm-2"><span className="small font-weight-bold">FG {parseInt(this.state.settings.weightXP)+parseInt(this.state.settings.weightGP)}% = XP {this.state.settings.weightXP}% + GT {this.state.settings.weightGP}% &nbsp;</span></th> 
                 </tr>
-                </thead>
+                </thead>   
                 <tbody id="idTableRankingBody">
+                        <tr className="d-flex">
+                            <th className="col-10">
+                                <select className="form-control form-control-sm mt-sm-2 mr-sm-2" value={this.state.action} onChange={this.handleChange}>
+                                    <option value="-- Select one action --"> {T.translate("rankingListSelectAction")}</option>
+                                    <option value="addXP"> {T.translate("rankingListAddXP")}</option>
+                                    <option value="deleteall">{T.translate("rankingListDeleteSelected")}</option>
+                                    <option value="inverseSelection">{T.translate("rankingListInverseSelected")}</option>
+                                    <option value="sendmails">{T.translate("rankingListEmailSelected")}</option>
+                                </select>
+                            </th>
+                            <th colSpan="4"></th>                            
+                        </tr>
+                    
+                
                      {studentsItems}             
                 </tbody>
                 {!this.state.readOnly ?
                     <tfoot>                    
                         <tr className="d-flex">
                             <th className="col-10">
-                                <select value={this.state.action} onChange={this.handleChange}>
+                                <select className="form-control form-control-sm mt-sm-2 mr-sm-2" value={this.state.action} onChange={this.handleChange}>
                                     <option value="-- Select one action --"> {T.translate("rankingListSelectAction")}</option>
                                     <option value="addXP"> {T.translate("rankingListAddXP")}</option>
                                     <option value="deleteall">{T.translate("rankingListDeleteSelected")}</option>

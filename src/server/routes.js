@@ -1,7 +1,11 @@
+// import emailModalPage from 'src/client/emailModalPage.js';
+
+
 var router = require('express').Router();
 var four0four = require('./utils/404')();
 var id = require('./utils/makeid')();
 var data = require('./data');
+
 
 var fuploadPDF = require('./uploadPDF')();
 var exec = require('child_process').exec;
@@ -15,6 +19,8 @@ const FileAsync = require('lowdb/adapters/FileAsync');
 const low = require('lowdb');
 const adapter = new FileAsync('src/server/data/shares.json');
 const cod = new FileAsync('src/server/data/codes.json');
+
+
 
 let dbase;
 let dbcode;
@@ -41,6 +47,27 @@ low(cod)
 //db.defaults({'shares': [] })
 //  .write();
 
+//=== GMAIL CONFIG ====
+var gmailNode = require('gmail-node');
+var clientSecret = {
+    installed: {
+        client_id: "332430709061-csflgjm49jkde79o808enffrubj9unp4.apps.googleusercontent.com",        
+        project_id: "runking-bocairent-net",
+        auth_uri: "https://accounts.google.com/o/oauth2/auth",
+        token_uri: "https://accounts.google.com/o/oauth2/token",
+        auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+        client_secret: "1i96htAxAa3Ta8Tw0Z5QJWQu",
+        redirect_uris: [
+            "urn:ietf:wg:oauth:2.0:oob",
+            "http://localhost"
+        ]
+    }
+};
+gmailNode.init(clientSecret, './client-secret-gmail-node.json', function(err,data){ 
+  console.log("Gmail API auth failed: "+err+' data:'+data);
+});
+//======================
+
 //===== NEW PERE ===========================================================
 router.get('/getStudents', getStudents);
 router.get('/getGradedTasks', getGradedTasks);
@@ -51,6 +78,10 @@ router.get('/addSubject',addSubject);
 router.get('/getSharedGroups',getSharedGroups);
 router.get('/getCode', getCode);
 router.get('/renameSubject', renameSubject);
+router.get('/sendEmail', sendEmail);
+router.get('/readtemplate',readtemplate);
+
+
 
 router.get('/read/:code',function(req, res, next){
   var response = {};
@@ -119,6 +150,8 @@ function changeSubject(req, res, next) {
 
 router.post('/uploadImage', uploadImage);
 router.post('/uploadPDF', uploadPDF);
+router.post('/sendEmail', sendEmail);
+
 
 router.post('/saveStudents',function(req, res) {
   if (req.isAuthenticated()) {
@@ -290,7 +323,7 @@ router.get('/logout', function(req, res) {
 //========= END NEW ====================================================
  
 router.get('/*', four0four.notFoundMiddleware);
- 
+
 module.exports = router;
  
 //////////////
@@ -469,6 +502,52 @@ function getSharedGroups(req, res, next) {
     res.status(401).send("Not authorized");
   }
 }
+
+
+function readtemplate(req,res,next){
+
+
+  fs.readFile('src/server/data/template.json',function(err,data){
+
+    res.status(200).send(data);
+  });
+  }
+
+
+
+function sendEmail(req, res, next) {
+  if (req.isAuthenticated() && req.body.emailTo)  {
+    console.log(req.body)
+    
+  
+
+    let data = req.body;
+  
+    var code = dbcode.get('codes')
+    .find({ idSubject: req.user.defaultSubject })
+    .value();
+
+    var emailMessage = {
+      to:data.emailTo,
+      subject:'RUNKINGAPP:'+data.subject,
+      message:data.message+'<br/><br/> Visit <a href="http://runking.iestacio.com/#code/'+code.id+'">http://runking.iestacio.com/#code/'+code.id+'</a> to check changes',
+    };
+    gmailNode.sendHTML(emailMessage, function (err, data) { 
+      console.log("Wmail meandro "+err+ 'Data:'+data);
+      console.log(data);     
+          
+    });
+
+    res.status(200).send('OK');
+    
+  }else{
+    res.status(200).send('NO');
+    
+   
+  } 
+}
+
+
 
 function addSubject(req, res, next) {
   if (req.isAuthenticated()) {

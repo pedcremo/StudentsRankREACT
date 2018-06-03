@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils'; // ES6
-import MenuPage from '../src/client/components/menuPage.js';
+import MenuPage from '../src/client/reactUI/core/menuPage.js';
 import { context } from '../src/client/context.js';
 
 /** 

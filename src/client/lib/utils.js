@@ -78,6 +78,8 @@ function loadTemplate(urlTemplate,callback,method='GET',params='',cached=true) {
     if (method === 'POST') {
       if (urlTemplate.match(/api\/save/g)) {
         xhttp.setRequestHeader('Content-Type', 'application/json');
+      }else if (urlTemplate.match(/api\/sendEmail/g)) {
+        xhttp.setRequestHeader('Content-Type', 'application/json');
       }else if (urlTemplate === 'api/uploadImage') {
         console.log('uploading image'); //No special content-type
       }else if (urlTemplate === 'api/uploadPDF') {

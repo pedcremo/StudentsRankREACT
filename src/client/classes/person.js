@@ -103,9 +103,17 @@ events.subscribe('/component/selectedAction',(obj) =>{
       selectedStudents = obj.arraySelecteds.map((idStudent) =>{
         return Person.getPersonById(idStudent);
       })
+
+debugger
+
+      loadTemplate('api/readtemplate',function(response) {
+        reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
+        reactDOM.render(<EmailModalPage students={selectedStudents} templates={JSON.parse(response)} />, document.getElementById('modals'));
+        console.log(response);
+      },'GET',obj.formData,'false');   
       
-      reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
-      reactDOM.render(<EmailModalPage students={selectedStudents}  />, document.getElementById('modals'));
+      // reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
+      // reactDOM.render(<EmailModalPage students={selectedStudents} templates={prova} />, document.getElementById('modals'));
       
       break;
   }
@@ -120,12 +128,14 @@ class Person {
     this[_totalXPpoints] = 0;
     this.name = name;
     this.surname = surname;
+    this.alerts=[];
     this.email = email;
     if (!id) {
       this.id = hashcode(this.name + this.surname);
     }else {
       this.id = id;
     }
+<<<<<<< HEAD
 
     //Retrocompatibility issue: Map for security reasons old data attitude structure doesn't include term property 
     this.attitudeTasks = attitudeTasks.map((atTaskItem) => {
@@ -134,7 +144,42 @@ class Person {
       } 
       return atTaskItem;
     });
+=======
+    this.attitudeTasks = attitudeTasks;
+
+
+    if(!this.email){
+   this.addalert("No te Email");
+
+    }
+
+    if(!this.surname){
+      this.addalert("No te apellido");
+   
+       }
+    
+>>>>>>> c454516e0bc9aa8f7f8c9291b6cd7037ca979aa1
   }
+
+
+  
+
+ addalert(newAlert){
+
+  this.alerts.push(newAlert);
+ }
+
+
+
+
+
+
+
+
+
+
+
+
 
   /** Read person _totalXPpoints. A private property only modicable inside person instance */
   getXPtotalPoints() {

@@ -1,0 +1,24 @@
+[
+
+
+    {
+        "id":"Select",
+        "subject":"Seleciona una de les opcíons",
+        "message": ""       
+    },
+
+
+    {
+        "id":"Notes",
+        "subject":"Notes del examen",
+        "message": "He afegit les notes del ultim examen"       
+    },
+
+
+    {
+        "id":"Punts",
+        "subject":"Nous Punts",
+        "message": "Hus he afegit punts"       
+    }
+
+]

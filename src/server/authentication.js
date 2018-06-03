@@ -26,6 +26,7 @@ passport.use(new LocalStrategy(
     return done(null, false, { message: 'Incorrect username.' });
   }
 ));
+
 function readSubjectsUser(idUser) {
   if (fs.existsSync('src/server/data/' + idUser + '/subjects.json')) {
     let content = fs.readFileSync('src/server/data/' + idUser + '/subjects.json');

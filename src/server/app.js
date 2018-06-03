@@ -41,6 +41,8 @@ app.use(passport.session());    // Add passport initialization
 //END NEW
 
 app.use('/api', require('./routes'));
+//app.use('/api2', require('./routes2'));
+
 
 console.log('About to crank up node');
 console.log('PORT=' + port);
