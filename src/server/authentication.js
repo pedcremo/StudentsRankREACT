@@ -13,6 +13,7 @@ passport.use(new LocalStrategy(
       let user = readSubjectsUser('343242');
       user.id = '343242';
       user.displayName = 'admin';
+      console.log("PPPPPPP"+user.displayName);
       return done(null,user);
     }
     if (username === 'pedcremo' && password === 'hola') { // stupid example

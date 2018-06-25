@@ -10,12 +10,14 @@ var four0four = require('./utils/404')();
 var logger = require('morgan');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 const port = 8000;
 const app = express();
 const compiler = webpack(config);
 
 app.use(favicon(__dirname + '/favicon.ico'));
+app.use(cors());
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({limit: '50mb', parameterLimit: 1000000}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
