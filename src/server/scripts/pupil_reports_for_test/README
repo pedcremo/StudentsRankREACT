@@ -1,0 +1,6 @@
+These pdf files are examples of pupil's old classrooms.
+
+You should use with pedfextractor.sh script in order to test if it is possible to extract from .pdf correctly for every single pupil one jpg file witg the full name 
+
+The test and rfactor of the script is not been able at the moment to do it properly when there are some missing photos in the .pdf
+
