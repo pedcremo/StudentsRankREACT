@@ -38,6 +38,7 @@
     "rankingListFilter":"Filter by name",
     "rankingListSelectAction":"-- Select one action --",
     "rankingListAddXP":"Add XP",
+    "rankingListShuffleSelected":"New drawing",
     "rankingListDeleteSelected":"Delete All Selected",
     "rankingListInverseSelected":"Inverse selection",
     "rankingListEmailSelected":"Send Email to All Selected",

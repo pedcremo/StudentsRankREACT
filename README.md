@@ -1,6 +1,8 @@
 # Introduction 
 The purpose of this project is to set up a Students rank mini app using raw ES6 with REACT components for the UI. The aim is to learn as much as possible about REACT and how to build a componed based architecture web app. We focus the development in broad unit and end to end (e2e) testing
 
+RECOMMENDATION: Be careful when  you deploy at first to follow a gmail link in order to get an identifier that let you send emails from your app using a gmail account
+
 # Prerequisites
 npm and node should be installed on your system
 recommended npm version 3.5.0 or greater 
