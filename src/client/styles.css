@@ -54,6 +54,12 @@
   overflow-y: auto; 
 }
 
+#newDrawing.modal-body{
+  max-height: 700px;
+  overflow-y: auto; 
+}
+
+
 .custom {
   background-color: transparent;
   background: transparent;

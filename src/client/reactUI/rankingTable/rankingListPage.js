@@ -228,6 +228,8 @@ class RankingListPage extends React.Component {
                                     <option value="-- Select one action --"> {T.translate("rankingListSelectAction")}</option>
                                     <option value="addXP"> {T.translate("rankingListAddXP")}</option>
                                     <option value="deleteall">{T.translate("rankingListDeleteSelected")}</option>
+                                    <option value="shuffle">{T.translate("rankingListShuffleSelected")}</option>
+                                    
                                     <option value="inverseSelection">{T.translate("rankingListInverseSelected")}</option>
                                     <option value="sendmails">{T.translate("rankingListEmailSelected")}</option>
                                 </select>
@@ -246,6 +248,7 @@ class RankingListPage extends React.Component {
                                     <option value="-- Select one action --"> {T.translate("rankingListSelectAction")}</option>
                                     <option value="addXP"> {T.translate("rankingListAddXP")}</option>
                                     <option value="deleteall">{T.translate("rankingListDeleteSelected")}</option>
+                                    <option value="shuffle">{T.translate("rankingListShuffleSelected")}</option>
                                     <option value="inverseSelection">{T.translate("rankingListInverseSelected")}</option>
                                     <option value="sendmails">{T.translate("rankingListEmailSelected")}</option>
                                 </select>

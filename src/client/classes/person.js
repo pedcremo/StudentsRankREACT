@@ -1,7 +1,7 @@
 'use strict';
 
 import {context} from '../context.js'; //Singleton
-import {formatDate,updateObject,hashcode,loadTemplate,getCookie} from '../lib/utils.js';
+import {formatDate,updateObject,hashcode,loadTemplate,getCookie,shuffleArray} from '../lib/utils.js';
 import {events} from '../lib/eventsPubSubs.js';
 import $ from "jquery";
 import React from 'react';
@@ -13,6 +13,8 @@ import PersonDetailPage from '../reactUI/personViews/personDetailPage.js';
 import AttitudeTask from './attitudetask.js';
 import ListAttitudeTaskPage from '../reactUI/attitudeViews/listAttitudeTaskPage.js';
 import EmailModalPage from '../reactUI/emailModalPage.js';
+import ShuffleModalPage from '../reactUI/shuffleModalPage.js';
+
 
 /**
  * Person class. We store personal information and attitudePoints that reflect daily classroom job
@@ -98,13 +100,21 @@ events.subscribe('/component/selectedAction',(obj) =>{
       reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              
       reactDOM.render(<ListAttitudeTaskPage students={selectedStudents} attitudeTasks={AttitudeTask.getAttitudeTasks()} />, document.getElementById('modals'));
       break;
+    case 'shuffle':
+      console.log("Shuffle list");
+      selectedStudents = obj.arraySelecteds.map((idStudent) =>{
+        return Person.getPersonById(idStudent);
+      })
+      shuffleArray(selectedStudents)
+      reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component   
+      reactDOM.render(<ShuffleModalPage students={selectedStudents}  />, document.getElementById('modals'));
+        
+      break;
     case 'sendmails':
       console.log('sendmails');
       selectedStudents = obj.arraySelecteds.map((idStudent) =>{
         return Person.getPersonById(idStudent);
-      })
-
-debugger
+      });
 
       loadTemplate('api/readtemplate',function(response) {
         reactDOM.unmountComponentAtNode(document.getElementById('modals')); //umount react component              

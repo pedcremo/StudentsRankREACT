@@ -2,6 +2,14 @@
 
 let CACHE_TEMPLATES = new Map();
 
+/** ShuffleArray */
+function shuffleArray(array) {
+  array.forEach((currentItem,index)=>{
+      const j = Math.floor(Math.random() * (array.length-1 ));
+      [array[index], array[j]] = [array[j], array[index]]; // eslint-disable-line no-param-reassign
+  });
+}
+
 /** Hash code funtion usefull for getting an unique id based on a large text */
 function hashcode(str) {
   let hash = 0, i, chr;
@@ -124,4 +132,4 @@ function getIdFromURL(url) {
   return matchResults[0];
 }
 
-export {updateObject,formatDate,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL};
+export {updateObject,formatDate,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL,shuffleArray};
