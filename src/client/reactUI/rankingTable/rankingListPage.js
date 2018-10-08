@@ -222,6 +222,7 @@ class RankingListPage extends React.Component {
                 </tr>
                 </thead>   
                 <tbody id="idTableRankingBody">
+                {!this.state.readOnly ?                        
                         <tr className="d-flex">
                             <th className="col-10">
                                 <select className="form-control form-control-sm mt-sm-2 mr-sm-2" value={this.state.action} onChange={this.handleChange}>
@@ -235,7 +236,7 @@ class RankingListPage extends React.Component {
                                 </select>
                             </th>
                             <th colSpan="4"></th>                            
-                        </tr>
+                        </tr>:<tr/>}
                     
                 
                      {studentsItems}             
