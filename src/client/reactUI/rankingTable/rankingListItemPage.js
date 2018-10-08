@@ -1,6 +1,7 @@
 import React from 'react';
 import RankingListItemGradedTasksPage from './rankingListItemGradedTasksPage.js';
 import Settings from '../../classes/settings.js';
+import {setCookie} from '../../lib/utils.js';
 import T from 'i18n-react'
 
 class RankingListItemPage extends React.Component {
