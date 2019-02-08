@@ -74,7 +74,7 @@ class ListAttitudeTaskPage extends React.Component {
             <Modal visible={this.state.visible} onCancel={this.modalBackdropClicked} onClickBackdrop={this.modalBackdropClicked}>     
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">XP  {T.translate("to")} {persons}</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">€ {T.translate("to")} {persons}</h5>
                         <button type="button" className="close" data-dismiss="modal" onClick={this.modalBackdropClicked} aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

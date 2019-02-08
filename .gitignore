@@ -23,6 +23,6 @@ src/server/data/fotos/*
 !src/server/data/fotos/README
 !src/server/data/*_skeleton.json
 !src/server/data/README
-
+backups/
 node_modules/
 

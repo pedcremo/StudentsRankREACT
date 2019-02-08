@@ -27,7 +27,7 @@ events.subscribe('settings/change',(obj) => {
  * Settings class. Create a settings file.
  * 
  * @constructor
- * @param {number} weightXP - weight XP points %
+ * @param {number} weightXP - weight € points %
  * @param {number} weightGP - weight Graded Tasks %
  * @param {number} weight - task 
  * @param {string} defaultTerm 

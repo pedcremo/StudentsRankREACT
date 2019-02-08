@@ -5,16 +5,14 @@ import {events} from '../../lib/eventsPubSubs.js';
 
 class LogoPage extends React.Component {
     constructor(props){
-        super(props);
-        //T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 });        
+        super(props);              
         T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'))
         this.state = {                
           motto:T.translate("motto")    
         };       
     }    
     componentDidMount() {
-        this.subscription = events.subscribe('settings/change',(obj) => {  
-            //T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
+        this.subscription = events.subscribe('settings/change',(obj) => {              
             T.setTexts(require('../../lib/i18n/' + Settings.getLanguage() + '.json'))
             this.setState({
                 motto:T.translate("motto")     

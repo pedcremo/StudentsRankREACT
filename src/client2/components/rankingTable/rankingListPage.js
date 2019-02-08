@@ -218,7 +218,7 @@ class RankingListPage extends React.Component {
                                         </select> : <span className="small">{this.state.settings.defaultTerm}</span> } 
                     
                     </th>
-                    <th className="col-sm-4 text-right mt-sm-2"><span className="small font-weight-bold">FG {parseInt(this.state.settings.weightXP)+parseInt(this.state.settings.weightGP)}% = XP {this.state.settings.weightXP}% + GT {this.state.settings.weightGP}% &nbsp;</span></th> 
+                    <th className="col-sm-4 text-right mt-sm-2"><span className="small font-weight-bold">FG {parseInt(this.state.settings.weightXP)+parseInt(this.state.settings.weightGP)}% = € {this.state.settings.weightXP}% + GT {this.state.settings.weightGP}% &nbsp;</span></th> 
                 </tr>
                 </thead>   
                 <tbody id="idTableRankingBody">

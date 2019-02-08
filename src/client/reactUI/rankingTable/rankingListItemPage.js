@@ -101,10 +101,10 @@ class RankingListItemPage extends React.Component {
                     <div className="col-sm">
                         {!this.state.readOnly ? <a href={'#addXP/'+this.state.id}>
                             <button type="button" className="btn btn-warning btn-sm">
-                                <span className="badge badge-light">{this.state.student.getXPtotalPoints()}</span> XP
+                                <span className="badge badge-light">{this.state.student.getXPtotalPoints()}</span> €
                             </button></a>:
                             <button type="button" className="btn btn-warning btn-sm">
-                            <span className="badge badge-light">{this.state.student.getXPtotalPoints()}</span> XP
+                            <span className="badge badge-light">{this.state.student.getXPtotalPoints()}</span> €
                         </button>}
                         
                     </div>

@@ -92,7 +92,7 @@ events.subscribe('/component/selectedAction',(obj) =>{
       Person.deleteAllById(obj.arraySelecteds);
       break;
     case 'addXP':
-      console.log("Add XP multicast");
+      console.log("Add € multicast");
     
       selectedStudents = obj.arraySelecteds.map((idStudent) =>{
         return Person.getPersonById(idStudent);

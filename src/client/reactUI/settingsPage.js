@@ -34,8 +34,8 @@ class SettingsPage extends React.Component {
         let newTerms = [];
         
         if (name === "weightXP") {
-            //this.state.weightGP = 100 - value;
-            this.state.weightGP = 100;
+            this.state.weightGP = 100 - value;
+            //this.state.weightGP = 100;
         }else if (name === "termName" || name === "termBegin" || name === "termEnd") {
             
             newTerms=this.state.terms.map((term) => {

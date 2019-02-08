@@ -191,9 +191,7 @@ class RankingListPage extends React.Component {
     }
 
     render() {
-        //console.log('RENDER RANKING_LIST_PAGE');
-        ;
-
+        
         const studentsItems = this.state.searchmap.map((student) => 
             <RankingListItemPage key={student[0]} index={student[2]} student={student} settings={this.state.settings} readOnly={this.state.readOnly}  updateSelectedListFromParent={this.updateSelectedList} selected={this.getIfSelected(student[0])} selectedAll={this.state.checkall} />            
         );  
@@ -218,7 +216,7 @@ class RankingListPage extends React.Component {
                                         </select> : <span className="small">{this.state.settings.defaultTerm}</span> } 
                     
                     </th>
-                    <th className="col-sm-4 text-right mt-sm-2"><span className="small font-weight-bold">FG {parseInt(this.state.settings.weightXP)+parseInt(this.state.settings.weightGP)}% = XP {this.state.settings.weightXP}% + GT {this.state.settings.weightGP}% &nbsp;</span></th> 
+                    <th className="col-sm-4 text-right mt-sm-2"><span className="small font-weight-bold">FG {parseInt(this.state.settings.weightXP)+parseInt(this.state.settings.weightGP)}% = € {this.state.settings.weightXP}% + GT {this.state.settings.weightGP}% &nbsp;</span></th> 
                 </tr>
                 </thead>   
                 <tbody id="idTableRankingBody">
