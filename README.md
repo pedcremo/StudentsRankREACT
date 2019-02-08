@@ -33,6 +33,8 @@ Grab src/client/lib/i18n/englishOriginal and traslate it to several languages: A
 This kind of thask is executed from time to time because afterwards every single traduction should be fixed manually due to accuracy errors
 
 # For production deployment
+`git pull` on server side and build dist files with `npm run-script build` 
+
 Start node server with forever <pre>npm start</pre>
 Stop node server <pre>npm stop</pre>
 
