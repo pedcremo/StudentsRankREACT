@@ -8,6 +8,15 @@ npm and node should be installed on your system
 recommended npm version 3.5.0 or greater 
 recommended node version 4.2.5 or greater 
 
+# TODO
+* Implementar una secció en settings que permeta gestionar la privacitat del sistema. Cal que els alumnes no puguen veure les notes dels altres companys
+* Cal que en un moment donat puga restringir l'accés a la web temporalment. D'especial ajuda quan estàs introduint notes i encara no has acabat i et venen alumnes que estan constantment connectats per veure actualitzacions. Factor sorpresa.
+* Implementar servei de tickets bàsic tipus mini OTRS
+* Auditoria de seguretat.
+* Millorar sistema emmagatzemament en el server SQLlite escalable a un sistema gestor de BBDD més potent
+* Desar històrics d'enviaments notificacions als alumnes
+
+
 # First time we clone or download the project 
 Install dependencies and modules used for development purposes
 <pre>nmp install </pre>
